@@ -2,49 +2,114 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    
+    <!-- Theme -->
     <meta name="theme-color" content="#0A0A0A" />
+    <meta name="color-scheme" content="dark" />
     
     <!-- Primary Meta Tags -->
-    <title>MAISON — Ultra Premium Luxury Clothing</title>
-    <meta name="title" content="MAISON — Ultra Premium Luxury Clothing" />
-    <meta name="description" content="MAISON. Where craftsmanship meets couture. Discover our exclusive collection of ultra-premium luxury clothing, tailored for the discerning few." />
-    <meta name="keywords" content="luxury clothing, premium fashion, maison, couture, designer wear, exclusive brand" />
+    <title>MAISON — Where Craftsmanship Meets Couture</title>
+    <meta name="title" content="MAISON — Where Craftsmanship Meets Couture" />
+    <meta name="description" content="MAISON. An exclusive maison of ultra-premium luxury clothing. Discover timeless pieces crafted for the discerning few. Editorial fashion redefined." />
+    <meta name="keywords" content="luxury clothing, premium fashion, maison, couture, designer wear, exclusive brand, high fashion, editorial fashion, minimalist luxury" />
     <meta name="author" content="MAISON" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://maison-clothings.vercel.app/" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MAISON" />
     <meta property="og:url" content="https://maison-clothings.vercel.app/" />
-    <meta property="og:title" content="MAISON — Ultra Premium Luxury Clothing" />
-    <meta property="og:description" content="Where craftsmanship meets couture." />
-    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:title" content="MAISON — Where Craftsmanship Meets Couture" />
+    <meta property="og:description" content="An exclusive maison of ultra-premium luxury clothing." />
+    <meta property="og:image" content="https://maison-clothings.vercel.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://maison-clothings.vercel.app/" />
-    <meta property="twitter:title" content="MAISON — Ultra Premium Luxury Clothing" />
-    <meta property="twitter:description" content="Where craftsmanship meets couture." />
-    <meta property="twitter:image" content="/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://maison-clothings.vercel.app/" />
+    <meta name="twitter:title" content="MAISON — Where Craftsmanship Meets Couture" />
+    <meta name="twitter:description" content="An exclusive maison of ultra-premium luxury clothing." />
+    <meta name="twitter:image" content="https://maison-clothings.vercel.app/og-image.jpg" />
+    <meta name="twitter:creator" content="@maison" />
     
     <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     
     <!-- Premium Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
     
-    <!-- PWA Ready -->
+    <!-- PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="MAISON" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="MAISON" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Structured Data / Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "MAISON",
+      "url": "https://maison-clothings.vercel.app",
+      "logo": "https://maison-clothings.vercel.app/logo.svg",
+      "description": "Ultra-premium luxury clothing brand",
+      "sameAs": [
+        "https://instagram.com/maison",
+        "https://twitter.com/maison"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "email": "atelier@maison.com",
+        "availableLanguage": ["English", "French"]
+      }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "MAISON",
+      "url": "https://maison-clothings.vercel.app",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://maison-clothings.vercel.app/shop?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <!-- Prevent FOUC -->
+    <style>
+      html { background: #0A0A0A; }
+      body { background: #0A0A0A; margin: 0; overflow-x: hidden; }
+      #root { min-height: 100vh; background: #0A0A0A; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <noscript>
-      <div style="background:#0A0A0A;color:#F5F0EB;padding:2rem;text-align:center;font-family:serif;">
-        <h1>MAISON</h1>
-        <p>Please enable JavaScript to experience our world.</p>
+      <div style="background:#0A0A0A;color:#F5F0EB;padding:4rem 2rem;text-align:center;font-family:Georgia,serif;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+        <h1 style="font-size:4rem;letter-spacing:0.5em;margin:0 0 2rem 0;font-weight:300;">MAISON</h1>
+        <p style="max-width:400px;line-height:1.8;color:#8A8A8A;">Please enable JavaScript to experience our world of luxury.</p>
       </div>
     </noscript>
     <script type="module" src="/src/main.jsx"></script>
