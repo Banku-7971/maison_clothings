@@ -2,14 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  FiArrowRight, 
-  FiShoppingBag, 
-  FiTag,
-  FiCheck,
-  FiX,
-  FiTruck,
-  FiShield,
-  FiRefreshCw,
+  FiArrowRight, FiShoppingBag, FiTag, FiCheck, FiX,
+  FiTruck, FiShield, FiRefreshCw,
 } from 'react-icons/fi'
 import CartItem from '../components/CartItem'
 import ProductCard from '../components/ProductCard'
@@ -19,31 +13,7 @@ import useUIStore from '../store/uiStore'
 import { getBestsellers } from '../data/products'
 import { formatPrice } from '../utils/formatters'
 
-// ═══════════════════════════════════════════════════════════════
-// MAISON — CART PAGE
-// ═══════════════════════════════════════════════════════════════
-// Full-page cart experience.
-// Where consideration becomes commitment.
-//
-// Features:
-// - Editorial header
-// - Full item list (larger than drawer)
-// - Coupon code input with validation
-// - Shipping estimator
-// - Order summary with breakdown
-// - Free shipping progress bar
-// - Trust signals (secure, returns, guarantee)
-// - Recommended products
-// - Empty state with CTA
-// - Continue shopping link
-// - Checkout button (prominent)
-// - Newsletter footer
-// ═══════════════════════════════════════════════════════════════
-
 const Cart = () => {
-  // ─────────────────────────────────────────
-  // STORE STATE
-  // ─────────────────────────────────────────
   const items = useCartStore(state => state.items)
   const getItemCount = useCartStore(state => state.getItemCount)
   const getSubtotal = useCartStore(state => state.getSubtotal)
@@ -55,37 +25,21 @@ const Cart = () => {
   const applyCoupon = useCartStore(state => state.applyCoupon)
   const removeCoupon = useCartStore(state => state.removeCoupon)
   const couponCode = useCartStore(state => state.couponCode)
-  const shippingMethod = useCartStore(state => state.shippingMethod)
-  const setShippingMethod = useCartStore(state => state.setShippingMethod)
   const clearCart = useCartStore(state => state.clearCart)
   
   const showToast = useUIStore(state => state.showToast)
   
-  // ─────────────────────────────────────────
-  // LOCAL STATE
-  // ─────────────────────────────────────────
   const [couponInput, setCouponInput] = useState('')
   const [couponError, setCouponError] = useState('')
   const [couponSuccess, setCouponSuccess] = useState('')
   
-  // ─────────────────────────────────────────
-  // DOCUMENT TITLE
-  // ─────────────────────────────────────────
   useEffect(() => {
     document.title = `Your Bag (${getItemCount()}) — MAISON`
-    return () => {
-      document.title = 'MAISON'
-    }
+    return () => { document.title = 'MAISON' }
   }, [items])
   
-  // ─────────────────────────────────────────
-  // RECOMMENDED PRODUCTS
-  // ─────────────────────────────────────────
   const recommended = getBestsellers().slice(0, 4)
   
-  // ─────────────────────────────────────────
-  // COMPUTED VALUES
-  // ─────────────────────────────────────────
   const itemCount = getItemCount()
   const subtotal = getSubtotal()
   const discount = getDiscountAmount()
@@ -94,27 +48,18 @@ const Cart = () => {
   const total = getTotal()
   const shippingInfo = getShippingInfo()
   
-  // ─────────────────────────────────────────
-  // COUPON HANDLER
-  // ─────────────────────────────────────────
   const handleApplyCoupon = () => {
     if (!couponInput.trim()) {
       setCouponError('Please enter a code')
       setCouponSuccess('')
       return
     }
-    
     const result = applyCoupon(couponInput)
-    
     if (result.success) {
       setCouponSuccess(result.message)
       setCouponError('')
       setCouponInput('')
-      showToast({
-        type: 'default',
-        message: 'Coupon applied successfully',
-        duration: 3000,
-      })
+      showToast({ type: 'default', message: 'Coupon applied successfully', duration: 3000 })
     } else {
       setCouponError(result.message)
       setCouponSuccess('')
@@ -125,21 +70,12 @@ const Cart = () => {
     removeCoupon()
     setCouponSuccess('')
     setCouponError('')
-    showToast({
-      type: 'default',
-      message: 'Coupon removed',
-      duration: 2000,
-    })
+    showToast({ type: 'default', message: 'Coupon removed', duration: 2000 })
   }
   
-  // ═══════════════════════════════════════════
-  // EMPTY CART STATE
-  // ═══════════════════════════════════════════
   if (items.length === 0) {
     return (
       <div className="bg-noir min-h-screen">
-        
-        {/* Header */}
         <section className="pt-32 md:pt-40 pb-16 border-b border-graphite/30">
           <div className="container-luxury">
             <motion.p
@@ -157,17 +93,13 @@ const Cart = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
               className="font-cormorant font-light text-ivory"
-              style={{ 
-                fontSize: 'clamp(3rem, 8vw, 6rem)',
-                lineHeight: 0.95,
-              }}
+              style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 0.95 }}
             >
               Your <em className="italic text-gold">bag</em>
             </motion.h1>
           </div>
         </section>
         
-        {/* Empty State */}
         <section className="py-24 md:py-32">
           <div className="container-luxury">
             <motion.div
@@ -191,25 +123,14 @@ const Cart = () => {
               
               <Link
                 to="/shop"
-                className="group inline-flex items-center gap-3"
+                className="group inline-flex items-center gap-3 py-4 px-12 bg-gold text-noir hover:bg-ivory transition-all duration-500 rounded-full shadow-warm-lg"
                 data-cursor="hover"
               >
-                <span className="relative overflow-hidden">
-                  <span 
-                    className="inline-block py-4 px-12 border border-ivory text-ivory text-tiny tracking-mega uppercase relative z-10 transition-colors duration-500 group-hover:text-noir"
-                    style={{ fontSize: '0.75rem' }}
-                  >
-                    Explore Collection
-                    <motion.span 
-                      className="absolute inset-0 bg-ivory -z-10"
-                      initial={{ y: '100%' }}
-                      whileHover={{ y: '0%' }}
-                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    />
-                  </span>
+                <span className="text-tiny tracking-mega uppercase font-semibold" style={{ fontSize: '0.75rem' }}>
+                  Explore Collection
                 </span>
                 <FiArrowRight 
-                  className="text-ivory group-hover:text-gold group-hover:translate-x-1 transition-all duration-400" 
+                  className="group-hover:translate-x-1 transition-all duration-400" 
                   size={18} 
                 />
               </Link>
@@ -217,7 +138,6 @@ const Cart = () => {
           </div>
         </section>
         
-        {/* Recommended */}
         <section className="py-24 border-t border-graphite/30">
           <div className="container-luxury">
             <h3 
@@ -228,11 +148,7 @@ const Cart = () => {
             </h3>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {recommended.map((product, index) => (
-                <ProductCard 
-                  key={product.id}
-                  product={product}
-                  index={index}
-                />
+                <ProductCard key={product.id} product={product} index={index} />
               ))}
             </div>
           </div>
@@ -243,19 +159,12 @@ const Cart = () => {
     )
   }
   
-  // ═══════════════════════════════════════════
-  // CART WITH ITEMS
-  // ═══════════════════════════════════════════
   return (
     <div className="bg-noir min-h-screen">
       
-      {/* ═══════════════════════════════════════
-          HEADER
-      ═══════════════════════════════════════ */}
       <section className="pt-32 md:pt-40 pb-8 md:pb-12 border-b border-graphite/30">
         <div className="container-luxury">
           <div className="flex items-end justify-between flex-wrap gap-4">
-            
             <div>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -272,10 +181,7 @@ const Cart = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
                 className="font-cormorant font-light text-ivory"
-                style={{ 
-                  fontSize: 'clamp(3rem, 8vw, 6rem)',
-                  lineHeight: 0.95,
-                }}
+                style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 0.95 }}
               >
                 Your <em className="italic text-gold">bag</em>
               </motion.h1>
@@ -294,32 +200,19 @@ const Cart = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          MAIN CONTENT
-      ═══════════════════════════════════════ */}
       <section className="py-12 md:py-16">
         <div className="container-luxury">
           <div className="grid lg:grid-cols-3 gap-12">
             
-            {/* ═══════════════════════════════════════
-                LEFT: CART ITEMS
-            ═══════════════════════════════════════ */}
             <div className="lg:col-span-2">
-              
-              {/* Items List */}
               <div className="divide-y divide-graphite/30">
                 <AnimatePresence>
                   {items.map((item) => (
-                    <CartItem 
-                      key={item.key}
-                      item={item}
-                      variant="default"
-                    />
+                    <CartItem key={item.key} item={item} variant="default" />
                   ))}
                 </AnimatePresence>
               </div>
               
-              {/* Clear Cart Button */}
               <div className="mt-8 pt-8 border-t border-graphite/30 flex flex-wrap items-center justify-between gap-4">
                 <Link
                   to="/shop"
@@ -334,11 +227,7 @@ const Cart = () => {
                   onClick={() => {
                     if (confirm('Clear all items from your bag?')) {
                       clearCart()
-                      showToast({
-                        type: 'default',
-                        message: 'Bag cleared',
-                        duration: 2000,
-                      })
+                      showToast({ type: 'default', message: 'Bag cleared', duration: 2000 })
                     }
                   }}
                   className="text-tiny tracking-mega text-silver hover:text-gold uppercase transition-colors duration-400 link-luxury"
@@ -350,28 +239,22 @@ const Cart = () => {
               </div>
             </div>
             
-            {/* ═══════════════════════════════════════
-                RIGHT: ORDER SUMMARY
-            ═══════════════════════════════════════ */}
             <div>
               <div className="sticky top-32 space-y-6">
                 
-                {/* Summary Card */}
-                <div className="bg-charcoal border border-graphite p-6 md:p-8">
-                  
+                <div className="bg-charcoal border border-graphite p-6 md:p-8 rounded-2xl">
                   <h2 className="font-cormorant text-2xl md:text-3xl text-ivory mb-6">
                     Order Summary
                   </h2>
                   
-                  {/* Free Shipping Progress */}
                   {!shippingInfo.qualifiesForFreeShipping && (
-                    <div className="mb-6 p-4 bg-noir/50 border border-gold/30">
+                    <div className="mb-6 p-4 bg-noir/50 border border-gold/30 rounded-lg">
                       <p className="text-xs text-platinum mb-3">
                         Add <span className="text-gold font-medium">
                           {formatPrice(shippingInfo.remaining)}
                         </span> more for free shipping
                       </p>
-                      <div className="h-px bg-graphite overflow-hidden">
+                      <div className="h-px bg-graphite overflow-hidden rounded-full">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${shippingInfo.percentage}%` }}
@@ -383,20 +266,17 @@ const Cart = () => {
                   )}
                   
                   {shippingInfo.qualifiesForFreeShipping && (
-                    <div className="mb-6 p-4 bg-gold/10 border border-gold/30 flex items-center gap-3">
+                    <div className="mb-6 p-4 bg-gold/10 border border-gold/30 flex items-center gap-3 rounded-lg">
                       <FiCheck className="text-gold" size={16} />
                       <p className="text-xs text-gold tracking-wider">
-                        Complimentary shipping unlocked
+                        Free shipping across India unlocked
                       </p>
                     </div>
                   )}
                   
-                  {/* Line Items */}
                   <div className="space-y-3 mb-6">
                     <div className="flex items-center justify-between">
-                      <span 
-                        className="text-sm text-platinum font-cormorant"
-                      >
+                      <span className="text-sm text-platinum font-cormorant">
                         Subtotal ({itemCount} {itemCount === 1 ? 'item' : 'items'})
                       </span>
                       <span className="text-sm text-ivory tabular-nums font-cormorant">
@@ -420,13 +300,13 @@ const Cart = () => {
                         Shipping
                       </span>
                       <span className="text-sm text-ivory tabular-nums font-cormorant">
-                        {shipping === 0 ? 'Free' : formatPrice(shipping)}
+                        {shipping === 0 ? 'FREE' : formatPrice(shipping)}
                       </span>
                     </div>
                     
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-platinum font-cormorant">
-                        Tax (est.)
+                        GST (18%)
                       </span>
                       <span className="text-sm text-ivory tabular-nums font-cormorant">
                         {formatPrice(tax)}
@@ -434,7 +314,6 @@ const Cart = () => {
                     </div>
                   </div>
                   
-                  {/* Total */}
                   <div className="pt-4 border-t border-graphite/50 mb-6">
                     <div className="flex items-baseline justify-between">
                       <span 
@@ -451,23 +330,17 @@ const Cart = () => {
                       className="text-tiny text-silver italic font-cormorant mt-2 text-right"
                       style={{ fontSize: '0.7rem' }}
                     >
-                      Shipping calculated at checkout
+                      Inclusive of all taxes
                     </p>
                   </div>
                   
-                  {/* Checkout Button */}
                   <Link
                     to="/checkout"
                     className="block w-full"
                     data-cursor="hover"
                   >
-                    <button
-                      className="w-full py-4 bg-ivory text-noir flex items-center justify-center gap-3 group hover:bg-gold transition-all duration-500 ease-luxury"
-                    >
-                      <span 
-                        className="text-tiny tracking-mega uppercase font-medium"
-                        style={{ fontSize: '0.75rem' }}
-                      >
+                    <button className="w-full py-4 bg-gold text-noir flex items-center justify-center gap-3 group hover:bg-ivory transition-all duration-500 ease-luxury rounded-full">
+                      <span className="text-tiny tracking-mega uppercase font-semibold" style={{ fontSize: '0.75rem' }}>
                         Proceed to Checkout
                       </span>
                       <FiArrowRight 
@@ -478,8 +351,7 @@ const Cart = () => {
                   </Link>
                 </div>
                 
-                {/* Coupon Code */}
-                <div className="bg-charcoal border border-graphite p-6">
+                <div className="bg-charcoal border border-graphite p-6 rounded-2xl">
                   <div className="flex items-center gap-2 mb-4">
                     <FiTag className="text-gold" size={14} />
                     <h3 
@@ -494,7 +366,7 @@ const Cart = () => {
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="flex items-center justify-between p-3 bg-gold/10 border border-gold/30"
+                      className="flex items-center justify-between p-3 bg-gold/10 border border-gold/30 rounded-lg"
                     >
                       <div>
                         <p className="text-tiny tracking-mega text-gold uppercase" style={{ fontSize: '0.65rem' }}>
@@ -507,7 +379,6 @@ const Cart = () => {
                       <button
                         onClick={handleRemoveCoupon}
                         className="text-silver hover:text-gold transition-colors"
-                        aria-label="Remove coupon"
                         data-cursor="hover"
                       >
                         <FiX size={16} />
@@ -525,12 +396,12 @@ const Cart = () => {
                           }}
                           onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
                           placeholder="Enter code"
-                          className="flex-1 px-3 py-2.5 bg-noir border border-graphite text-ivory text-sm placeholder:text-silver focus:border-gold transition-colors uppercase tracking-wider font-mono"
+                          className="flex-1 px-3 py-2.5 bg-noir border border-graphite text-ivory text-sm placeholder:text-silver focus:border-gold transition-colors uppercase tracking-wider font-mono rounded-lg"
                           data-cursor="text"
                         />
                         <button
                           onClick={handleApplyCoupon}
-                          className="px-4 py-2.5 bg-ivory text-noir text-tiny tracking-mega uppercase hover:bg-gold transition-colors duration-400"
+                          className="px-4 py-2.5 bg-ivory text-noir text-tiny tracking-mega uppercase hover:bg-gold transition-colors duration-400 rounded-lg"
                           style={{ fontSize: '0.65rem' }}
                           data-cursor="hover"
                         >
@@ -553,18 +424,17 @@ const Cart = () => {
                         className="mt-3 text-tiny text-silver italic font-cormorant"
                         style={{ fontSize: '0.7rem' }}
                       >
-                        Try: WELCOME10 or FIRST100
+                        Try: WELCOME10 or FIRST500 or INDIA50
                       </p>
                     </>
                   )}
                 </div>
                 
-                {/* Trust Signals */}
                 <div className="space-y-3">
                   {[
-                    { icon: FiShield, text: 'Secure checkout & payment' },
-                    { icon: FiTruck, text: 'Free worldwide shipping' },
-                    { icon: FiRefreshCw, text: 'Complimentary returns' },
+                    { icon: FiShield, text: 'Secure checkout & UPI payment' },
+                    { icon: FiTruck, text: 'Free shipping pan-India' },
+                    { icon: FiRefreshCw, text: 'Easy 30-day returns' },
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <item.icon className="text-gold flex-shrink-0" size={14} />
@@ -580,9 +450,6 @@ const Cart = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          RECOMMENDED
-      ═══════════════════════════════════════ */}
       <section className="py-24 border-t border-graphite/30">
         <div className="container-luxury">
           <div className="mb-12 text-center">
@@ -602,19 +469,12 @@ const Cart = () => {
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {recommended.map((product, index) => (
-              <ProductCard 
-                key={product.id}
-                product={product}
-                index={index}
-              />
+              <ProductCard key={product.id} product={product} index={index} />
             ))}
           </div>
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          NEWSLETTER
-      ═══════════════════════════════════════ */}
       <Newsletter variant="default" />
     </div>
   )
