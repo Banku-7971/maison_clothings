@@ -7,7 +7,6 @@ import {
   FiShoppingBag, 
   FiMenu, 
   FiX,
-  FiUser,
   FiChevronRight,
 } from 'react-icons/fi'
 import useCartStore from '../store/cartStore'
@@ -15,39 +14,16 @@ import useWishlistStore from '../store/wishlistStore'
 import useUIStore from '../store/uiStore'
 
 // ═══════════════════════════════════════════════════════════════
-// MAISON — PREMIUM NAVIGATION
-// ═══════════════════════════════════════════════════════════════
-// The persistent navigation across every page.
-// Adapts to scroll position, page context, and device.
-//
-// Features:
-// - Announcement bar with rotating messages
-// - Logo (Cormorant serif, letter-spaced)
-// - Desktop nav links with underline hover
-// - Mobile hamburger with slide-in menu
-// - Search icon → opens search modal
-// - Wishlist icon with count badge
-// - Cart icon with count badge
-// - Auto-hide on scroll down (shows on scroll up)
-// - Transparent on hero, solid on scroll
-// - Mega menu on Shop hover (desktop)
-// - Active route highlighting
-// - Smooth animations throughout
+// MAISON — NAVIGATION (FIXED SPACING)
 // ═══════════════════════════════════════════════════════════════
 
-// ─────────────────────────────────────────
-// NAVIGATION ITEMS
-// ─────────────────────────────────────────
 const NAV_LINKS = [
-  { name: 'Shop', path: '/shop', hasMegaMenu: true },
-  { name: 'Collections', path: '/shop', hasMegaMenu: false },
-  { name: 'Story', path: '/about', hasMegaMenu: false },
-  { name: 'Contact', path: '/contact', hasMegaMenu: false },
+  { name: 'Shop', path: '/shop' },
+  { name: 'Collections', path: '/shop' },
+  { name: 'Story', path: '/about' },
+  { name: 'Contact', path: '/contact' },
 ]
 
-// ─────────────────────────────────────────
-// ANNOUNCEMENT MESSAGES (Rotating)
-// ─────────────────────────────────────────
 const ANNOUNCEMENTS = [
   'Complimentary shipping on orders above $500',
   'New arrivals — Discover the Noir Collection',
@@ -55,9 +31,6 @@ const ANNOUNCEMENTS = [
   'Free returns within 30 days',
 ]
 
-// ─────────────────────────────────────────
-// MEGA MENU CATEGORIES
-// ─────────────────────────────────────────
 const MEGA_MENU_ITEMS = {
   categories: [
     { name: 'All Pieces', path: '/shop' },
@@ -69,53 +42,28 @@ const MEGA_MENU_ITEMS = {
     { name: 'Dresses', path: '/shop/dresses' },
     { name: 'Accessories', path: '/shop/accessories' },
   ],
-  collections: [
-    { name: 'Noir Collection', path: '/collection/noir' },
-    { name: 'Ivory Essentials', path: '/collection/ivory' },
-    { name: 'Atelier Signature', path: '/collection/atelier' },
-    { name: 'Archive Edition', path: '/collection/archive' },
-  ],
-  featured: {
-    image: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=90',
-    title: 'Noir Collection',
-    subtitle: 'Fall/Winter 2025',
-    path: '/collection/noir',
-  },
 }
 
 
 const Navbar = () => {
   const location = useLocation()
   
-  // ─────────────────────────────────────────
-  // STATE
-  // ─────────────────────────────────────────
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [announcementIndex, setAnnouncementIndex] = useState(0)
-  const [megaMenuOpen, setMegaMenuOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
-  // ─────────────────────────────────────────
-  // STORE STATE
-  // ─────────────────────────────────────────
   const cartItemCount = useCartStore(state => state.getItemCount())
   const wishlistCount = useWishlistStore(state => state.getCount())
   const openCart = useCartStore(state => state.openCart)
   const openSearch = useUIStore(state => state.openSearch)
   
-  // ═══════════════════════════════════════════
-  // SCROLL BEHAVIOR
-  // ═══════════════════════════════════════════
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      
-      // Set scrolled state (for background)
       setScrolled(currentScrollY > 50)
       
-      // Auto-hide on scroll down, show on scroll up
       if (currentScrollY > lastScrollY && currentScrollY > 200) {
         setHidden(true)
       } else {
@@ -129,9 +77,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [lastScrollY])
   
-  // ═══════════════════════════════════════════
-  // ANNOUNCEMENT ROTATION
-  // ═══════════════════════════════════════════
   useEffect(() => {
     const interval = setInterval(() => {
       setAnnouncementIndex(prev => (prev + 1) % ANNOUNCEMENTS.length)
@@ -140,17 +85,10 @@ const Navbar = () => {
     return () => clearInterval(interval)
   }, [])
   
-  // ═══════════════════════════════════════════
-  // CLOSE MOBILE MENU ON ROUTE CHANGE
-  // ═══════════════════════════════════════════
   useEffect(() => {
     setMobileMenuOpen(false)
-    setMegaMenuOpen(false)
   }, [location.pathname])
   
-  // ═══════════════════════════════════════════
-  // PREVENT SCROLL WHEN MOBILE MENU OPEN
-  // ═══════════════════════════════════════════
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden'
@@ -164,9 +102,7 @@ const Navbar = () => {
   
   return (
     <>
-      {/* ═══════════════════════════════════════
-          ANNOUNCEMENT BAR
-      ═══════════════════════════════════════ */}
+      {/* ANNOUNCEMENT BAR */}
       <div className="fixed top-0 left-0 right-0 z-40 bg-noir border-b border-graphite h-8 overflow-hidden">
         <div className="h-full flex items-center justify-center px-4">
           <AnimatePresence mode="wait">
@@ -185,16 +121,14 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* ═══════════════════════════════════════
-          MAIN NAVIGATION
-      ═══════════════════════════════════════ */}
+      {/* MAIN NAVIGATION — FIXED SPACING! */}
       <motion.nav
         className={`
           fixed left-0 right-0 z-50 
           transition-all duration-500 ease-luxury
           ${scrolled 
-            ? 'bg-noir/90 backdrop-blur-luxury border-b border-graphite/50' 
-            : 'bg-transparent'
+            ? 'bg-noir/95 backdrop-blur-luxury border-b border-graphite/50' 
+            : 'bg-noir/40 backdrop-blur-sm'
           }
         `}
         style={{ top: '32px' }}
@@ -202,32 +136,26 @@ const Navbar = () => {
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="container-luxury">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          {/* GRID LAYOUT prevents overlap */}
+          <div className="grid grid-cols-[auto_1fr_auto] items-center h-16 md:h-20 gap-4">
             
-            {/* ─────────────────────────────────
-                MOBILE MENU BUTTON
-            ───────────────────────────────── */}
-            <button
-              className="lg:hidden w-8 h-8 flex items-center justify-center text-ivory"
-              onClick={() => setMobileMenuOpen(true)}
-              data-cursor="hover"
-              aria-label="Open menu"
-            >
-              <FiMenu size={20} />
-            </button>
-            
-            {/* ─────────────────────────────────
-                DESKTOP NAV LINKS (LEFT)
-            ───────────────────────────────── */}
-            <div className="hidden lg:flex items-center gap-10">
-              {NAV_LINKS.map((link) => (
-                <div
-                  key={link.name}
-                  className="relative"
-                  onMouseEnter={() => link.hasMegaMenu && setMegaMenuOpen(true)}
-                  onMouseLeave={() => link.hasMegaMenu && setMegaMenuOpen(false)}
-                >
+            {/* LEFT: Mobile Menu OR Desktop Nav Links */}
+            <div className="flex items-center">
+              {/* Mobile Menu Button */}
+              <button
+                className="lg:hidden w-10 h-10 flex items-center justify-center text-ivory rounded-full hover:bg-graphite/50 transition-colors"
+                onClick={() => setMobileMenuOpen(true)}
+                data-cursor="hover"
+                aria-label="Open menu"
+              >
+                <FiMenu size={20} />
+              </button>
+              
+              {/* Desktop Nav Links */}
+              <div className="hidden lg:flex items-center gap-8 xl:gap-10">
+                {NAV_LINKS.map((link) => (
                   <Link
+                    key={link.name}
                     to={link.path}
                     className={`
                       relative py-2 text-tiny tracking-mega uppercase 
@@ -249,39 +177,37 @@ const Navbar = () => {
                       `} 
                     />
                   </Link>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
             
-            {/* ─────────────────────────────────
-                LOGO (CENTER)
-            ───────────────────────────────── */}
-            <Link
-              to="/"
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-              data-cursor="hover"
-              aria-label="MAISON Home"
-            >
-              <span 
-                className="font-cormorant font-light text-ivory pl-2"
-                style={{ 
-                  fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                  letterSpacing: '0.5em',
-                }}
+            {/* CENTER: LOGO — Own column, always centered */}
+            <div className="flex items-center justify-center">
+              <Link
+                to="/"
+                data-cursor="hover"
+                aria-label="MAISON Home"
               >
-                MAISON
-              </span>
-            </Link>
+                <span 
+                  className="font-cormorant font-light text-ivory block"
+                  style={{ 
+                    fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
+                    letterSpacing: '0.4em',
+                    paddingLeft: '0.4em',
+                  }}
+                >
+                  MAISON
+                </span>
+              </Link>
+            </div>
             
-            {/* ─────────────────────────────────
-                ACTION ICONS (RIGHT)
-            ───────────────────────────────── */}
-            <div className="flex items-center gap-4 md:gap-6">
+            {/* RIGHT: Action Icons — Own column */}
+            <div className="flex items-center gap-1 md:gap-2">
               
               {/* Search */}
               <button
                 onClick={openSearch}
-                className="w-8 h-8 flex items-center justify-center text-ivory hover:text-gold transition-colors duration-400"
+                className="w-10 h-10 flex items-center justify-center text-ivory hover:text-gold hover:bg-graphite/50 rounded-full transition-all duration-400"
                 data-cursor="hover"
                 aria-label="Search"
               >
@@ -291,7 +217,7 @@ const Navbar = () => {
               {/* Wishlist */}
               <Link
                 to="/wishlist"
-                className="relative w-8 h-8 flex items-center justify-center text-ivory hover:text-gold transition-colors duration-400"
+                className="relative w-10 h-10 flex items-center justify-center text-ivory hover:text-gold hover:bg-graphite/50 rounded-full transition-all duration-400"
                 data-cursor="hover"
                 aria-label={`Wishlist (${wishlistCount})`}
               >
@@ -300,7 +226,7 @@ const Navbar = () => {
                   <motion.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 flex items-center justify-center bg-gold text-noir text-[9px] font-medium rounded-full"
+                    className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 flex items-center justify-center bg-gold text-noir text-[9px] font-semibold rounded-full"
                   >
                     {wishlistCount}
                   </motion.span>
@@ -310,7 +236,7 @@ const Navbar = () => {
               {/* Cart */}
               <button
                 onClick={openCart}
-                className="relative w-8 h-8 flex items-center justify-center text-ivory hover:text-gold transition-colors duration-400"
+                className="relative w-10 h-10 flex items-center justify-center text-ivory hover:text-gold hover:bg-graphite/50 rounded-full transition-all duration-400"
                 data-cursor="hover"
                 aria-label={`Cart (${cartItemCount})`}
               >
@@ -319,7 +245,7 @@ const Navbar = () => {
                   <motion.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 flex items-center justify-center bg-gold text-noir text-[9px] font-medium rounded-full"
+                    className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 flex items-center justify-center bg-gold text-noir text-[9px] font-semibold rounded-full"
                   >
                     {cartItemCount}
                   </motion.span>
@@ -329,102 +255,12 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        
-        {/* ═══════════════════════════════════════
-            MEGA MENU (Desktop only)
-        ═══════════════════════════════════════ */}
-        <AnimatePresence>
-          {megaMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="hidden lg:block absolute top-full left-0 right-0 bg-noir/95 backdrop-blur-luxury border-b border-graphite/50"
-              onMouseEnter={() => setMegaMenuOpen(true)}
-              onMouseLeave={() => setMegaMenuOpen(false)}
-            >
-              <div className="container-luxury py-12">
-                <div className="grid grid-cols-3 gap-16">
-                  
-                  {/* Categories Column */}
-                  <div>
-                    <p className="text-tiny tracking-mega text-gold uppercase mb-6" style={{ fontSize: '0.65rem' }}>
-                      Categories
-                    </p>
-                    <ul className="space-y-3">
-                      {MEGA_MENU_ITEMS.categories.map((item) => (
-                        <li key={item.name}>
-                          <Link
-                            to={item.path}
-                            className="text-sm text-ivory hover:text-gold transition-colors duration-400 font-cormorant font-light"
-                            style={{ fontSize: '1.1rem' }}
-                            data-cursor="hover"
-                          >
-                            {item.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  {/* Collections Column */}
-                  <div>
-                    <p className="text-tiny tracking-mega text-gold uppercase mb-6" style={{ fontSize: '0.65rem' }}>
-                      Collections
-                    </p>
-                    <ul className="space-y-3">
-                      {MEGA_MENU_ITEMS.collections.map((item) => (
-                        <li key={item.name}>
-                          <Link
-                            to={item.path}
-                            className="text-sm text-ivory hover:text-gold transition-colors duration-400 font-cormorant font-light"
-                            style={{ fontSize: '1.1rem' }}
-                            data-cursor="hover"
-                          >
-                            {item.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  {/* Featured Image */}
-                  <Link
-                    to={MEGA_MENU_ITEMS.featured.path}
-                    className="relative group overflow-hidden aspect-portrait"
-                    data-cursor="view"
-                  >
-                    <img
-                      src={MEGA_MENU_ITEMS.featured.image}
-                      alt={MEGA_MENU_ITEMS.featured.title}
-                      className="w-full h-full object-cover transition-transform duration-1200 ease-luxury group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-noir/80 to-transparent" />
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <p className="text-tiny tracking-mega text-gold uppercase mb-2" style={{ fontSize: '0.65rem' }}>
-                        {MEGA_MENU_ITEMS.featured.subtitle}
-                      </p>
-                      <h3 className="font-cormorant text-2xl text-ivory">
-                        {MEGA_MENU_ITEMS.featured.title}
-                      </h3>
-                    </div>
-                  </Link>
-                  
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.nav>
       
-      {/* ═══════════════════════════════════════
-          MOBILE MENU
-      ═══════════════════════════════════════ */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -434,7 +270,6 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             />
             
-            {/* Menu Panel */}
             <motion.div
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
@@ -442,24 +277,22 @@ const Navbar = () => {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="fixed top-0 left-0 bottom-0 w-full max-w-sm bg-noir z-[80] flex flex-col"
             >
-              {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-graphite">
                 <span 
-                  className="font-cormorant font-light text-ivory pl-1"
-                  style={{ letterSpacing: '0.4em', fontSize: '1.25rem' }}
+                  className="font-cormorant font-light text-ivory"
+                  style={{ letterSpacing: '0.4em', fontSize: '1.25rem', paddingLeft: '0.4em' }}
                 >
                   MAISON
                 </span>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-8 h-8 flex items-center justify-center text-ivory"
+                  className="w-10 h-10 flex items-center justify-center text-ivory hover:bg-graphite/50 rounded-full transition-colors"
                   aria-label="Close menu"
                 >
                   <FiX size={20} />
                 </button>
               </div>
               
-              {/* Nav Links */}
               <div className="flex-1 overflow-y-auto p-6">
                 <ul className="space-y-1">
                   {NAV_LINKS.map((link, index) => (
@@ -489,7 +322,6 @@ const Navbar = () => {
                   ))}
                 </ul>
                 
-                {/* Categories in Mobile */}
                 <div className="mt-12">
                   <p className="text-tiny tracking-mega text-gold uppercase mb-6" style={{ fontSize: '0.65rem' }}>
                     Shop by Category
@@ -517,7 +349,6 @@ const Navbar = () => {
                 </div>
               </div>
               
-              {/* Footer */}
               <div className="p-6 border-t border-graphite">
                 <p className="text-tiny tracking-mega text-silver uppercase mb-2" style={{ fontSize: '0.6rem' }}>
                   Contact
