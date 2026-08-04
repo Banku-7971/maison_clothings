@@ -15,27 +15,9 @@ import useUIStore from '../store/uiStore'
 import { isValidEmail } from '../utils/formatters'
 
 // ═══════════════════════════════════════════════════════════════
-// MAISON — CONTACT PAGE
-// ═══════════════════════════════════════════════════════════════
-// Where correspondence begins.
-// The bridge between visitor and atelier.
-//
-// Features:
-// - Editorial hero
-// - Contact form with validation
-// - Multiple contact methods
-// - Atelier information
-// - Opening hours
-// - Map placeholder
-// - Book appointment section
-// - Social links
-// - FAQ hint
-// - Success state
+// MAISON INDIA — CONTACT PAGE (Kolkata Atelier)
 // ═══════════════════════════════════════════════════════════════
 
-// ─────────────────────────────────────────
-// INQUIRY TYPES
-// ─────────────────────────────────────────
 const INQUIRY_TYPES = [
   { value: 'general', label: 'General Inquiry' },
   { value: 'order', label: 'Order Assistance' },
@@ -46,25 +28,15 @@ const INQUIRY_TYPES = [
   { value: 'other', label: 'Other' },
 ]
 
-// ─────────────────────────────────────────
-// OPENING HOURS
-// ─────────────────────────────────────────
 const HOURS = [
-  { day: 'Monday — Friday', time: '10:00 — 20:00' },
-  { day: 'Saturday', time: '11:00 — 19:00' },
-  { day: 'Sunday', time: 'By appointment only' },
+  { day: 'Monday — Saturday', time: '11:00 — 21:00' },
+  { day: 'Sunday', time: '12:00 — 20:00' },
 ]
 
 
 const Contact = () => {
-  // ─────────────────────────────────────────
-  // STORE
-  // ─────────────────────────────────────────
   const showToast = useUIStore(state => state.showToast)
   
-  // ─────────────────────────────────────────
-  // STATE
-  // ─────────────────────────────────────────
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -74,21 +46,13 @@ const Contact = () => {
   })
   
   const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState('idle') // 'idle' | 'sending' | 'success' | 'error'
+  const [status, setStatus] = useState('idle')
   
-  // ─────────────────────────────────────────
-  // DOCUMENT TITLE
-  // ─────────────────────────────────────────
   useEffect(() => {
     document.title = 'Contact — MAISON'
-    return () => {
-      document.title = 'MAISON'
-    }
+    return () => { document.title = 'MAISON' }
   }, [])
   
-  // ─────────────────────────────────────────
-  // FORM HANDLERS
-  // ─────────────────────────────────────────
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }))
     setErrors(prev => ({ ...prev, [field]: '' }))
@@ -115,31 +79,19 @@ const Contact = () => {
     }
     
     setStatus('sending')
-    
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000))
-    
     setStatus('success')
     
-    // Reset form after 5 seconds
     setTimeout(() => {
       setStatus('idle')
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: 'general',
-        message: '',
-      })
+      setFormData({ name: '', email: '', phone: '', subject: 'general', message: '' })
     }, 5000)
   }
   
   return (
     <div className="bg-noir min-h-screen">
       
-      {/* ═══════════════════════════════════════
-          HERO
-      ═══════════════════════════════════════ */}
+      {/* HERO */}
       <section className="pt-32 md:pt-48 pb-16 md:pb-24 border-b border-graphite/30">
         <div className="container-luxury">
           <div className="max-w-4xl">
@@ -181,16 +133,12 @@ const Contact = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          MAIN CONTENT
-      ═══════════════════════════════════════ */}
+      {/* MAIN CONTENT */}
       <section className="py-16 md:py-24">
         <div className="container-luxury">
           <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
             
-            {/* ═══════════════════════════════════════
-                LEFT: CONTACT INFO
-            ═══════════════════════════════════════ */}
+            {/* LEFT: KOLKATA INFO */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -198,48 +146,44 @@ const Contact = () => {
               className="space-y-10"
             >
               
-              {/* Atelier */}
+              {/* ATELIER */}
               <div>
-                <p 
-                  className="text-tiny tracking-mega text-gold uppercase mb-4"
-                  style={{ fontSize: '0.7rem' }}
-                >
+                <p className="text-tiny tracking-mega text-gold uppercase mb-4" style={{ fontSize: '0.7rem' }}>
                   — The Atelier
                 </p>
                 <h2 className="font-cormorant text-2xl md:text-3xl text-ivory mb-6">
-                  Visit us in Paris
+                  Visit us in Kolkata
                 </h2>
                 
                 <div className="space-y-4">
-                  
-                  {/* Address */}
+                  {/* ADDRESS */}
                   <div className="flex gap-4">
                     <FiMapPin className="text-gold flex-shrink-0 mt-1" size={16} />
                     <div>
                       <p className="font-cormorant text-ivory text-base leading-relaxed">
-                        24 Rue du Faubourg<br />
-                        Saint-Honoré<br />
-                        75008 Paris<br />
-                        France
+                        Maison Atelier<br />
+                        24 Park Street<br />
+                        Kolkata, West Bengal<br />
+                        700016, India
                       </p>
                     </div>
                   </div>
                   
-                  {/* Phone */}
+                  {/* PHONE */}
                   <a
-                    href="tel:+33100000000"
+                    href="tel:+919876543210"
                     className="flex gap-4 group"
                     data-cursor="hover"
                   >
                     <FiPhone className="text-gold flex-shrink-0 mt-1" size={16} />
                     <div>
                       <p className="font-cormorant text-ivory text-base group-hover:text-gold transition-colors">
-                        +33 (0)1 00 00 00 00
+                        +91 98765 43210
                       </p>
                     </div>
                   </a>
                   
-                  {/* Email */}
+                  {/* EMAIL */}
                   <a
                     href="mailto:atelier@maison.com"
                     className="flex gap-4 group"
@@ -255,15 +199,12 @@ const Contact = () => {
                 </div>
               </div>
               
-              {/* Hours */}
+              {/* HOURS */}
               <div className="pt-8 border-t border-graphite/30">
                 <div className="flex items-center gap-2 mb-6">
                   <FiClock className="text-gold" size={14} />
-                  <p 
-                    className="text-tiny tracking-mega text-ivory uppercase"
-                    style={{ fontSize: '0.7rem' }}
-                  >
-                    Opening Hours
+                  <p className="text-tiny tracking-mega text-ivory uppercase" style={{ fontSize: '0.7rem' }}>
+                    Opening Hours (IST)
                   </p>
                 </div>
                 
@@ -281,17 +222,29 @@ const Contact = () => {
                 </div>
               </div>
               
-              {/* Client Care */}
+              {/* SHIPPING */}
               <div className="pt-8 border-t border-graphite/30">
-                <p 
-                  className="text-tiny tracking-mega text-gold uppercase mb-4"
-                  style={{ fontSize: '0.7rem' }}
-                >
+                <p className="text-tiny tracking-mega text-gold uppercase mb-4" style={{ fontSize: '0.7rem' }}>
+                  — Delivery
+                </p>
+                <p className="font-cormorant italic text-platinum text-base leading-relaxed mb-4">
+                  We ship pan-India from our Kolkata atelier. 
+                  Free shipping on all orders above ₹5,000.
+                </p>
+                <p className="text-sm text-silver">
+                  Standard: 5-7 business days<br />
+                  Express: 2-3 business days
+                </p>
+              </div>
+              
+              {/* CLIENT CARE */}
+              <div className="pt-8 border-t border-graphite/30">
+                <p className="text-tiny tracking-mega text-gold uppercase mb-4" style={{ fontSize: '0.7rem' }}>
                   — Client Care
                 </p>
                 <p className="font-cormorant italic text-platinum text-base leading-relaxed mb-6">
                   For urgent matters regarding existing orders, 
-                  please reach us directly via email or phone during atelier hours.
+                  please reach us directly via WhatsApp or email during atelier hours.
                 </p>
                 
                 <a
@@ -305,37 +258,27 @@ const Contact = () => {
                 </a>
               </div>
               
-              {/* Social */}
+              {/* SOCIAL */}
               <div className="pt-8 border-t border-graphite/30">
-                <p 
-                  className="text-tiny tracking-mega text-gold uppercase mb-4"
-                  style={{ fontSize: '0.7rem' }}
-                >
+                <p className="text-tiny tracking-mega text-gold uppercase mb-4" style={{ fontSize: '0.7rem' }}>
                   — Follow The Journey
                 </p>
                 <div className="flex gap-3">
-                  {[
-                    { icon: FiInstagram, url: 'https://instagram.com/maison', label: 'Instagram' },
-                  ].map((social, i) => (
-                    <a
-                      key={i}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={social.label}
-                      className="w-11 h-11 flex items-center justify-center border border-graphite text-ivory hover:bg-gold hover:border-gold hover:text-noir transition-all duration-400"
-                      data-cursor="hover"
-                    >
-                      <social.icon size={16} />
-                    </a>
-                  ))}
+                  <a
+                    href="https://instagram.com/maison"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="w-11 h-11 flex items-center justify-center border border-graphite text-ivory hover:bg-gold hover:border-gold hover:text-noir transition-all duration-400 rounded-full"
+                    data-cursor="hover"
+                  >
+                    <FiInstagram size={16} />
+                  </a>
                 </div>
               </div>
             </motion.div>
             
-            {/* ═══════════════════════════════════════
-                RIGHT: CONTACT FORM
-            ═══════════════════════════════════════ */}
+            {/* RIGHT: FORM */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -343,18 +286,14 @@ const Contact = () => {
               className="lg:col-span-2"
             >
               <AnimatePresence mode="wait">
-                
                 {status === 'success' ? (
-                  /* ═══════════════════════════════════════
-                      SUCCESS STATE
-                  ═══════════════════════════════════════ */
                   <motion.div
                     key="success"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="bg-charcoal border border-gold/30 p-12 md:p-16 text-center"
+                    className="bg-charcoal border border-gold/30 p-12 md:p-16 text-center rounded-2xl"
                   >
                     <motion.div
                       initial={{ scale: 0 }}
@@ -371,20 +310,14 @@ const Contact = () => {
                     
                     <p className="font-cormorant italic text-platinum text-lg leading-relaxed mb-6 max-w-md mx-auto">
                       Thank you for reaching out. Our team will respond 
-                      within 24 hours during atelier hours.
+                      within 24 hours during atelier hours (IST).
                     </p>
                     
-                    <p 
-                      className="text-tiny tracking-mega text-silver uppercase font-mono"
-                      style={{ fontSize: '0.65rem' }}
-                    >
+                    <p className="text-tiny tracking-mega text-silver uppercase font-mono" style={{ fontSize: '0.65rem' }}>
                       A confirmation has been sent to {formData.email}
                     </p>
                   </motion.div>
                 ) : (
-                  /* ═══════════════════════════════════════
-                      FORM
-                  ═══════════════════════════════════════ */
                   <motion.form
                     key="form"
                     initial={{ opacity: 0 }}
@@ -393,32 +326,21 @@ const Contact = () => {
                     onSubmit={handleSubmit}
                   >
                     <div className="mb-8">
-                      <p 
-                        className="text-tiny tracking-mega text-gold uppercase mb-4"
-                        style={{ fontSize: '0.7rem' }}
-                      >
+                      <p className="text-tiny tracking-mega text-gold uppercase mb-4" style={{ fontSize: '0.7rem' }}>
                         — Send a Message
                       </p>
                       <h2 
                         className="font-cormorant font-light text-ivory"
-                        style={{ 
-                          fontSize: 'clamp(2rem, 4vw, 3rem)',
-                          lineHeight: 1,
-                        }}
+                        style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1 }}
                       >
                         Tell us <em className="italic text-gold">everything.</em>
                       </h2>
                     </div>
                     
                     <div className="space-y-6">
-                      
-                      {/* Name & Email Row */}
                       <div className="grid md:grid-cols-2 gap-6">
                         <div>
-                          <label 
-                            className="text-tiny tracking-mega text-silver uppercase mb-2 block"
-                            style={{ fontSize: '0.65rem' }}
-                          >
+                          <label className="text-tiny tracking-mega text-silver uppercase mb-2 block" style={{ fontSize: '0.65rem' }}>
                             Full Name *
                           </label>
                           <input
@@ -436,10 +358,7 @@ const Contact = () => {
                         </div>
                         
                         <div>
-                          <label 
-                            className="text-tiny tracking-mega text-silver uppercase mb-2 block"
-                            style={{ fontSize: '0.65rem' }}
-                          >
+                          <label className="text-tiny tracking-mega text-silver uppercase mb-2 block" style={{ fontSize: '0.65rem' }}>
                             Email Address *
                           </label>
                           <input
@@ -457,29 +376,23 @@ const Contact = () => {
                         </div>
                       </div>
                       
-                      {/* Phone & Subject Row */}
                       <div className="grid md:grid-cols-2 gap-6">
                         <div>
-                          <label 
-                            className="text-tiny tracking-mega text-silver uppercase mb-2 block"
-                            style={{ fontSize: '0.65rem' }}
-                          >
-                            Phone (optional)
+                          <label className="text-tiny tracking-mega text-silver uppercase mb-2 block" style={{ fontSize: '0.65rem' }}>
+                            Phone (India) — optional
                           </label>
                           <input
                             type="tel"
                             value={formData.phone}
                             onChange={(e) => updateField('phone', e.target.value)}
+                            placeholder="+91 98765 43210"
                             className="w-full py-3 bg-transparent border-b border-silver/30 focus:border-gold transition-colors text-ivory font-cormorant text-base"
                             data-cursor="text"
                           />
                         </div>
                         
                         <div>
-                          <label 
-                            className="text-tiny tracking-mega text-silver uppercase mb-2 block"
-                            style={{ fontSize: '0.65rem' }}
-                          >
+                          <label className="text-tiny tracking-mega text-silver uppercase mb-2 block" style={{ fontSize: '0.65rem' }}>
                             Inquiry Type
                           </label>
                           <select
@@ -497,12 +410,8 @@ const Contact = () => {
                         </div>
                       </div>
                       
-                      {/* Message */}
                       <div>
-                        <label 
-                          className="text-tiny tracking-mega text-silver uppercase mb-2 block"
-                          style={{ fontSize: '0.65rem' }}
-                        >
+                        <label className="text-tiny tracking-mega text-silver uppercase mb-2 block" style={{ fontSize: '0.65rem' }}>
                           Message *
                         </label>
                         <textarea
@@ -518,26 +427,19 @@ const Contact = () => {
                             {errors.message}
                           </p>
                         )}
-                        <p 
-                          className="mt-2 text-tiny text-silver text-right font-mono"
-                          style={{ fontSize: '0.65rem' }}
-                        >
+                        <p className="mt-2 text-tiny text-silver text-right font-mono" style={{ fontSize: '0.65rem' }}>
                           {formData.message.length} characters
                         </p>
                       </div>
                       
-                      {/* Submit */}
                       <div className="pt-6">
                         <button
                           type="submit"
                           disabled={status === 'sending'}
-                          className="group inline-flex items-center gap-3 py-4 px-12 bg-ivory text-noir hover:bg-gold transition-all duration-500 disabled:opacity-60"
+                          className="group inline-flex items-center gap-3 py-4 px-12 bg-ivory text-noir hover:bg-gold transition-all duration-500 disabled:opacity-60 rounded-full"
                           data-cursor="hover"
                         >
-                          <span 
-                            className="text-tiny tracking-mega uppercase font-medium"
-                            style={{ fontSize: '0.75rem' }}
-                          >
+                          <span className="text-tiny tracking-mega uppercase font-medium" style={{ fontSize: '0.75rem' }}>
                             {status === 'sending' ? 'Sending...' : 'Send Message'}
                           </span>
                           {status !== 'sending' && (
@@ -548,11 +450,8 @@ const Contact = () => {
                           )}
                         </button>
                         
-                        <p 
-                          className="mt-6 text-tiny text-silver italic font-cormorant"
-                          style={{ fontSize: '0.75rem' }}
-                        >
-                          We respond within 24 hours during atelier hours (Mon–Fri).
+                        <p className="mt-6 text-tiny text-silver italic font-cormorant" style={{ fontSize: '0.75rem' }}>
+                          We respond within 24 hours during atelier hours (Mon–Sat, IST).
                         </p>
                       </div>
                     </div>
@@ -564,9 +463,7 @@ const Contact = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          BOOK APPOINTMENT CTA
-      ═══════════════════════════════════════ */}
+      {/* BOOK APPOINTMENT CTA */}
       <section className="py-24 md:py-32 border-y border-graphite/30 bg-charcoal/30">
         <div className="container-luxury text-center">
           <motion.p
@@ -586,10 +483,7 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="font-cormorant font-light text-ivory mb-8"
-            style={{ 
-              fontSize: 'clamp(2.5rem, 6vw, 5rem)',
-              lineHeight: 1,
-            }}
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 1 }}
           >
             Book a private<br />
             <em className="italic text-gold">appointment.</em>
@@ -602,7 +496,7 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-cormorant italic text-platinum text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            Experience MAISON in our Paris atelier. 
+            Experience MAISON in our Kolkata atelier on Park Street. 
             Meet the artisans. Try pieces from the collection. 
             Discover fabrics before they exist in stores.
           </motion.p>
@@ -613,33 +507,17 @@ const Contact = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="group inline-flex items-center gap-4"
+            className="group inline-flex items-center gap-4 py-4 px-12 bg-gold text-noir hover:bg-ivory transition-all duration-500 rounded-full shadow-warm-lg"
             data-cursor="hover"
           >
-            <span className="relative overflow-hidden">
-              <span 
-                className="inline-block py-4 px-12 border border-ivory text-ivory text-tiny tracking-mega uppercase relative z-10 transition-colors duration-500 group-hover:text-noir"
-                style={{ fontSize: '0.75rem' }}
-              >
-                <span className="inline-flex items-center gap-2">
-                  <FiCalendar size={14} />
-                  Request Appointment
-                </span>
-                <motion.span 
-                  className="absolute inset-0 bg-ivory -z-10"
-                  initial={{ y: '100%' }}
-                  whileHover={{ y: '0%' }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                />
-              </span>
+            <FiCalendar size={14} />
+            <span className="text-tiny tracking-mega uppercase font-semibold" style={{ fontSize: '0.75rem' }}>
+              Request Appointment
             </span>
           </motion.a>
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          NEWSLETTER
-      ═══════════════════════════════════════ */}
       <Newsletter variant="default" />
     </div>
   )
