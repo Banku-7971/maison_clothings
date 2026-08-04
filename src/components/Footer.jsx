@@ -15,28 +15,9 @@ import {
 } from 'react-icons/fi'
 
 // ═══════════════════════════════════════════════════════════════
-// MAISON — THE FOOTER
-// ═══════════════════════════════════════════════════════════════
-// The final impression. The lasting statement.
-// Every luxury site ends with obsession — this is ours.
-//
-// Sections:
-// - Newsletter signup with elegant form
-// - Massive brand name display (visual anchor)
-// - 4 organized link columns
-// - Contact information
-// - Social media links
-// - Language & currency selectors
-// - Payment methods display
-// - Copyright bar
-// - Back to top button
-// - Legal links
-// - Craftsmanship note
+// MAISON INDIA — FOOTER (Kolkata Edition)
 // ═══════════════════════════════════════════════════════════════
 
-// ─────────────────────────────────────────
-// FOOTER LINK COLUMNS
-// ─────────────────────────────────────────
 const FOOTER_LINKS = {
   shop: {
     title: 'Shop',
@@ -80,7 +61,7 @@ const FOOTER_LINKS = {
   legal: {
     title: 'Information',
     links: [
-      { name: 'Shipping', path: '/shipping' },
+      { name: 'Shipping across India', path: '/shipping' },
       { name: 'Returns', path: '/returns' },
       { name: 'Size Guide', path: '/size-guide' },
       { name: 'Care Guide', path: '/care-guide' },
@@ -92,9 +73,6 @@ const FOOTER_LINKS = {
   },
 }
 
-// ─────────────────────────────────────────
-// SOCIAL LINKS
-// ─────────────────────────────────────────
 const SOCIAL_LINKS = [
   { name: 'Instagram', icon: FiInstagram, url: 'https://instagram.com/maison' },
   { name: 'Twitter', icon: FiTwitter, url: 'https://twitter.com/maison' },
@@ -102,128 +80,91 @@ const SOCIAL_LINKS = [
   { name: 'YouTube', icon: FiYoutube, url: 'https://youtube.com/@maison' },
 ]
 
-// ─────────────────────────────────────────
-// PAYMENT METHODS
-// ─────────────────────────────────────────
+// INDIAN PAYMENT METHODS
 const PAYMENT_METHODS = [
+  'UPI',
+  'RuPay',
   'Visa',
   'Mastercard',
-  'American Express',
-  'Apple Pay',
   'Google Pay',
-  'PayPal',
-  'Klarna',
-  'Afterpay',
+  'PhonePe',
+  'Paytm',
+  'Net Banking',
+  'COD',
 ]
 
-// ─────────────────────────────────────────
-// LANGUAGES
-// ─────────────────────────────────────────
+// INDIAN LANGUAGES
 const LANGUAGES = [
   { code: 'EN', name: 'English' },
-  { code: 'FR', name: 'Français' },
-  { code: 'IT', name: 'Italiano' },
-  { code: 'DE', name: 'Deutsch' },
-  { code: 'ES', name: 'Español' },
-  { code: 'JA', name: '日本語' },
+  { code: 'HI', name: 'हिन्दी' },
+  { code: 'BN', name: 'বাংলা' },
+  { code: 'TA', name: 'தமிழ்' },
+  { code: 'TE', name: 'తెలుగు' },
+  { code: 'MR', name: 'मराठी' },
 ]
 
-// ─────────────────────────────────────────
-// CURRENCIES
-// ─────────────────────────────────────────
+// INR ONLY
 const CURRENCIES = [
-  { code: 'USD', symbol: '$' },
-  { code: 'EUR', symbol: '€' },
-  { code: 'GBP', symbol: '£' },
-  { code: 'JPY', symbol: '¥' },
-  { code: 'CAD', symbol: 'C$' },
-  { code: 'AUD', symbol: 'A$' },
+  { code: 'INR', symbol: '₹' },
 ]
 
 
 const Footer = () => {
-  // ─────────────────────────────────────────
-  // STATE
-  // ─────────────────────────────────────────
   const [email, setEmail] = useState('')
   const [isSubscribed, setIsSubscribed] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [selectedLang, setSelectedLang] = useState('EN')
-  const [selectedCurrency, setSelectedCurrency] = useState('USD')
+  const [selectedCurrency, setSelectedCurrency] = useState('INR')
   const [langOpen, setLangOpen] = useState(false)
   const [currencyOpen, setCurrencyOpen] = useState(false)
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [currentTime, setCurrentTime] = useState('')
   
-  // ─────────────────────────────────────────
-  // NEWSLETTER SUBMIT
-  // ─────────────────────────────────────────
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault()
     if (!email || !email.includes('@')) return
-    
     setIsSubmitting(true)
-    
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500))
-    
     setIsSubscribed(true)
     setIsSubmitting(false)
-    
-    // Reset after 5 seconds
     setTimeout(() => {
       setIsSubscribed(false)
       setEmail('')
     }, 5000)
   }
   
-  // ─────────────────────────────────────────
-  // BACK TO TOP BUTTON
-  // ─────────────────────────────────────────
   useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 800)
-    }
-    
+    const handleScroll = () => setShowBackToTop(window.scrollY > 800)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
   
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
   
-  // ─────────────────────────────────────────
-  // PARIS TIME DISPLAY
-  // ─────────────────────────────────────────
+  // KOLKATA TIME
   useEffect(() => {
     const updateTime = () => {
       const now = new Date()
-      const parisTime = now.toLocaleTimeString('en-US', {
-        timeZone: 'Europe/Paris',
+      const kolkataTime = now.toLocaleTimeString('en-IN', {
+        timeZone: 'Asia/Kolkata',
         hour: '2-digit',
         minute: '2-digit',
         hour12: false,
       })
-      setCurrentTime(parisTime)
+      setCurrentTime(kolkataTime)
     }
-    
     updateTime()
-    const interval = setInterval(updateTime, 60000) // Update every minute
+    const interval = setInterval(updateTime, 60000)
     return () => clearInterval(interval)
   }, [])
   
   return (
     <footer className="relative bg-noir text-ivory overflow-hidden">
       
-      {/* ═══════════════════════════════════════
-          NEWSLETTER SECTION
-      ═══════════════════════════════════════ */}
+      {/* NEWSLETTER */}
       <section className="relative border-b border-graphite/50">
         <div className="container-luxury py-24 md:py-32">
           <div className="max-w-3xl mx-auto text-center">
-            
-            {/* Label */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -235,7 +176,6 @@ const Footer = () => {
               — Correspondence
             </motion.p>
             
-            {/* Headline */}
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -248,7 +188,6 @@ const Footer = () => {
               <em className="italic text-gold">quiet luxury</em>
             </motion.h2>
             
-            {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -260,7 +199,6 @@ const Footer = () => {
               and stories from the atelier — delivered with intention.
             </motion.p>
             
-            {/* Form */}
             <motion.form
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -317,16 +255,12 @@ const Footer = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          MAIN FOOTER CONTENT
-      ═══════════════════════════════════════ */}
+      {/* MAIN FOOTER */}
       <section className="border-b border-graphite/50">
         <div className="container-luxury py-16 md:py-24">
           <div className="grid grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-12">
             
-            {/* ─────────────────────────────────
-                BRAND COLUMN (2 cols wide)
-            ───────────────────────────────── */}
+            {/* BRAND COLUMN */}
             <div className="col-span-2 lg:col-span-2">
               <Link to="/" className="inline-block mb-8" data-cursor="hover">
                 <span 
@@ -342,10 +276,11 @@ const Footer = () => {
               
               <p className="font-cormorant italic text-platinum text-lg leading-relaxed mb-8 max-w-sm">
                 Where craftsmanship meets couture. An exclusive maison of 
-                ultra-premium clothing crafted for the discerning few.
+                ultra-premium clothing crafted for the discerning few. 
+                Handmade in India, shipped across the nation.
               </p>
               
-              {/* Contact Info */}
+              {/* CONTACT — KOLKATA */}
               <div className="space-y-3 mb-8">
                 <a 
                   href="mailto:atelier@maison.com" 
@@ -356,20 +291,20 @@ const Footer = () => {
                   atelier@maison.com
                 </a>
                 <a 
-                  href="tel:+33100000000" 
+                  href="tel:+919876543210" 
                   className="flex items-center gap-3 text-sm text-platinum hover:text-gold transition-colors duration-400"
                   data-cursor="hover"
                 >
                   <FiPhone size={14} className="text-gold" />
-                  +33 (0)1 00 00 00 00
+                  +91 98765 43210
                 </a>
-                <div className="flex items-center gap-3 text-sm text-platinum">
-                  <FiMapPin size={14} className="text-gold" />
-                  Rue du Faubourg Saint-Honoré, Paris
+                <div className="flex items-start gap-3 text-sm text-platinum">
+                  <FiMapPin size={14} className="text-gold flex-shrink-0 mt-1" />
+                  <span>24 Park Street, Kolkata<br />West Bengal, 700016</span>
                 </div>
               </div>
               
-              {/* Social */}
+              {/* SOCIAL */}
               <div>
                 <p className="text-tiny tracking-mega text-silver uppercase mb-4" style={{ fontSize: '0.65rem' }}>
                   Follow the Journey
@@ -384,7 +319,7 @@ const Footer = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={social.name}
-                        className="w-10 h-10 flex items-center justify-center border border-graphite/50 text-ivory hover:bg-gold hover:text-noir hover:border-gold transition-all duration-400"
+                        className="w-10 h-10 flex items-center justify-center border border-graphite/50 text-ivory hover:bg-gold hover:text-noir hover:border-gold transition-all duration-400 rounded-full"
                         data-cursor="hover"
                       >
                         <Icon size={16} />
@@ -395,9 +330,7 @@ const Footer = () => {
               </div>
             </div>
             
-            {/* ─────────────────────────────────
-                LINK COLUMNS
-            ───────────────────────────────── */}
+            {/* LINK COLUMNS */}
             {Object.entries(FOOTER_LINKS).map(([key, section]) => (
               <div key={key}>
                 <h3 
@@ -421,15 +354,11 @@ const Footer = () => {
                 </ul>
               </div>
             ))}
-            
           </div>
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          MASSIVE BRAND DISPLAY
-          Signature visual anchor
-      ═══════════════════════════════════════ */}
+      {/* MASSIVE BRAND DISPLAY */}
       <section className="border-b border-graphite/50 overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -455,21 +384,22 @@ const Footer = () => {
           >
             — Where Craftsmanship Meets Couture —
           </p>
+          <p 
+            className="text-tiny tracking-mega text-silver uppercase font-mono mt-2"
+            style={{ fontSize: '0.7rem' }}
+          >
+            Est. Kolkata · 2025
+          </p>
         </motion.div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          UTILITIES BAR
-          Language, Currency, Payment
-      ═══════════════════════════════════════ */}
+      {/* UTILITIES BAR */}
       <section className="border-b border-graphite/50">
         <div className="container-luxury py-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             
-            {/* Language & Currency */}
             <div className="flex items-center gap-6">
-              
-              {/* Language Selector */}
+              {/* LANGUAGE */}
               <div className="relative">
                 <button
                   onClick={() => {
@@ -488,7 +418,7 @@ const Footer = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute bottom-full mb-2 left-0 bg-charcoal border border-graphite py-2 min-w-[140px]"
+                    className="absolute bottom-full mb-2 left-0 bg-charcoal border border-graphite py-2 min-w-[140px] rounded-lg"
                   >
                     {LANGUAGES.map((lang) => (
                       <button
@@ -508,53 +438,24 @@ const Footer = () => {
                 )}
               </div>
               
-              {/* Currency Selector */}
+              {/* CURRENCY (INR ONLY) */}
               <div className="relative">
                 <button
-                  onClick={() => {
-                    setCurrencyOpen(!currencyOpen)
-                    setLangOpen(false)
-                  }}
-                  className="flex items-center gap-2 text-tiny tracking-mega text-ivory hover:text-gold transition-colors duration-400 uppercase"
+                  className="flex items-center gap-2 text-tiny tracking-mega text-gold uppercase"
                   style={{ fontSize: '0.7rem' }}
-                  data-cursor="hover"
                 >
-                  <span>{selectedCurrency}</span>
-                  <FiChevronDown size={12} className={`transition-transform duration-300 ${currencyOpen ? 'rotate-180' : ''}`} />
+                  <span>₹ INR</span>
                 </button>
-                
-                {currencyOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="absolute bottom-full mb-2 left-0 bg-charcoal border border-graphite py-2 min-w-[120px]"
-                  >
-                    {CURRENCIES.map((currency) => (
-                      <button
-                        key={currency.code}
-                        onClick={() => {
-                          setSelectedCurrency(currency.code)
-                          setCurrencyOpen(false)
-                        }}
-                        className={`w-full text-left px-4 py-2 text-xs hover:bg-noir hover:text-gold transition-colors ${
-                          selectedCurrency === currency.code ? 'text-gold' : 'text-platinum'
-                        }`}
-                      >
-                        {currency.symbol} {currency.code}
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
               </div>
               
-              {/* Paris Time */}
+              {/* KOLKATA TIME */}
               <div className="hidden md:flex items-center gap-2 text-tiny text-silver uppercase tracking-mega font-mono" style={{ fontSize: '0.65rem' }}>
                 <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-                Paris · {currentTime}
+                Kolkata · {currentTime}
               </div>
             </div>
             
-            {/* Payment Methods */}
+            {/* PAYMENT METHODS */}
             <div className="flex flex-wrap items-center gap-3">
               <span className="text-tiny text-silver uppercase tracking-mega mr-2" style={{ fontSize: '0.65rem' }}>
                 Accepted
@@ -562,31 +463,26 @@ const Footer = () => {
               {PAYMENT_METHODS.map((method) => (
                 <span
                   key={method}
-                  className="text-xs text-platinum border border-graphite/50 px-2 py-1"
+                  className="text-xs text-platinum border border-graphite/50 px-2 py-1 rounded"
                   style={{ fontSize: '0.65rem', letterSpacing: '0.05em' }}
                 >
                   {method}
                 </span>
               ))}
             </div>
-            
           </div>
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          COPYRIGHT BAR
-      ═══════════════════════════════════════ */}
+      {/* COPYRIGHT */}
       <section>
         <div className="container-luxury py-6">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             
-            {/* Copyright */}
             <p className="text-tiny text-silver uppercase tracking-mega font-mono" style={{ fontSize: '0.65rem' }}>
-              © 2025 MAISON. All rights reserved. Est. Paris.
+              © 2025 MAISON. All rights reserved. Est. Kolkata.
             </p>
             
-            {/* Legal Links */}
             <div className="flex flex-wrap items-center gap-6">
               <Link 
                 to="/privacy" 
@@ -622,31 +518,27 @@ const Footer = () => {
               </Link>
             </div>
             
-            {/* Craft Note */}
             <p className="text-tiny text-silver italic font-cormorant" style={{ fontSize: '0.75rem' }}>
-              Crafted with obsession.
+              Handcrafted in India 🇮🇳
             </p>
           </div>
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          BACK TO TOP BUTTON
-      ═══════════════════════════════════════ */}
+      {/* BACK TO TOP */}
       {showBackToTop && (
         <motion.button
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 w-12 h-12 flex items-center justify-center bg-noir border border-gold text-gold hover:bg-gold hover:text-noir transition-all duration-400 z-40"
+          className="fixed bottom-8 right-8 w-12 h-12 flex items-center justify-center bg-noir border border-gold text-gold hover:bg-gold hover:text-noir transition-all duration-400 z-40 rounded-full"
           data-cursor="hover"
           aria-label="Back to top"
         >
           <FiArrowUp size={18} />
         </motion.button>
       )}
-      
     </footer>
   )
 }
