@@ -2,6 +2,13 @@ import { useState, useEffect, Suspense, lazy } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 
+// ═══════════════════════════════════════════════════════════════
+// MAISON — ROOT APP
+// Loading screen shows on EVERY page refresh
+// Not annoying because it's beautiful
+// Users can skip if they want
+// ═══════════════════════════════════════════════════════════════
+
 import LoadingScreen from './components/LoadingScreen'
 import CustomCursor from './components/CustomCursor'
 import NoiseOverlay from './components/NoiseOverlay'
@@ -25,6 +32,9 @@ const Wishlist = lazy(() => import('./pages/Wishlist'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 
+// ─────────────────────────────────────────
+// PAGE LOADER (for lazy pages)
+// ─────────────────────────────────────────
 const PageLoader = () => (
   <div className="min-h-screen bg-noir flex items-center justify-center">
     <motion.div
@@ -62,6 +72,9 @@ const PageLoader = () => (
 )
 
 
+// ─────────────────────────────────────────
+// SCROLL TO TOP ON ROUTE CHANGE
+// ─────────────────────────────────────────
 const ScrollToTop = () => {
   const { pathname } = useLocation()
   
@@ -73,66 +86,169 @@ const ScrollToTop = () => {
 }
 
 
+// ─────────────────────────────────────────
+// ANIMATED ROUTES
+// ─────────────────────────────────────────
 const AnimatedRoutes = () => {
   const location = useLocation()
   
   return (
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Suspense fallback={<PageLoader />}><Home /></Suspense></PageTransition>} />
-        <Route path="/shop" element={<PageTransition><Suspense fallback={<PageLoader />}><Shop /></Suspense></PageTransition>} />
-        <Route path="/shop/:category" element={<PageTransition><Suspense fallback={<PageLoader />}><Shop /></Suspense></PageTransition>} />
-        <Route path="/collection/:collectionId" element={<PageTransition><Suspense fallback={<PageLoader />}><Shop /></Suspense></PageTransition>} />
-        <Route path="/product/:id" element={<PageTransition><Suspense fallback={<PageLoader />}><ProductDetail /></Suspense></PageTransition>} />
-        <Route path="/about" element={<PageTransition><Suspense fallback={<PageLoader />}><About /></Suspense></PageTransition>} />
-        <Route path="/cart" element={<PageTransition><Suspense fallback={<PageLoader />}><Cart /></Suspense></PageTransition>} />
-        <Route path="/checkout" element={<PageTransition><Suspense fallback={<PageLoader />}><Checkout /></Suspense></PageTransition>} />
-        <Route path="/wishlist" element={<PageTransition><Suspense fallback={<PageLoader />}><Wishlist /></Suspense></PageTransition>} />
-        <Route path="/contact" element={<PageTransition><Suspense fallback={<PageLoader />}><Contact /></Suspense></PageTransition>} />
-        <Route path="*" element={<PageTransition><Suspense fallback={<PageLoader />}><NotFound /></Suspense></PageTransition>} />
+        <Route 
+          path="/" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <Home />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/shop" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <Shop />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/shop/:category" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <Shop />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/collection/:collectionId" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <Shop />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/product/:id" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <ProductDetail />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/about" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <About />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/cart" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <Cart />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/checkout" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <Checkout />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/wishlist" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <Wishlist />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/contact" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <Contact />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="*" 
+          element={
+            <PageTransition>
+              <Suspense fallback={<PageLoader />}>
+                <NotFound />
+              </Suspense>
+            </PageTransition>
+          } 
+        />
       </Routes>
     </AnimatePresence>
   )
 }
 
 
+// ═══════════════════════════════════════════════════════════════
+// MAIN APP COMPONENT
+// ═══════════════════════════════════════════════════════════════
 function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [isReady, setIsReady] = useState(false)
   
-  const LOADING_DURATION = 4500  // ⏱️ MUST MATCH LoadingScreen!
+  const LOADING_DURATION = 4500  // ⏱️ 4.5 seconds
   
+  // ─────────────────────────────────────────
+  // LOADING SCREEN — SHOWS EVERY VISIT
+  // No sessionStorage — real users deserve the magic
+  // ─────────────────────────────────────────
   useEffect(() => {
-    const visited = sessionStorage.getItem('maison_visited')
-    
-    if (visited) {
+    // Regular timer for full experience
+    const timer = setTimeout(() => {
       setIsLoading(false)
-      setIsReady(true)
-    } else {
-      // Regular timer
-      const timer = setTimeout(() => {
-        setIsLoading(false)
-        sessionStorage.setItem('maison_visited', 'true')
-        setTimeout(() => setIsReady(true), 100)
-      }, LOADING_DURATION)
-      
-      // Skip button handler
-      const handleSkip = () => {
-        clearTimeout(timer)
-        setIsLoading(false)
-        sessionStorage.setItem('maison_visited', 'true')
-        setTimeout(() => setIsReady(true), 100)
-      }
-      
-      window.addEventListener('skipLoading', handleSkip)
-      
-      return () => {
-        clearTimeout(timer)
-        window.removeEventListener('skipLoading', handleSkip)
-      }
+      setTimeout(() => setIsReady(true), 100)
+    }, LOADING_DURATION)
+    
+    // Skip button handler (impatient users)
+    const handleSkip = () => {
+      clearTimeout(timer)
+      setIsLoading(false)
+      setTimeout(() => setIsReady(true), 100)
+    }
+    
+    window.addEventListener('skipLoading', handleSkip)
+    
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('skipLoading', handleSkip)
     }
   }, [])
   
+  // ─────────────────────────────────────────
+  // LOCK SCROLL DURING LOADING
+  // ─────────────────────────────────────────
   useEffect(() => {
     if (isLoading) {
       document.body.style.overflow = 'hidden'
@@ -147,6 +263,9 @@ function App() {
     }
   }, [isLoading])
   
+  // ─────────────────────────────────────────
+  // VIEWPORT HEIGHT FIX (for mobile browsers)
+  // ─────────────────────────────────────────
   useEffect(() => {
     const setViewportHeight = () => {
       const vh = window.innerHeight * 0.01
@@ -161,12 +280,37 @@ function App() {
     }
   }, [])
   
+  // ─────────────────────────────────────────
+  // CONSOLE SIGNATURE
+  // ─────────────────────────────────────────
+  useEffect(() => {
+    console.log(
+      '%c MAISON ',
+      'background: #2A1F1A; color: #C87952; font-size: 40px; font-family: Georgia, serif; letter-spacing: 0.5em; padding: 20px 40px; border: 1px solid #C87952;'
+    )
+    console.log(
+      '%c Where Craftsmanship Meets Couture ',
+      'color: #A89684; font-family: Georgia, serif; font-style: italic; font-size: 14px; letter-spacing: 0.2em;'
+    )
+    console.log(
+      '%c Est. Kolkata · 2025 ',
+      'color: #C87952; font-family: monospace; font-size: 11px; letter-spacing: 0.15em;'
+    )
+  }, [])
+  
   return (
     <>
+      {/* ═══════════════════════════════════════
+          CINEMATIC LOADING SCREEN
+          Shows EVERY visit (not just first)
+      ═══════════════════════════════════════ */}
       <AnimatePresence mode="wait">
         {isLoading && <LoadingScreen key="loading" />}
       </AnimatePresence>
       
+      {/* ═══════════════════════════════════════
+          MAIN APP
+      ═══════════════════════════════════════ */}
       {isReady && (
         <>
           <CustomCursor />
