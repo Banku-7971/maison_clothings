@@ -2,7 +2,6 @@ import { useState, useEffect, Suspense, lazy } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 
-// Cinematic Layer Components
 import LoadingScreen from './components/LoadingScreen'
 import CustomCursor from './components/CustomCursor'
 import NoiseOverlay from './components/NoiseOverlay'
@@ -10,13 +9,11 @@ import ScrollProgress from './components/ScrollProgress'
 import PageTransition from './components/PageTransition'
 import SmoothScroll from './components/SmoothScroll'
 
-// Layout Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import CartDrawer from './components/CartDrawer'
 import SearchModal from './components/SearchModal'
 
-// Lazy Pages
 const Home = lazy(() => import('./pages/Home'))
 const Shop = lazy(() => import('./pages/Shop'))
 const ProductDetail = lazy(() => import('./pages/ProductDetail'))
@@ -103,10 +100,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [isReady, setIsReady] = useState(false)
   
-  // ─────────────────────────────────────────
-  // INITIAL LOAD — 4.5 seconds
-  // Or immediate if user clicks Skip
-  // ─────────────────────────────────────────
+  const LOADING_DURATION = 4500  // ⏱️ MUST MATCH LoadingScreen!
+  
   useEffect(() => {
     const visited = sessionStorage.getItem('maison_visited')
     
@@ -114,14 +109,14 @@ function App() {
       setIsLoading(false)
       setIsReady(true)
     } else {
-      // 4.5 second timer
+      // Regular timer
       const timer = setTimeout(() => {
         setIsLoading(false)
         sessionStorage.setItem('maison_visited', 'true')
         setTimeout(() => setIsReady(true), 100)
-      }, 4500)  // ⏱️ 4.5 SECONDS
+      }, LOADING_DURATION)
       
-      // Listen for skip event
+      // Skip button handler
       const handleSkip = () => {
         clearTimeout(timer)
         setIsLoading(false)
@@ -138,7 +133,6 @@ function App() {
     }
   }, [])
   
-  // Lock scroll during loading
   useEffect(() => {
     if (isLoading) {
       document.body.style.overflow = 'hidden'
@@ -153,7 +147,6 @@ function App() {
     }
   }, [isLoading])
   
-  // Viewport height fix
   useEffect(() => {
     const setViewportHeight = () => {
       const vh = window.innerHeight * 0.01
