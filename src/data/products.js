@@ -1,13 +1,5 @@
 // ═══════════════════════════════════════════════════════════════
-// MAISON — LUXURY PRODUCT CATALOG
-// ═══════════════════════════════════════════════════════════════
-// 20 curated pieces from the atelier
-// Each product meticulously described with:
-// - Multiple high-resolution images
-// - Materials and craftsmanship details
-// - Sizing, colors, availability
-// - Care instructions
-// - Editorial descriptions
+// MAISON INDIA — LUXURY PRODUCT CATALOG (Prices in INR)
 // ═══════════════════════════════════════════════════════════════
 
 export const categories = [
@@ -31,9 +23,6 @@ export const collections = [
 export const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 
 export const products = [
-  // ─────────────────────────────────────────
-  // PRODUCT 01 — SIGNATURE WOOL COAT
-  // ─────────────────────────────────────────
   {
     id: 'MSN-001',
     slug: 'signature-wool-coat-noir',
@@ -41,21 +30,17 @@ export const products = [
     subtitle: 'Noir',
     category: 'outerwear',
     collection: 'noir',
-    price: 3450,
+    price: 24500,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
-    description: 'A masterpiece of tailoring. Hand-cut from the finest Italian virgin wool, this signature coat embodies MAISON\'s obsession with silhouette and drape. Constructed over 47 hours by our master atelier in Paris.',
-    
+    description: 'A masterpiece of tailoring. Hand-cut from the finest Italian virgin wool, this signature coat embodies MAISON\'s obsession with silhouette and drape. Constructed over 47 hours by our master atelier in Kolkata.',
     editorial: 'The coat that started a legacy. First introduced in our debut collection, this piece has been refined season after season without ever losing its essential DNA.',
-    
     materials: [
       { name: 'Shell', composition: '100% Italian Virgin Wool', origin: 'Biella, Italy' },
       { name: 'Lining', composition: '100% Silk Cupro', origin: 'Como, Italy' },
-      { name: 'Buttons', composition: 'Hand-carved horn', origin: 'France' },
+      { name: 'Buttons', composition: 'Hand-carved horn', origin: 'India' },
     ],
-    
     features: [
       'Hand-cut by master tailor',
       '47-hour construction process',
@@ -65,7 +50,6 @@ export const products = [
       'Twin back vents',
       'Full-length inner pocket for garments',
     ],
-    
     care: [
       'Dry clean only by luxury specialist',
       'Store on padded hanger',
@@ -73,7 +57,6 @@ export const products = [
       'Do not fold or compress',
       'Steam to refresh — never iron directly',
     ],
-    
     sizes: [
       { size: 'XS', available: true, stock: 3 },
       { size: 'S', available: true, stock: 5 },
@@ -82,46 +65,35 @@ export const products = [
       { size: 'XL', available: true, stock: 2 },
       { size: 'XXL', available: false, stock: 0 },
     ],
-    
     colors: [
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Charcoal', hex: '#2D2D2D', available: true },
       { name: 'Ivory', hex: '#F5F0EB', available: false },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=1200&q=80',
       'https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=1200&q=80',
       'https://images.unsplash.com/photo-1548126032-079a0fb0099d?w=1200&q=80',
       'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=600&q=80',
-    
     tags: ['bestseller', 'featured', 'new-arrival'],
     isNew: true,
     isBestseller: true,
     isFeatured: true,
     isSustainable: true,
     isLimited: false,
-    
     rating: 4.9,
     reviewCount: 142,
-    
     delivery: {
       standard: '5-7 business days',
       express: '2-3 business days',
-      international: '7-14 business days',
+      international: 'Not available',
       free: true,
     },
-    
     weight: '1.8kg',
-    origin: 'Handmade in Paris, France',
+    origin: 'Handmade in Kolkata, India',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 02 — CASHMERE TURTLENECK
-  // ─────────────────────────────────────────
   {
     id: 'MSN-002',
     slug: 'cashmere-turtleneck-ivory',
@@ -129,20 +101,16 @@ export const products = [
     subtitle: 'Ivory',
     category: 'knitwear',
     collection: 'ivory',
-    price: 1290,
+    price: 8900,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
-    description: 'Pure Mongolian cashmere in its most refined form. Hand-knitted by artisans in Scotland, this turtleneck represents the pinnacle of quiet luxury.',
-    
+    description: 'Pure Mongolian cashmere in its most refined form. Hand-knitted by artisans in Kashmir, this turtleneck represents the pinnacle of quiet luxury.',
     editorial: 'The essential piece. Wear it beneath tailoring or alone with denim — it elevates everything it touches.',
-    
     materials: [
       { name: 'Yarn', composition: '100% Grade-A Mongolian Cashmere', origin: 'Mongolia' },
-      { name: 'Knitted', composition: 'Hand-loomed', origin: 'Hawick, Scotland' },
+      { name: 'Knitted', composition: 'Hand-loomed', origin: 'Kashmir, India' },
     ],
-    
     features: [
       'Ultra-fine 12-gauge knit',
       'Hand-linked seams',
@@ -150,14 +118,12 @@ export const products = [
       'Extended sleeve cuffs',
       'Naturally biodegradable',
     ],
-    
     care: [
       'Hand wash cold with cashmere shampoo',
       'Lay flat to dry',
       'Store folded with cedar blocks',
       'Never hang',
     ],
-    
     sizes: [
       { size: 'XS', available: true, stock: 4 },
       { size: 'S', available: true, stock: 8 },
@@ -165,39 +131,25 @@ export const products = [
       { size: 'L', available: true, stock: 6 },
       { size: 'XL', available: true, stock: 3 },
     ],
-    
     colors: [
       { name: 'Ivory', hex: '#F5F0EB', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Camel', hex: '#C9A96E', available: true },
       { name: 'Wine', hex: '#5C1A2B', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=1200&q=80',
       'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=1200&q=80',
       'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&q=80',
-    
     tags: ['bestseller', 'essential', 'sustainable'],
-    isNew: false,
-    isBestseller: true,
-    isFeatured: true,
-    isSustainable: true,
-    isLimited: false,
-    
-    rating: 4.8,
-    reviewCount: 289,
-    delivery: { standard: '3-5 business days', express: '1-2 business days', international: '7-10 business days', free: true },
+    isNew: false, isBestseller: true, isFeatured: true, isSustainable: true, isLimited: false,
+    rating: 4.8, reviewCount: 289,
+    delivery: { standard: '3-5 business days', express: '1-2 business days', international: 'Not available', free: true },
     weight: '380g',
-    origin: 'Hand-knitted in Scotland',
+    origin: 'Hand-knitted in Kashmir, India',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 03 — TAILORED WOOL TROUSERS
-  // ─────────────────────────────────────────
   {
     id: 'MSN-003',
     slug: 'tailored-wool-trousers-charcoal',
@@ -205,20 +157,16 @@ export const products = [
     subtitle: 'Charcoal',
     category: 'trousers',
     collection: 'atelier',
-    price: 890,
+    price: 6500,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'Meticulously tailored from Super 130s Italian wool. Straight leg, high rise, single pleat — a modern classic that will remain in your wardrobe for decades.',
-    
     editorial: 'Cut to fall perfectly — never breaking, never bunching. The trouser that changes how you feel about tailoring.',
-    
     materials: [
       { name: 'Fabric', composition: 'Super 130s Wool', origin: 'Biella, Italy' },
-      { name: 'Waistband', composition: 'Wool with silicone grip', origin: 'Italy' },
+      { name: 'Waistband', composition: 'Wool with silicone grip', origin: 'India' },
     ],
-    
     features: [
       'Super 130s wool construction',
       'Single forward pleat',
@@ -228,14 +176,12 @@ export const products = [
       'French bearer fly',
       'Curtain waistband construction',
     ],
-    
     care: [
       'Dry clean only',
       'Steam between wears',
       'Hang from cuff, not waist',
       'Rotate wearing to preserve shape',
     ],
-    
     sizes: [
       { size: '28', available: true, stock: 3 },
       { size: '30', available: true, stock: 7 },
@@ -244,38 +190,24 @@ export const products = [
       { size: '36', available: true, stock: 5 },
       { size: '38', available: false, stock: 0 },
     ],
-    
     colors: [
       { name: 'Charcoal', hex: '#2D2D2D', available: true },
       { name: 'Navy', hex: '#1A2B4A', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80',
       'https://images.unsplash.com/photo-1584865288642-42078afe6942?w=1200&q=80',
       'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&q=80',
-    
     tags: ['essential', 'tailoring'],
-    isNew: false,
-    isBestseller: true,
-    isFeatured: false,
-    isSustainable: false,
-    isLimited: false,
-    
-    rating: 4.7,
-    reviewCount: 178,
-    delivery: { standard: '5-7 business days', express: '2-3 business days', international: '7-14 business days', free: true },
+    isNew: false, isBestseller: true, isFeatured: false, isSustainable: false, isLimited: false,
+    rating: 4.7, reviewCount: 178,
+    delivery: { standard: '5-7 business days', express: '2-3 business days', international: 'Not available', free: true },
     weight: '480g',
-    origin: 'Tailored in Italy',
+    origin: 'Tailored in Kolkata',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 04 — SILK EVENING DRESS
-  // ─────────────────────────────────────────
   {
     id: 'MSN-004',
     slug: 'silk-evening-dress-noir',
@@ -283,20 +215,16 @@ export const products = [
     subtitle: 'Noir',
     category: 'dresses',
     collection: 'noir',
-    price: 2890,
+    price: 21500,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'Bias-cut silk crepe that moves like liquid. A dress designed for moments that matter — cocktail hours, gala evenings, unforgettable nights.',
-    
     editorial: 'The evening dress that renders all others obsolete. Bias-cut, fluid, eternal.',
-    
     materials: [
-      { name: 'Fabric', composition: '100% Silk Crepe', origin: 'Como, Italy' },
-      { name: 'Lining', composition: '100% Silk Habotai', origin: 'Como, Italy' },
+      { name: 'Fabric', composition: '100% Silk Crepe', origin: 'Bangalore, India' },
+      { name: 'Lining', composition: '100% Silk Habotai', origin: 'India' },
     ],
-    
     features: [
       'Bias-cut silk crepe',
       'Fully lined',
@@ -305,14 +233,12 @@ export const products = [
       'Cowl neckline',
       'Floor-length hemline',
     ],
-    
     care: [
       'Dry clean only',
       'Store on padded hanger in garment bag',
       'Steam gently to refresh',
       'Never iron directly',
     ],
-    
     sizes: [
       { size: 'XS', available: true, stock: 2 },
       { size: 'S', available: true, stock: 4 },
@@ -320,38 +246,24 @@ export const products = [
       { size: 'L', available: true, stock: 3 },
       { size: 'XL', available: false, stock: 0 },
     ],
-    
     colors: [
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Champagne', hex: '#E7D3AF', available: true },
       { name: 'Wine', hex: '#5C1A2B', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=1200&q=80',
       'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1200&q=80',
       'https://images.unsplash.com/photo-1618375569909-3c8616cf7733?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&q=80',
-    
     tags: ['featured', 'evening', 'new-arrival'],
-    isNew: true,
-    isBestseller: false,
-    isFeatured: true,
-    isSustainable: false,
-    isLimited: true,
-    
-    rating: 5.0,
-    reviewCount: 47,
-    delivery: { standard: '7-10 business days', express: '3-5 business days', international: '10-14 business days', free: true },
+    isNew: true, isBestseller: false, isFeatured: true, isSustainable: false, isLimited: true,
+    rating: 5.0, reviewCount: 47,
+    delivery: { standard: '7-10 business days', express: '3-5 business days', international: 'Not available', free: true },
     weight: '340g',
-    origin: 'Handmade in Paris',
+    origin: 'Handmade in Kolkata',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 05 — LEATHER TRENCH COAT
-  // ─────────────────────────────────────────
   {
     id: 'MSN-005',
     slug: 'leather-trench-coat-cognac',
@@ -359,23 +271,19 @@ export const products = [
     subtitle: 'Cognac',
     category: 'outerwear',
     collection: 'archive',
-    price: 5890,
+    price: 45000,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
-    description: 'Rare Tuscan calfskin, vegetable-tanned over 60 days. This trench will develop a patina unique to you — a garment that tells the story of your life.',
-    
+    description: 'Rare Indian buffalo leather, vegetable-tanned over 60 days. This trench will develop a patina unique to you — a garment that tells the story of your life.',
     editorial: 'A coat that improves with time. Every scratch, every fold, every day of wear becomes part of its beauty.',
-    
     materials: [
-      { name: 'Leather', composition: 'Vegetable-tanned Calfskin', origin: 'Tuscany, Italy' },
-      { name: 'Lining', composition: '100% Silk Twill', origin: 'Como, Italy' },
-      { name: 'Buckle', composition: 'Solid Brass', origin: 'France' },
+      { name: 'Leather', composition: 'Vegetable-tanned Buffalo', origin: 'Kanpur, India' },
+      { name: 'Lining', composition: '100% Silk Twill', origin: 'Bangalore, India' },
+      { name: 'Buckle', composition: 'Solid Brass', origin: 'India' },
     ],
-    
     features: [
-      'Vegetable-tanned Tuscan calfskin',
+      'Vegetable-tanned Indian leather',
       'Double-breasted closure',
       'Storm flap and back yoke',
       'Waist belt with brass buckle',
@@ -383,7 +291,6 @@ export const products = [
       'Silk-lined for comfort',
       'Will develop unique patina',
     ],
-    
     care: [
       'Wipe with dry cloth only',
       'Condition annually with luxury leather balm',
@@ -391,44 +298,29 @@ export const products = [
       'Keep away from direct sunlight',
       'Professional leather cleaning only',
     ],
-    
     sizes: [
       { size: 'S', available: true, stock: 2 },
       { size: 'M', available: true, stock: 3 },
       { size: 'L', available: true, stock: 2 },
       { size: 'XL', available: false, stock: 0 },
     ],
-    
     colors: [
       { name: 'Cognac', hex: '#8B4513', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1591047139756-eaad8203ad12?w=1200&q=80',
       'https://images.unsplash.com/photo-1520975954732-35dd22299614?w=1200&q=80',
       'https://images.unsplash.com/photo-1548624313-0396c75d5aaa?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1591047139756-eaad8203ad12?w=600&q=80',
-    
     tags: ['limited', 'archive', 'investment'],
-    isNew: false,
-    isBestseller: false,
-    isFeatured: true,
-    isSustainable: true,
-    isLimited: true,
-    
-    rating: 4.9,
-    reviewCount: 34,
-    delivery: { standard: '10-14 business days', express: '5-7 business days', international: '14-21 business days', free: true },
+    isNew: false, isBestseller: false, isFeatured: true, isSustainable: true, isLimited: true,
+    rating: 4.9, reviewCount: 34,
+    delivery: { standard: '10-14 business days', express: '5-7 business days', international: 'Not available', free: true },
     weight: '2.4kg',
-    origin: 'Handmade in Florence',
+    origin: 'Handmade in Kanpur',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 06 — COTTON POPLIN SHIRT
-  // ─────────────────────────────────────────
   {
     id: 'MSN-006',
     slug: 'cotton-poplin-shirt-white',
@@ -436,22 +328,18 @@ export const products = [
     subtitle: 'Optic White',
     category: 'shirts',
     collection: 'ivory',
-    price: 490,
+    price: 3500,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
-    description: 'The perfect white shirt. Crafted from Egyptian giza 87 cotton with mother-of-pearl buttons. A wardrobe cornerstone.',
-    
+    description: 'The perfect white shirt. Crafted from Indian giza cotton with mother-of-pearl buttons. A wardrobe cornerstone.',
     editorial: 'Some pieces need no explanation. This shirt is one of them.',
-    
     materials: [
-      { name: 'Fabric', composition: '100% Egyptian Giza 87 Cotton', origin: 'Egypt' },
-      { name: 'Buttons', composition: 'Mother-of-pearl', origin: 'France' },
+      { name: 'Fabric', composition: '100% Indian Giza Cotton', origin: 'Gujarat, India' },
+      { name: 'Buttons', composition: 'Mother-of-pearl', origin: 'India' },
     ],
-    
     features: [
-      'Egyptian Giza 87 cotton',
+      'Indian Giza cotton',
       '160 thread count',
       'Mother-of-pearl buttons',
       'Split back yoke',
@@ -459,14 +347,12 @@ export const products = [
       'French seams throughout',
       'Slim modern fit',
     ],
-    
     care: [
       'Machine wash cold, gentle cycle',
       'Iron while damp for best finish',
       'Use starch for crisp collar',
       'Hang immediately after washing',
     ],
-    
     sizes: [
       { size: 'XS', available: true, stock: 5 },
       { size: 'S', available: true, stock: 8 },
@@ -475,38 +361,24 @@ export const products = [
       { size: 'XL', available: true, stock: 6 },
       { size: 'XXL', available: true, stock: 3 },
     ],
-    
     colors: [
       { name: 'Optic White', hex: '#FFFFFF', available: true },
       { name: 'Ivory', hex: '#F5F0EB', available: true },
       { name: 'Pale Blue', hex: '#D6E4F0', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=1200&q=80',
       'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=1200&q=80',
       'https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&q=80',
-    
     tags: ['essential', 'bestseller'],
-    isNew: false,
-    isBestseller: true,
-    isFeatured: false,
-    isSustainable: true,
-    isLimited: false,
-    
-    rating: 4.8,
-    reviewCount: 412,
-    delivery: { standard: '3-5 business days', express: '1-2 business days', international: '7-10 business days', free: true },
+    isNew: false, isBestseller: true, isFeatured: false, isSustainable: true, isLimited: false,
+    rating: 4.8, reviewCount: 412,
+    delivery: { standard: '3-5 business days', express: '1-2 business days', international: 'Not available', free: true },
     weight: '220g',
-    origin: 'Made in Portugal',
+    origin: 'Made in Gujarat',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 07 — MERINO WOOL SWEATER
-  // ─────────────────────────────────────────
   {
     id: 'MSN-007',
     slug: 'merino-wool-sweater-camel',
@@ -514,19 +386,15 @@ export const products = [
     subtitle: 'Camel',
     category: 'knitwear',
     collection: 'atelier',
-    price: 690,
+    price: 4900,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
-    description: 'Extra-fine Merino wool from Australian farms committed to ethical practices. Traceable from sheep to sweater.',
-    
+    description: 'Extra-fine Merino wool from Himalayan farms committed to ethical practices. Traceable from sheep to sweater.',
     editorial: 'The everyday sweater refined to perfection. Warm without weight, soft without pilling.',
-    
     materials: [
-      { name: 'Yarn', composition: '100% Extra-fine Merino Wool', origin: 'Australia' },
+      { name: 'Yarn', composition: '100% Extra-fine Merino Wool', origin: 'Ladakh, India' },
     ],
-    
     features: [
       'Extra-fine 17.5 micron Merino',
       'Traceable ethical sourcing',
@@ -535,13 +403,11 @@ export const products = [
       'Natural stretch and recovery',
       'Naturally odor-resistant',
     ],
-    
     care: [
       'Hand wash cold',
       'Lay flat to dry',
       'Store folded with cedar',
     ],
-    
     sizes: [
       { size: 'XS', available: true, stock: 6 },
       { size: 'S', available: true, stock: 10 },
@@ -549,38 +415,24 @@ export const products = [
       { size: 'L', available: true, stock: 8 },
       { size: 'XL', available: true, stock: 4 },
     ],
-    
     colors: [
       { name: 'Camel', hex: '#C9A96E', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Charcoal', hex: '#2D2D2D', available: true },
       { name: 'Forest', hex: '#1A3D2E', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1608228088998-57828365d486?w=1200&q=80',
       'https://images.unsplash.com/photo-1580331451069-9cdbeba63b4c?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1608228088998-57828365d486?w=600&q=80',
-    
     tags: ['essential', 'sustainable'],
-    isNew: false,
-    isBestseller: false,
-    isFeatured: true,
-    isSustainable: true,
-    isLimited: false,
-    
-    rating: 4.7,
-    reviewCount: 156,
-    delivery: { standard: '3-5 business days', express: '1-2 business days', international: '7-10 business days', free: true },
+    isNew: false, isBestseller: false, isFeatured: true, isSustainable: true, isLimited: false,
+    rating: 4.7, reviewCount: 156,
+    delivery: { standard: '3-5 business days', express: '1-2 business days', international: 'Not available', free: true },
     weight: '320g',
-    origin: 'Knitted in Italy',
+    origin: 'Knitted in Ladakh',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 08 — CASHMERE BLAZER
-  // ─────────────────────────────────────────
   {
     id: 'MSN-008',
     slug: 'cashmere-blazer-charcoal',
@@ -588,20 +440,16 @@ export const products = [
     subtitle: 'Charcoal',
     category: 'tailoring',
     collection: 'atelier',
-    price: 4290,
+    price: 32000,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'Unstructured cashmere blazer that drapes like a cardigan but tailors like a jacket. Modern sophistication redefined.',
-    
     editorial: 'The blazer for the woman who refuses to choose between comfort and elegance.',
-    
     materials: [
-      { name: 'Shell', composition: '100% Cashmere', origin: 'Mongolia' },
-      { name: 'Lining', composition: '100% Silk', origin: 'Como, Italy' },
+      { name: 'Shell', composition: '100% Cashmere', origin: 'Kashmir, India' },
+      { name: 'Lining', composition: '100% Silk', origin: 'Bangalore, India' },
     ],
-    
     features: [
       'Pure cashmere construction',
       'Unstructured shoulder',
@@ -611,13 +459,7 @@ export const products = [
       'Silk lined',
       'Four-button cuffs (functional)',
     ],
-    
-    care: [
-      'Dry clean only',
-      'Store on padded hanger',
-      'Steam to refresh',
-    ],
-    
+    care: ['Dry clean only', 'Store on padded hanger', 'Steam to refresh'],
     sizes: [
       { size: 'XS', available: true, stock: 3 },
       { size: 'S', available: true, stock: 5 },
@@ -625,37 +467,23 @@ export const products = [
       { size: 'L', available: true, stock: 4 },
       { size: 'XL', available: true, stock: 2 },
     ],
-    
     colors: [
       { name: 'Charcoal', hex: '#2D2D2D', available: true },
       { name: 'Camel', hex: '#C9A96E', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=1200&q=80',
       'https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80',
-    
     tags: ['featured', 'investment'],
-    isNew: true,
-    isBestseller: false,
-    isFeatured: true,
-    isSustainable: true,
-    isLimited: false,
-    
-    rating: 4.9,
-    reviewCount: 89,
-    delivery: { standard: '5-7 business days', express: '2-3 business days', international: '7-14 business days', free: true },
+    isNew: true, isBestseller: false, isFeatured: true, isSustainable: true, isLimited: false,
+    rating: 4.9, reviewCount: 89,
+    delivery: { standard: '5-7 business days', express: '2-3 business days', international: 'Not available', free: true },
     weight: '890g',
-    origin: 'Tailored in Italy',
+    origin: 'Tailored in Kolkata',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 09 — SILK PAJAMA SET
-  // ─────────────────────────────────────────
   {
     id: 'MSN-009',
     slug: 'silk-pajama-set-pearl',
@@ -663,20 +491,16 @@ export const products = [
     subtitle: 'Pearl',
     category: 'shirts',
     collection: 'ivory',
-    price: 890,
+    price: 6800,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'Mulberry silk pajama set. Made to be worn as loungewear, as evening wear, as a statement of self.',
-    
     editorial: 'Silk that skims the body. Pajamas elevated beyond bedroom to lifestyle.',
-    
     materials: [
-      { name: 'Fabric', composition: '100% Mulberry Silk (22 momme)', origin: 'China' },
-      { name: 'Buttons', composition: 'Mother-of-pearl', origin: 'France' },
+      { name: 'Fabric', composition: '100% Mulberry Silk (22 momme)', origin: 'Karnataka, India' },
+      { name: 'Buttons', composition: 'Mother-of-pearl', origin: 'India' },
     ],
-    
     features: [
       '22 momme mulberry silk',
       'Piped edges in contrasting color',
@@ -685,13 +509,11 @@ export const products = [
       'Full-length trousers',
       'Notch collar shirt',
     ],
-    
     care: [
       'Hand wash cold with silk soap',
       'Hang to dry away from sun',
       'Iron on low from reverse side',
     ],
-    
     sizes: [
       { size: 'XS', available: true, stock: 4 },
       { size: 'S', available: true, stock: 7 },
@@ -699,37 +521,23 @@ export const products = [
       { size: 'L', available: true, stock: 5 },
       { size: 'XL', available: true, stock: 2 },
     ],
-    
     colors: [
       { name: 'Pearl', hex: '#E5E5E5', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Champagne', hex: '#E7D3AF', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=1200&q=80',
       'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=600&q=80',
-    
     tags: ['loungewear', 'new-arrival'],
-    isNew: true,
-    isBestseller: false,
-    isFeatured: false,
-    isSustainable: false,
-    isLimited: false,
-    
-    rating: 4.8,
-    reviewCount: 76,
-    delivery: { standard: '3-5 business days', express: '1-2 business days', international: '7-10 business days', free: true },
+    isNew: true, isBestseller: false, isFeatured: false, isSustainable: false, isLimited: false,
+    rating: 4.8, reviewCount: 76,
+    delivery: { standard: '3-5 business days', express: '1-2 business days', international: 'Not available', free: true },
     weight: '520g',
-    origin: 'Made in China',
+    origin: 'Made in Bangalore',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 10 — CROC LEATHER HANDBAG
-  // ─────────────────────────────────────────
   {
     id: 'MSN-010',
     slug: 'croc-leather-handbag-noir',
@@ -737,71 +545,49 @@ export const products = [
     subtitle: 'Noir',
     category: 'accessories',
     collection: 'archive',
-    price: 12900,
+    price: 98000,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
-    description: 'Ethically-sourced crocodile leather handbag. Numbered edition. The pinnacle of MAISON craftsmanship.',
-    
+    description: 'Ethically-sourced embossed leather handbag. Numbered edition. The pinnacle of MAISON craftsmanship.',
     editorial: 'One bag. A lifetime.',
-    
     materials: [
-      { name: 'Exterior', composition: 'Ethically-sourced Crocodile', origin: 'Australia' },
-      { name: 'Interior', composition: 'Suede Calfskin', origin: 'Italy' },
-      { name: 'Hardware', composition: '18k Gold-plated Brass', origin: 'France' },
+      { name: 'Exterior', composition: 'Ethically-sourced embossed Leather', origin: 'Chennai, India' },
+      { name: 'Interior', composition: 'Suede Calfskin', origin: 'India' },
+      { name: 'Hardware', composition: '18k Gold-plated Brass', origin: 'India' },
     ],
-    
     features: [
       'Numbered limited edition (of 100)',
-      'CITES-certified crocodile',
+      'Ethically-sourced leather',
       'Suede-lined interior',
       '18k gold-plated hardware',
       'Two interior pockets',
       'Detachable shoulder strap',
       'Comes with authentication card',
     ],
-    
     care: [
-      'Professional exotic leather care only',
+      'Professional leather care only',
       'Store in dust bag when not in use',
       'Never expose to water or extreme heat',
       'Rotate use to preserve shape',
     ],
-    
-    sizes: [
-      { size: 'One Size', available: true, stock: 3 },
-    ],
-    
+    sizes: [{ size: 'One Size', available: true, stock: 3 }],
     colors: [
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Cognac', hex: '#8B4513', available: false },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1200&q=80',
       'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80',
-    
     tags: ['limited', 'archive', 'exotic'],
-    isNew: false,
-    isBestseller: false,
-    isFeatured: true,
-    isSustainable: false,
-    isLimited: true,
-    
-    rating: 5.0,
-    reviewCount: 12,
-    delivery: { standard: '14-21 business days', express: '7-10 business days', international: '21-30 business days', free: true },
+    isNew: false, isBestseller: false, isFeatured: true, isSustainable: false, isLimited: true,
+    rating: 5.0, reviewCount: 12,
+    delivery: { standard: '14-21 business days', express: '7-10 business days', international: 'Not available', free: true },
     weight: '780g',
-    origin: 'Handmade in Paris',
+    origin: 'Handmade in Chennai',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 11 — LINEN SHIRT DRESS
-  // ─────────────────────────────────────────
   {
     id: 'MSN-011',
     slug: 'linen-shirt-dress-ivory',
@@ -809,35 +595,25 @@ export const products = [
     subtitle: 'Ivory',
     category: 'dresses',
     collection: 'ivory',
-    price: 790,
+    price: 5900,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
-    description: 'Belgian linen shirt dress. Effortless summer sophistication in its purest form.',
-    
+    description: 'Indian linen shirt dress. Effortless summer sophistication in its purest form.',
     editorial: 'The dress that transitions seamlessly from morning coffee to evening drinks.',
-    
     materials: [
-      { name: 'Fabric', composition: '100% Belgian Linen', origin: 'Belgium' },
-      { name: 'Buttons', composition: 'Mother-of-pearl', origin: 'France' },
+      { name: 'Fabric', composition: '100% Indian Linen', origin: 'Kerala, India' },
+      { name: 'Buttons', composition: 'Mother-of-pearl', origin: 'India' },
     ],
-    
     features: [
-      'Pure Belgian linen',
+      'Pure Indian linen',
       'Full button front',
       'Waist belt (removable)',
       'Two chest pockets',
       'Midi length',
       'Roll-up sleeves with tab',
     ],
-    
-    care: [
-      'Machine wash cold',
-      'Iron while damp',
-      'Enjoys natural wrinkles',
-    ],
-    
+    care: ['Machine wash cold', 'Iron while damp', 'Enjoys natural wrinkles'],
     sizes: [
       { size: 'XS', available: true, stock: 5 },
       { size: 'S', available: true, stock: 8 },
@@ -845,37 +621,23 @@ export const products = [
       { size: 'L', available: true, stock: 6 },
       { size: 'XL', available: true, stock: 3 },
     ],
-    
     colors: [
       { name: 'Ivory', hex: '#F5F0EB', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Sage', hex: '#8A9A8B', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1200&q=80',
       'https://images.unsplash.com/photo-1618375569909-3c8616cf7733?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80',
-    
     tags: ['summer', 'sustainable'],
-    isNew: true,
-    isBestseller: false,
-    isFeatured: false,
-    isSustainable: true,
-    isLimited: false,
-    
-    rating: 4.6,
-    reviewCount: 94,
-    delivery: { standard: '3-5 business days', express: '1-2 business days', international: '7-10 business days', free: true },
+    isNew: true, isBestseller: false, isFeatured: false, isSustainable: true, isLimited: false,
+    rating: 4.6, reviewCount: 94,
+    delivery: { standard: '3-5 business days', express: '1-2 business days', international: 'Not available', free: true },
     weight: '450g',
-    origin: 'Made in Portugal',
+    origin: 'Made in Kerala',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 12 — CASHMERE SCARF
-  // ─────────────────────────────────────────
   {
     id: 'MSN-012',
     slug: 'cashmere-scarf-camel',
@@ -883,103 +645,69 @@ export const products = [
     subtitle: 'Camel',
     category: 'accessories',
     collection: 'atelier',
-    price: 590,
+    price: 4200,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'Blanket-sized cashmere scarf. Wrap yourself in pure luxury.',
-    
     editorial: 'A scarf that becomes a wrap, a shawl, a statement.',
-    
-    materials: [
-      { name: 'Yarn', composition: '100% Mongolian Cashmere', origin: 'Mongolia' },
-    ],
-    
+    materials: [{ name: 'Yarn', composition: '100% Kashmiri Cashmere', origin: 'Kashmir, India' }],
     features: [
       'Oversized 220 x 90 cm',
       'Hand-fringed edges',
       'Ultra-soft brushed finish',
       'Naturally wrinkle-resistant',
     ],
-    
-    care: [
-      'Dry clean recommended',
-      'Or hand wash cold',
-      'Lay flat to dry',
-    ],
-    
-    sizes: [
-      { size: 'One Size', available: true, stock: 15 },
-    ],
-    
+    care: ['Dry clean recommended', 'Or hand wash cold', 'Lay flat to dry'],
+    sizes: [{ size: 'One Size', available: true, stock: 15 }],
     colors: [
       { name: 'Camel', hex: '#C9A96E', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Ivory', hex: '#F5F0EB', available: true },
       { name: 'Wine', hex: '#5C1A2B', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=1200&q=80',
       'https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600&q=80',
-    
     tags: ['gift', 'essential'],
-    isNew: false,
-    isBestseller: true,
-    isFeatured: false,
-    isSustainable: true,
-    isLimited: false,
-    
-    rating: 4.9,
-    reviewCount: 231,
-    delivery: { standard: '3-5 business days', express: '1-2 business days', international: '7-10 business days', free: true },
+    isNew: false, isBestseller: true, isFeatured: false, isSustainable: true, isLimited: false,
+    rating: 4.9, reviewCount: 231,
+    delivery: { standard: '3-5 business days', express: '1-2 business days', international: 'Not available', free: true },
     weight: '380g',
-    origin: 'Woven in Scotland',
+    origin: 'Woven in Kashmir',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 13 — DENIM JACKET
-  // ─────────────────────────────────────────
   {
     id: 'MSN-013',
     slug: 'japanese-denim-jacket',
-    name: 'Japanese Denim Jacket',
-    subtitle: 'Selvedge Indigo',
+    name: 'Selvedge Denim Jacket',
+    subtitle: 'Indigo',
     category: 'outerwear',
     collection: 'atelier',
-    price: 890,
+    price: 6900,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
-    description: 'Kaihara Mills selvedge denim jacket. The heritage piece reimagined.',
-    
+    description: 'Premium selvedge denim jacket. The heritage piece reimagined.',
     editorial: 'Denim as luxury. Denim as art. Denim as MAISON.',
-    
     materials: [
-      { name: 'Fabric', composition: '14oz Japanese Selvedge Denim', origin: 'Hiroshima, Japan' },
-      { name: 'Buttons', composition: 'Copper', origin: 'Japan' },
+      { name: 'Fabric', composition: '14oz Selvedge Denim', origin: 'Ahmedabad, India' },
+      { name: 'Buttons', composition: 'Copper', origin: 'India' },
     ],
-    
     features: [
-      'Kaihara Mills selvedge denim',
+      'Premium selvedge denim',
       '14oz weight',
       'Copper hardware',
       'Slim modern fit',
       'Chest pockets',
       'Chainstitch hem',
     ],
-    
     care: [
       'Wash rarely — freeze to refresh',
       'When needed, wash inside out in cold',
       'Hang dry always',
     ],
-    
     sizes: [
       { size: 'XS', available: true, stock: 4 },
       { size: 'S', available: true, stock: 7 },
@@ -987,36 +715,22 @@ export const products = [
       { size: 'L', available: true, stock: 5 },
       { size: 'XL', available: true, stock: 2 },
     ],
-    
     colors: [
       { name: 'Indigo', hex: '#3B4B75', available: true },
       { name: 'Black', hex: '#0A0A0A', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=1200&q=80',
       'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600&q=80',
-    
     tags: ['heritage', 'new-arrival'],
-    isNew: true,
-    isBestseller: false,
-    isFeatured: true,
-    isSustainable: true,
-    isLimited: false,
-    
-    rating: 4.8,
-    reviewCount: 67,
-    delivery: { standard: '5-7 business days', express: '2-3 business days', international: '7-14 business days', free: true },
+    isNew: true, isBestseller: false, isFeatured: true, isSustainable: true, isLimited: false,
+    rating: 4.8, reviewCount: 67,
+    delivery: { standard: '5-7 business days', express: '2-3 business days', international: 'Not available', free: true },
     weight: '720g',
-    origin: 'Made in Japan',
+    origin: 'Made in Ahmedabad',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 14 — SILK CAMISOLE
-  // ─────────────────────────────────────────
   {
     id: 'MSN-014',
     slug: 'silk-camisole-champagne',
@@ -1024,32 +738,18 @@ export const products = [
     subtitle: 'Champagne',
     category: 'shirts',
     collection: 'ivory',
-    price: 390,
+    price: 2800,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'Delicate silk camisole with lace detail. Layering perfected.',
-    
     editorial: 'Wear alone. Wear beneath tailoring. Wear it your way.',
-    
     materials: [
-      { name: 'Fabric', composition: '100% Silk Charmeuse', origin: 'Italy' },
-      { name: 'Trim', composition: 'French Chantilly Lace', origin: 'France' },
+      { name: 'Fabric', composition: '100% Silk Charmeuse', origin: 'Bangalore, India' },
+      { name: 'Trim', composition: 'French Chantilly Lace', origin: 'India' },
     ],
-    
-    features: [
-      'Silk charmeuse',
-      'French lace trim',
-      'Adjustable straps',
-      'V-neckline',
-    ],
-    
-    care: [
-      'Hand wash cold',
-      'Hang to dry',
-    ],
-    
+    features: ['Silk charmeuse', 'Lace trim', 'Adjustable straps', 'V-neckline'],
+    care: ['Hand wash cold', 'Hang to dry'],
     sizes: [
       { size: 'XS', available: true, stock: 6 },
       { size: 'S', available: true, stock: 10 },
@@ -1057,36 +757,20 @@ export const products = [
       { size: 'L', available: true, stock: 7 },
       { size: 'XL', available: true, stock: 3 },
     ],
-    
     colors: [
       { name: 'Champagne', hex: '#E7D3AF', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Ivory', hex: '#F5F0EB', available: true },
     ],
-    
-    images: [
-      'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80',
-    ],
-    
+    images: ['https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80'],
     thumbnail: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&q=80',
-    
     tags: ['essential', 'lingerie'],
-    isNew: false,
-    isBestseller: false,
-    isFeatured: false,
-    isSustainable: false,
-    isLimited: false,
-    
-    rating: 4.7,
-    reviewCount: 143,
-    delivery: { standard: '3-5 business days', express: '1-2 business days', international: '7-10 business days', free: true },
+    isNew: false, isBestseller: false, isFeatured: false, isSustainable: false, isLimited: false,
+    rating: 4.7, reviewCount: 143,
+    delivery: { standard: '3-5 business days', express: '1-2 business days', international: 'Not available', free: true },
     weight: '110g',
-    origin: 'Made in Italy',
+    origin: 'Made in Bangalore',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 15 — WOOL OVERCOAT
-  // ─────────────────────────────────────────
   {
     id: 'MSN-015',
     slug: 'wool-overcoat-camel',
@@ -1094,31 +778,18 @@ export const products = [
     subtitle: 'Camel',
     category: 'outerwear',
     collection: 'noir',
-    price: 2890,
+    price: 22000,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'Pure camel hair overcoat. The winter essential that never goes out of style.',
-    
     editorial: 'Warmth wrapped in elegance.',
-    
     materials: [
-      { name: 'Shell', composition: '100% Camel Hair', origin: 'Mongolia' },
-      { name: 'Lining', composition: '100% Cupro', origin: 'Italy' },
+      { name: 'Shell', composition: '100% Camel Hair', origin: 'Rajasthan, India' },
+      { name: 'Lining', composition: '100% Cupro', origin: 'India' },
     ],
-    
-    features: [
-      'Pure camel hair',
-      'Double-breasted',
-      'Notch lapel',
-      'Structured shoulders',
-    ],
-    
-    care: [
-      'Dry clean only',
-    ],
-    
+    features: ['Pure camel hair', 'Double-breasted', 'Notch lapel', 'Structured shoulders'],
+    care: ['Dry clean only'],
     sizes: [
       { size: 'XS', available: true, stock: 3 },
       { size: 'S', available: true, stock: 5 },
@@ -1126,34 +797,16 @@ export const products = [
       { size: 'L', available: true, stock: 4 },
       { size: 'XL', available: true, stock: 2 },
     ],
-    
-    colors: [
-      { name: 'Camel', hex: '#C9A96E', available: true },
-    ],
-    
-    images: [
-      'https://images.unsplash.com/photo-1548126032-079a0fb0099d?w=1200&q=80',
-    ],
-    
+    colors: [{ name: 'Camel', hex: '#C9A96E', available: true }],
+    images: ['https://images.unsplash.com/photo-1548126032-079a0fb0099d?w=1200&q=80'],
     thumbnail: 'https://images.unsplash.com/photo-1548126032-079a0fb0099d?w=600&q=80',
-    
     tags: ['featured', 'winter'],
-    isNew: false,
-    isBestseller: true,
-    isFeatured: true,
-    isSustainable: true,
-    isLimited: false,
-    
-    rating: 4.9,
-    reviewCount: 178,
-    delivery: { standard: '5-7 business days', express: '2-3 business days', international: '7-14 business days', free: true },
+    isNew: false, isBestseller: true, isFeatured: true, isSustainable: true, isLimited: false,
+    rating: 4.9, reviewCount: 178,
+    delivery: { standard: '5-7 business days', express: '2-3 business days', international: 'Not available', free: true },
     weight: '1.6kg',
-    origin: 'Tailored in Italy',
+    origin: 'Tailored in Kolkata',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 16 — SILK BLOUSE
-  // ─────────────────────────────────────────
   {
     id: 'MSN-016',
     slug: 'silk-blouse-noir',
@@ -1161,30 +814,15 @@ export const products = [
     subtitle: 'Noir',
     category: 'shirts',
     collection: 'noir',
-    price: 590,
+    price: 4400,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'Fluid silk blouse with pussy-bow tie. Modern romance.',
-    
     editorial: 'Wear it with denim. Wear it with tailoring. It always wins.',
-    
-    materials: [
-      { name: 'Fabric', composition: '100% Silk Crepe de Chine', origin: 'Italy' },
-    ],
-    
-    features: [
-      'Silk crepe de chine',
-      'Pussy-bow tie',
-      'Long sleeves with cuffs',
-      'Semi-fitted silhouette',
-    ],
-    
-    care: [
-      'Dry clean recommended',
-    ],
-    
+    materials: [{ name: 'Fabric', composition: '100% Silk Crepe de Chine', origin: 'Karnataka, India' }],
+    features: ['Silk crepe de chine', 'Pussy-bow tie', 'Long sleeves with cuffs', 'Semi-fitted silhouette'],
+    care: ['Dry clean recommended'],
     sizes: [
       { size: 'XS', available: true, stock: 4 },
       { size: 'S', available: true, stock: 7 },
@@ -1192,35 +830,19 @@ export const products = [
       { size: 'L', available: true, stock: 5 },
       { size: 'XL', available: true, stock: 2 },
     ],
-    
     colors: [
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Ivory', hex: '#F5F0EB', available: true },
     ],
-    
-    images: [
-      'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=1200&q=80',
-    ],
-    
+    images: ['https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=1200&q=80'],
     thumbnail: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&q=80',
-    
     tags: ['essential'],
-    isNew: false,
-    isBestseller: false,
-    isFeatured: false,
-    isSustainable: false,
-    isLimited: false,
-    
-    rating: 4.7,
-    reviewCount: 89,
-    delivery: { standard: '3-5 business days', express: '1-2 business days', international: '7-10 business days', free: true },
+    isNew: false, isBestseller: false, isFeatured: false, isSustainable: false, isLimited: false,
+    rating: 4.7, reviewCount: 89,
+    delivery: { standard: '3-5 business days', express: '1-2 business days', international: 'Not available', free: true },
     weight: '180g',
-    origin: 'Made in Italy',
+    origin: 'Made in Bangalore',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 17 — WOOL SUIT PANTS
-  // ─────────────────────────────────────────
   {
     id: 'MSN-017',
     slug: 'wool-suit-pants-noir',
@@ -1228,30 +850,15 @@ export const products = [
     subtitle: 'Noir',
     category: 'trousers',
     collection: 'noir',
-    price: 990,
+    price: 7500,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'High-waisted wide-leg trousers. Drama in tailoring.',
-    
     editorial: 'The trouser that walks into a room and owns it.',
-    
-    materials: [
-      { name: 'Fabric', composition: 'Super 120s Wool', origin: 'Italy' },
-    ],
-    
-    features: [
-      'High-waisted',
-      'Wide leg',
-      'Front pleats',
-      'Side seam pockets',
-    ],
-    
-    care: [
-      'Dry clean only',
-    ],
-    
+    materials: [{ name: 'Fabric', composition: 'Super 120s Wool', origin: 'Italy' }],
+    features: ['High-waisted', 'Wide leg', 'Front pleats', 'Side seam pockets'],
+    care: ['Dry clean only'],
     sizes: [
       { size: '28', available: true, stock: 4 },
       { size: '30', available: true, stock: 8 },
@@ -1259,35 +866,19 @@ export const products = [
       { size: '34', available: true, stock: 9 },
       { size: '36', available: true, stock: 5 },
     ],
-    
     colors: [
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Charcoal', hex: '#2D2D2D', available: true },
     ],
-    
-    images: [
-      'https://images.unsplash.com/photo-1584865288642-42078afe6942?w=1200&q=80',
-    ],
-    
+    images: ['https://images.unsplash.com/photo-1584865288642-42078afe6942?w=1200&q=80'],
     thumbnail: 'https://images.unsplash.com/photo-1584865288642-42078afe6942?w=600&q=80',
-    
     tags: ['tailoring', 'new-arrival'],
-    isNew: true,
-    isBestseller: false,
-    isFeatured: false,
-    isSustainable: false,
-    isLimited: false,
-    
-    rating: 4.8,
-    reviewCount: 56,
-    delivery: { standard: '5-7 business days', express: '2-3 business days', international: '7-14 business days', free: true },
+    isNew: true, isBestseller: false, isFeatured: false, isSustainable: false, isLimited: false,
+    rating: 4.8, reviewCount: 56,
+    delivery: { standard: '5-7 business days', express: '2-3 business days', international: 'Not available', free: true },
     weight: '520g',
-    origin: 'Tailored in Italy',
+    origin: 'Tailored in Kolkata',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 18 — LEATHER GLOVES
-  // ─────────────────────────────────────────
   {
     id: 'MSN-018',
     slug: 'nappa-leather-gloves',
@@ -1295,31 +886,18 @@ export const products = [
     subtitle: 'Noir',
     category: 'accessories',
     collection: 'atelier',
-    price: 290,
+    price: 2100,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'Silk-lined Nappa leather gloves. A tactile pleasure.',
-    
     editorial: 'The details that separate MAISON from all others.',
-    
     materials: [
-      { name: 'Leather', composition: 'Italian Nappa', origin: 'Italy' },
-      { name: 'Lining', composition: '100% Silk', origin: 'China' },
+      { name: 'Leather', composition: 'Indian Nappa', origin: 'Kanpur, India' },
+      { name: 'Lining', composition: '100% Silk', origin: 'India' },
     ],
-    
-    features: [
-      'Italian Nappa leather',
-      'Silk-lined for warmth',
-      'Hand-stitched',
-    ],
-    
-    care: [
-      'Wipe with damp cloth',
-      'Condition with leather balm annually',
-    ],
-    
+    features: ['Indian Nappa leather', 'Silk-lined for warmth', 'Hand-stitched'],
+    care: ['Wipe with damp cloth', 'Condition with leather balm annually'],
     sizes: [
       { size: '7', available: true, stock: 8 },
       { size: '7.5', available: true, stock: 10 },
@@ -1327,35 +905,19 @@ export const products = [
       { size: '8.5', available: true, stock: 8 },
       { size: '9', available: true, stock: 5 },
     ],
-    
     colors: [
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Cognac', hex: '#8B4513', available: true },
     ],
-    
-    images: [
-      'https://images.unsplash.com/photo-1544441893-675973e31985?w=1200&q=80',
-    ],
-    
+    images: ['https://images.unsplash.com/photo-1544441893-675973e31985?w=1200&q=80'],
     thumbnail: 'https://images.unsplash.com/photo-1544441893-675973e31985?w=600&q=80',
-    
     tags: ['essential', 'gift'],
-    isNew: false,
-    isBestseller: false,
-    isFeatured: false,
-    isSustainable: false,
-    isLimited: false,
-    
-    rating: 4.9,
-    reviewCount: 124,
-    delivery: { standard: '3-5 business days', express: '1-2 business days', international: '7-10 business days', free: true },
+    isNew: false, isBestseller: false, isFeatured: false, isSustainable: false, isLimited: false,
+    rating: 4.9, reviewCount: 124,
+    delivery: { standard: '3-5 business days', express: '1-2 business days', international: 'Not available', free: true },
     weight: '95g',
-    origin: 'Made in Italy',
+    origin: 'Made in Kanpur',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 19 — COTTON T-SHIRT
-  // ─────────────────────────────────────────
   {
     id: 'MSN-019',
     slug: 'premium-cotton-tshirt',
@@ -1363,31 +925,15 @@ export const products = [
     subtitle: 'Ivory',
     category: 'shirts',
     collection: 'ivory',
-    price: 190,
+    price: 1400,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
-    description: 'Supima cotton t-shirt. The essential redefined.',
-    
+    description: 'Premium cotton t-shirt. The essential redefined.',
     editorial: 'Even our t-shirt is obsessed over.',
-    
-    materials: [
-      { name: 'Fabric', composition: '100% Supima Cotton', origin: 'USA' },
-    ],
-    
-    features: [
-      'Supima cotton',
-      'Garment-dyed',
-      'Reinforced neckline',
-      'Side seams for perfect fit',
-    ],
-    
-    care: [
-      'Machine wash cold',
-      'Tumble dry low',
-    ],
-    
+    materials: [{ name: 'Fabric', composition: '100% Premium Cotton', origin: 'Gujarat, India' }],
+    features: ['Premium cotton', 'Garment-dyed', 'Reinforced neckline', 'Side seams for perfect fit'],
+    care: ['Machine wash cold', 'Tumble dry low'],
     sizes: [
       { size: 'XS', available: true, stock: 15 },
       { size: 'S', available: true, stock: 20 },
@@ -1396,37 +942,21 @@ export const products = [
       { size: 'XL', available: true, stock: 10 },
       { size: 'XXL', available: true, stock: 5 },
     ],
-    
     colors: [
       { name: 'Ivory', hex: '#F5F0EB', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Charcoal', hex: '#2D2D2D', available: true },
       { name: 'Camel', hex: '#C9A96E', available: true },
     ],
-    
-    images: [
-      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1200&q=80',
-    ],
-    
+    images: ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1200&q=80'],
     thumbnail: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80',
-    
     tags: ['essential', 'bestseller'],
-    isNew: false,
-    isBestseller: true,
-    isFeatured: false,
-    isSustainable: true,
-    isLimited: false,
-    
-    rating: 4.8,
-    reviewCount: 567,
-    delivery: { standard: '3-5 business days', express: '1-2 business days', international: '7-10 business days', free: true },
+    isNew: false, isBestseller: true, isFeatured: false, isSustainable: true, isLimited: false,
+    rating: 4.8, reviewCount: 567,
+    delivery: { standard: '3-5 business days', express: '1-2 business days', international: 'Not available', free: true },
     weight: '180g',
-    origin: 'Made in Portugal',
+    origin: 'Made in Gujarat',
   },
-  
-  // ─────────────────────────────────────────
-  // PRODUCT 20 — SILK MIDI DRESS
-  // ─────────────────────────────────────────
   {
     id: 'MSN-020',
     slug: 'silk-midi-dress-burgundy',
@@ -1434,31 +964,15 @@ export const products = [
     subtitle: 'Burgundy',
     category: 'dresses',
     collection: 'archive',
-    price: 1890,
+    price: 14500,
     originalPrice: null,
-    currency: 'USD',
+    currency: 'INR',
     discount: 0,
-    
     description: 'Silk satin midi dress with cowl neck. Cocktail hour redefined.',
-    
     editorial: 'The dress that turns dinner into an event.',
-    
-    materials: [
-      { name: 'Fabric', composition: '100% Silk Satin', origin: 'Italy' },
-    ],
-    
-    features: [
-      'Silk satin',
-      'Cowl neckline',
-      'Bias cut',
-      'Midi length',
-      'Invisible side zip',
-    ],
-    
-    care: [
-      'Dry clean only',
-    ],
-    
+    materials: [{ name: 'Fabric', composition: '100% Silk Satin', origin: 'Bangalore, India' }],
+    features: ['Silk satin', 'Cowl neckline', 'Bias cut', 'Midi length', 'Invisible side zip'],
+    care: ['Dry clean only'],
     sizes: [
       { size: 'XS', available: true, stock: 2 },
       { size: 'S', available: true, stock: 4 },
@@ -1466,75 +980,39 @@ export const products = [
       { size: 'L', available: true, stock: 3 },
       { size: 'XL', available: false, stock: 0 },
     ],
-    
     colors: [
       { name: 'Burgundy', hex: '#4A0E1F', available: true },
       { name: 'Noir', hex: '#0A0A0A', available: true },
       { name: 'Champagne', hex: '#E7D3AF', available: true },
     ],
-    
     images: [
       'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1200&q=80',
       'https://images.unsplash.com/photo-1618375569909-3c8616cf7733?w=1200&q=80',
     ],
-    
     thumbnail: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80',
-    
     tags: ['evening', 'new-arrival', 'limited'],
-    isNew: true,
-    isBestseller: false,
-    isFeatured: true,
-    isSustainable: false,
-    isLimited: true,
-    
-    rating: 4.9,
-    reviewCount: 42,
-    delivery: { standard: '7-10 business days', express: '3-5 business days', international: '10-14 business days', free: true },
+    isNew: true, isBestseller: false, isFeatured: true, isSustainable: false, isLimited: true,
+    rating: 4.9, reviewCount: 42,
+    delivery: { standard: '7-10 business days', express: '3-5 business days', international: 'Not available', free: true },
     weight: '390g',
-    origin: 'Handmade in Paris',
+    origin: 'Handmade in Bangalore',
   },
 ]
 
-// ═══════════════════════════════════════════════════════════════
 // HELPER FUNCTIONS
-// ═══════════════════════════════════════════════════════════════
-
-// Get all products
 export const getAllProducts = () => products
-
-// Get product by ID
 export const getProductById = (id) => products.find(p => p.id === id)
-
-// Get product by slug
 export const getProductBySlug = (slug) => products.find(p => p.slug === slug)
-
-// Get products by category
 export const getProductsByCategory = (category) => {
   if (category === 'all') return products
   return products.filter(p => p.category === category)
 }
-
-// Get products by collection
 export const getProductsByCollection = (collection) => 
   products.filter(p => p.collection === collection)
-
-// Get featured products
-export const getFeaturedProducts = () => 
-  products.filter(p => p.isFeatured)
-
-// Get new arrivals
-export const getNewArrivals = () => 
-  products.filter(p => p.isNew)
-
-// Get bestsellers
-export const getBestsellers = () => 
-  products.filter(p => p.isBestseller)
-
-// Get limited editions
-export const getLimitedEditions = () => 
-  products.filter(p => p.isLimited)
-
-// Get related products (same category, different ID)
+export const getFeaturedProducts = () => products.filter(p => p.isFeatured)
+export const getNewArrivals = () => products.filter(p => p.isNew)
+export const getBestsellers = () => products.filter(p => p.isBestseller)
+export const getLimitedEditions = () => products.filter(p => p.isLimited)
 export const getRelatedProducts = (productId, limit = 4) => {
   const product = getProductById(productId)
   if (!product) return []
@@ -1542,8 +1020,6 @@ export const getRelatedProducts = (productId, limit = 4) => {
     .filter(p => p.category === product.category && p.id !== productId)
     .slice(0, limit)
 }
-
-// Search products
 export const searchProducts = (query) => {
   const lowerQuery = query.toLowerCase()
   return products.filter(p => 
@@ -1554,25 +1030,16 @@ export const searchProducts = (query) => {
     p.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
   )
 }
-
-// Sort products
 export const sortProducts = (productsArray, sortBy) => {
   const sorted = [...productsArray]
   switch (sortBy) {
-    case 'price-low':
-      return sorted.sort((a, b) => a.price - b.price)
-    case 'price-high':
-      return sorted.sort((a, b) => b.price - a.price)
-    case 'name-asc':
-      return sorted.sort((a, b) => a.name.localeCompare(b.name))
-    case 'name-desc':
-      return sorted.sort((a, b) => b.name.localeCompare(a.name))
-    case 'newest':
-      return sorted.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0))
-    case 'rating':
-      return sorted.sort((a, b) => b.rating - a.rating)
-    default:
-      return sorted
+    case 'price-low': return sorted.sort((a, b) => a.price - b.price)
+    case 'price-high': return sorted.sort((a, b) => b.price - a.price)
+    case 'name-asc': return sorted.sort((a, b) => a.name.localeCompare(b.name))
+    case 'name-desc': return sorted.sort((a, b) => b.name.localeCompare(a.name))
+    case 'newest': return sorted.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0))
+    case 'rating': return sorted.sort((a, b) => b.rating - a.rating)
+    default: return sorted
   }
 }
 
