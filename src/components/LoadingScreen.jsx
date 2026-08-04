@@ -3,10 +3,8 @@ import { useState, useEffect, useRef } from 'react'
 import { FiArrowRight } from 'react-icons/fi'
 
 // ═══════════════════════════════════════════════════════════════
-// MAISON — OPTIMIZED LOADING SCREEN
-// Same complexity, smooth 60fps performance
-// CSS animations for repeating elements (GPU accelerated)
-// Framer Motion only for critical transitions
+// MAISON — ULTRA-OPTIMIZED LOADING SCREEN
+// 60fps smooth on ALL devices
 // ═══════════════════════════════════════════════════════════════
 
 const LoadingScreen = () => {
@@ -20,7 +18,7 @@ const LoadingScreen = () => {
   const startTimeRef = useRef(null)
   const animationRef = useRef(null)
   
-  const DURATION = 5000  // 5 seconds - sweet spot
+  const DURATION = 5000
   
   const messages = [
     'Curating your experience',
@@ -85,17 +83,11 @@ const LoadingScreen = () => {
         transition: { duration: 1.4, ease: [0.87, 0, 0.13, 1], delay: 0.3 }
       }}
     >
-      {/* ═══════════════════════════════════════════════
-          ALL BACKGROUND EFFECTS — CSS ONLY (GPU FAST)
-      ═══════════════════════════════════════════════ */}
-      
-      {/* Breathing gradient */}
+      {/* Breathing backgrounds */}
       <div className="absolute inset-0 pointer-events-none breathing-bg" />
-      
-      {/* Secondary gradient */}
       <div className="absolute inset-0 pointer-events-none breathing-bg-2" />
       
-      {/* Aurora effect */}
+      {/* Aurora */}
       <div className="absolute inset-0 pointer-events-none aurora-effect" />
       
       {/* Film grain */}
@@ -104,75 +96,62 @@ const LoadingScreen = () => {
       {/* Light beam */}
       <div className="absolute inset-0 pointer-events-none light-beam" />
       
-      {/* ═══════════════════════════════════════════════
-          6 AMBIENT ORBS (CSS animated - smooth)
-      ═══════════════════════════════════════════════ */}
+      {/* 4 orbs (reduced from 6) */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="ambient-orb orb-1" />
         <div className="ambient-orb orb-2" />
         <div className="ambient-orb orb-3" />
         <div className="ambient-orb orb-4" />
-        <div className="ambient-orb orb-5" />
-        <div className="ambient-orb orb-6" />
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          25 PARTICLES (CSS - GPU accelerated)
-          Reduced from 50 but looks the same
-      ═══════════════════════════════════════════════ */}
-      <div className="absolute inset-0 pointer-events-none particles-container">
-        {[...Array(25)].map((_, i) => (
+      {/* 20 particles (reduced from 25) */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
           <div 
             key={`particle-${i}`}
-            className={`particle particle-${(i % 5) + 1}`}
+            className={`particle particle-${(i % 4) + 1}`}
             style={{
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${8 + Math.random() * 6}s`,
+              animationDuration: `${9 + Math.random() * 5}s`,
             }}
           />
         ))}
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          12 SPARKLES (CSS animated)
-      ═══════════════════════════════════════════════ */}
+      {/* 8 sparkles (reduced from 12) */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div 
             key={`sparkle-${i}`}
             className="sparkle"
             style={{
-              left: `${10 + Math.random() * 80}%`,
-              top: `${10 + Math.random() * 80}%`,
+              left: `${15 + Math.random() * 70}%`,
+              top: `${15 + Math.random() * 70}%`,
               animationDelay: `${Math.random() * 4}s`,
             }}
           />
         ))}
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          FALLING GOLD DUST (CSS)
-      ═══════════════════════════════════════════════ */}
+      {/* 10 gold dust (reduced from 15) */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <div 
             key={`dust-${i}`}
             className="gold-dust"
             style={{
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${8 + Math.random() * 4}s`,
+              animationDuration: `${9 + Math.random() * 4}s`,
             }}
           />
         ))}
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          CONSTELLATION DOTS
-      ═══════════════════════════════════════════════ */}
+      {/* 8 constellation dots (reduced from 10) */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(10)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div 
             key={`const-${i}`}
             className="constellation-dot"
@@ -185,36 +164,26 @@ const LoadingScreen = () => {
         ))}
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          ORBITAL RINGS (CSS rotating)
-      ═══════════════════════════════════════════════ */}
+      {/* 3 orbital rings (reduced from 4) */}
       <div className="orbital-ring ring-1" />
       <div className="orbital-ring ring-2" />
       <div className="orbital-ring ring-3" />
-      <div className="orbital-ring ring-4" />
       
-      {/* Orbiting dots on rings */}
+      {/* 2 orbiting dots (reduced from 3) */}
       <div className="ring-orbit ring-orbit-1">
         <div className="orbit-dot orbit-dot-gold" />
       </div>
       <div className="ring-orbit ring-orbit-2">
         <div className="orbit-dot orbit-dot-champagne" />
       </div>
-      <div className="ring-orbit ring-orbit-3">
-        <div className="orbit-dot orbit-dot-rose" />
-      </div>
       
-      {/* Expanding ripples */}
+      {/* 2 ripples (reduced from 3) */}
       <div className="ripple ripple-1" />
       <div className="ripple ripple-2" />
-      <div className="ripple ripple-3" />
       
-      {/* ═══════════════════════════════════════════════
-          MAIN CONTENT (Framer Motion for critical transitions)
-      ═══════════════════════════════════════════════ */}
+      {/* MAIN CONTENT */}
       <div className="relative z-10 flex flex-col items-center px-6">
         
-        {/* Top Label */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -228,7 +197,6 @@ const LoadingScreen = () => {
               fontSize: '0.65rem', 
               letterSpacing: '0.4em',
               color: '#E4B590',
-              textShadow: '0 0 10px rgba(232, 181, 148, 0.5)',
             }}
           >
             Est. Kolkata · 2025
@@ -236,7 +204,6 @@ const LoadingScreen = () => {
           <div className="w-12 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
         </motion.div>
         
-        {/* MAISON Logo */}
         <div className="flex items-center justify-center relative">
           <motion.div
             className="absolute bottom-0 left-0 right-0 h-[2px] logo-underline"
@@ -286,7 +253,6 @@ const LoadingScreen = () => {
           ))}
         </div>
         
-        {/* Tagline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={showLogo ? { opacity: 1, y: 0 } : {}}
@@ -295,13 +261,11 @@ const LoadingScreen = () => {
           style={{ 
             fontSize: 'clamp(1rem, 1.5vw, 1.375rem)',
             color: '#E4B590',
-            textShadow: '0 0 20px rgba(232, 181, 148, 0.4)',
           }}
         >
           Where craftsmanship meets couture
         </motion.p>
         
-        {/* Diamond decoration */}
         <motion.div
           initial={{ scale: 0 }}
           animate={showLogo ? { scale: 1 } : {}}
@@ -309,7 +273,6 @@ const LoadingScreen = () => {
           className="mt-8 diamond-decoration"
         />
         
-        {/* Progress Bar */}
         <div className="mt-16 md:mt-20 w-64 md:w-80">
           
           <motion.div
@@ -320,13 +283,9 @@ const LoadingScreen = () => {
           >
             <div
               className="absolute inset-y-0 left-0 rounded-full progress-fill"
-              style={{
-                width: `${progress}%`,
-              }}
+              style={{ width: `${progress}%` }}
             />
-            
             <div className="progress-shimmer" />
-            
             <div
               className="absolute top-1/2 -translate-y-1/2 progress-dot"
               style={{
@@ -361,9 +320,7 @@ const LoadingScreen = () => {
             </AnimatePresence>
             
             <div className="flex items-baseline gap-1">
-              <span 
-                className="text-tiny tracking-widest font-mono tabular-nums font-medium progress-counter"
-              >
+              <span className="text-tiny tracking-widest font-mono tabular-nums font-medium progress-counter">
                 {String(Math.floor(progress)).padStart(3, '0')}
               </span>
               <span 
@@ -377,9 +334,6 @@ const LoadingScreen = () => {
         </div>
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          SKIP BUTTON
-      ═══════════════════════════════════════════════ */}
       <AnimatePresence>
         {showSkip && (
           <motion.div
@@ -418,7 +372,7 @@ const LoadingScreen = () => {
             </button>
             
             <p
-              className="mt-4 text-center font-cormorant italic text-champagne/70 skip-hint"
+              className="mt-4 text-center font-cormorant italic text-champagne/70"
               style={{ fontSize: '0.85rem' }}
             >
               or wait for the magic ✨
@@ -428,36 +382,43 @@ const LoadingScreen = () => {
       </AnimatePresence>
       
       {/* ═══════════════════════════════════════════════
-          ALL CSS ANIMATIONS (GPU ACCELERATED!)
+          OPTIMIZED CSS — GPU accelerated
       ═══════════════════════════════════════════════ */}
       <style>{`
-        /* Force GPU acceleration */
+        /* Force GPU acceleration + Contain paint area */
+        .loading-screen-container {
+          contain: strict;
+          will-change: transform, opacity;
+        }
+        
         .loading-screen-container * {
-          will-change: auto;
           transform: translateZ(0);
           backface-visibility: hidden;
         }
         
-        /* BREATHING BACKGROUNDS */
+        /* BREATHING BACKGROUNDS - reduced blur intensity */
         .breathing-bg {
-          background: radial-gradient(circle at center, rgba(200, 121, 82, 0.35) 0%, transparent 60%);
-          animation: breathe 5s ease-in-out infinite;
+          background: radial-gradient(circle at center, rgba(200, 121, 82, 0.3) 0%, transparent 60%);
+          animation: breathe 6s ease-in-out infinite;
+          will-change: transform, opacity;
         }
         
         .breathing-bg-2 {
-          background: radial-gradient(circle at 30% 70%, rgba(92, 30, 46, 0.35) 0%, transparent 50%);
-          animation: breathe 7s ease-in-out infinite 1s;
+          background: radial-gradient(circle at 30% 70%, rgba(92, 30, 46, 0.3) 0%, transparent 50%);
+          animation: breathe 8s ease-in-out infinite 1s;
+          will-change: transform, opacity;
         }
         
         @keyframes breathe {
           0%, 100% { opacity: 0.4; transform: scale(1) translateZ(0); }
-          50% { opacity: 0.7; transform: scale(1.1) translateZ(0); }
+          50% { opacity: 0.65; transform: scale(1.08) translateZ(0); }
         }
         
-        /* AURORA EFFECT */
+        /* AURORA - lighter version */
         .aurora-effect {
-          background: linear-gradient(45deg, transparent 0%, rgba(200, 121, 82, 0.15) 30%, transparent 60%);
-          animation: aurora 10s linear infinite;
+          background: linear-gradient(45deg, transparent 30%, rgba(200, 121, 82, 0.12) 50%, transparent 70%);
+          animation: aurora 12s linear infinite;
+          will-change: transform;
         }
         
         @keyframes aurora {
@@ -467,26 +428,27 @@ const LoadingScreen = () => {
         
         /* FILM GRAIN */
         .film-grain {
-          opacity: 0.06;
+          opacity: 0.05;
           mix-blend-mode: overlay;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-          animation: grainMove 8s steps(10) infinite;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+          animation: grainMove 8s steps(6) infinite;
+          will-change: transform;
         }
         
         @keyframes grainMove {
           0%, 100% { transform: translate(0, 0) translateZ(0); }
-          20% { transform: translate(-10%, 5%) translateZ(0); }
-          40% { transform: translate(5%, -10%) translateZ(0); }
-          60% { transform: translate(-5%, 10%) translateZ(0); }
-          80% { transform: translate(10%, -5%) translateZ(0); }
+          25% { transform: translate(-10%, 5%) translateZ(0); }
+          50% { transform: translate(5%, -10%) translateZ(0); }
+          75% { transform: translate(-5%, 10%) translateZ(0); }
         }
         
         /* LIGHT BEAM */
         .light-beam {
-          background: linear-gradient(90deg, transparent 45%, rgba(200, 121, 82, 0.3) 50%, transparent 55%);
-          animation: lightBeam 4s linear infinite;
+          background: linear-gradient(90deg, transparent 45%, rgba(200, 121, 82, 0.25) 50%, transparent 55%);
+          animation: lightBeam 5s linear infinite;
           mix-blend-mode: screen;
-          opacity: 0.4;
+          opacity: 0.35;
+          will-change: transform;
         }
         
         @keyframes lightBeam {
@@ -494,29 +456,30 @@ const LoadingScreen = () => {
           100% { transform: translateX(100%) translateZ(0); }
         }
         
-        /* AMBIENT ORBS */
+        /* AMBIENT ORBS - SMALLER BLUR (main performance killer) */
         .ambient-orb {
           position: absolute;
           border-radius: 50%;
-          filter: blur(50px);
-          animation: orbFloat 12s ease-in-out infinite;
+          filter: blur(40px);
+          animation: orbFloat 14s ease-in-out infinite;
+          will-change: transform;
         }
         
         .orb-1 {
           top: 10%; left: 10%;
-          width: 400px; height: 400px;
+          width: 350px; height: 350px;
           background: radial-gradient(circle, rgba(200, 121, 82, 0.25) 0%, transparent 70%);
           animation-delay: 0s;
         }
         .orb-2 {
           top: 65%; left: 75%;
-          width: 500px; height: 500px;
+          width: 400px; height: 400px;
           background: radial-gradient(circle, rgba(232, 181, 148, 0.25) 0%, transparent 70%);
           animation-delay: 2s;
         }
         .orb-3 {
           top: 75%; left: 15%;
-          width: 350px; height: 350px;
+          width: 300px; height: 300px;
           background: radial-gradient(circle, rgba(92, 30, 46, 0.25) 0%, transparent 70%);
           animation-delay: 4s;
         }
@@ -526,68 +489,51 @@ const LoadingScreen = () => {
           background: radial-gradient(circle, rgba(183, 110, 93, 0.25) 0%, transparent 70%);
           animation-delay: 3s;
         }
-        .orb-5 {
-          top: 50%; left: 5%;
-          width: 250px; height: 250px;
-          background: radial-gradient(circle, rgba(212, 150, 125, 0.25) 0%, transparent 70%);
-          animation-delay: 5s;
-        }
-        .orb-6 {
-          top: 5%; left: 50%;
-          width: 400px; height: 400px;
-          background: radial-gradient(circle, rgba(200, 121, 82, 0.2) 0%, transparent 70%);
-          animation-delay: 1s;
-        }
         
         @keyframes orbFloat {
-          0%, 100% { transform: translate(0, 0) scale(1) translateZ(0); }
-          33% { transform: translate(40px, -50px) scale(1.2) translateZ(0); }
-          66% { transform: translate(-30px, 30px) scale(0.9) translateZ(0); }
+          0%, 100% { transform: translate(0, 0) translateZ(0); }
+          50% { transform: translate(30px, -40px) translateZ(0); }
         }
         
-        /* PARTICLES (25 total) */
+        /* PARTICLES - simplified shadows */
         .particle {
           position: absolute;
           border-radius: 50%;
           bottom: -20px;
           animation: particleRise linear infinite;
+          will-change: transform, opacity;
         }
         
         .particle-1 {
           width: 2px; height: 2px;
-          background: rgba(200, 121, 82, 0.8);
-          box-shadow: 0 0 6px rgba(200, 121, 82, 0.6);
+          background: #C87952;
+          box-shadow: 0 0 4px rgba(200, 121, 82, 0.6);
         }
         .particle-2 {
           width: 3px; height: 3px;
-          background: rgba(232, 181, 148, 0.8);
-          box-shadow: 0 0 9px rgba(232, 181, 148, 0.6);
+          background: #E8B594;
+          box-shadow: 0 0 6px rgba(232, 181, 148, 0.6);
         }
         .particle-3 {
           width: 1.5px; height: 1.5px;
-          background: rgba(245, 235, 221, 0.8);
-          box-shadow: 0 0 4px rgba(245, 235, 221, 0.6);
+          background: #F5EBDD;
+          box-shadow: 0 0 3px rgba(245, 235, 221, 0.6);
         }
         .particle-4 {
           width: 2.5px; height: 2.5px;
-          background: rgba(200, 121, 82, 0.7);
-          box-shadow: 0 0 8px rgba(200, 121, 82, 0.5);
-        }
-        .particle-5 {
-          width: 2px; height: 2px;
-          background: rgba(232, 181, 148, 0.9);
-          box-shadow: 0 0 6px rgba(232, 181, 148, 0.7);
+          background: #C87952;
+          box-shadow: 0 0 5px rgba(200, 121, 82, 0.5);
         }
         
         @keyframes particleRise {
           0% {
-            transform: translateY(0) translateX(0) translateZ(0);
+            transform: translateY(0) translateZ(0);
             opacity: 0;
           }
           10% { opacity: 1; }
           90% { opacity: 1; }
           100% {
-            transform: translateY(-110vh) translateX(30px) translateZ(0);
+            transform: translateY(-110vh) translateZ(0);
             opacity: 0;
           }
         }
@@ -598,6 +544,7 @@ const LoadingScreen = () => {
           width: 8px;
           height: 8px;
           animation: sparkleTwinkle 3s ease-in-out infinite;
+          will-change: transform, opacity;
         }
         
         .sparkle::before,
@@ -605,7 +552,7 @@ const LoadingScreen = () => {
           content: '';
           position: absolute;
           background: #E8B594;
-          box-shadow: 0 0 6px rgba(232, 181, 148, 0.8);
+          box-shadow: 0 0 4px rgba(232, 181, 148, 0.8);
         }
         
         .sparkle::before {
@@ -637,19 +584,20 @@ const LoadingScreen = () => {
           height: 2px;
           border-radius: 50%;
           background: #C87952;
-          box-shadow: 0 0 4px rgba(200, 121, 82, 0.8);
+          box-shadow: 0 0 3px rgba(200, 121, 82, 0.7);
           animation: dustFall linear infinite;
+          will-change: transform, opacity;
         }
         
         @keyframes dustFall {
           0% {
-            transform: translateY(0) translateX(0) translateZ(0);
+            transform: translateY(0) translateZ(0);
             opacity: 0;
           }
           10% { opacity: 1; }
           90% { opacity: 1; }
           100% {
-            transform: translateY(110vh) translateX(20px) translateZ(0);
+            transform: translateY(110vh) translateZ(0);
             opacity: 0;
           }
         }
@@ -661,49 +609,44 @@ const LoadingScreen = () => {
           height: 3px;
           border-radius: 50%;
           background: #E8B594;
-          box-shadow: 0 0 8px rgba(232, 181, 148, 0.8);
-          animation: constellationPulse 2s ease-in-out infinite;
+          box-shadow: 0 0 6px rgba(232, 181, 148, 0.8);
+          animation: constellationPulse 2.5s ease-in-out infinite;
+          will-change: transform, opacity;
         }
         
         @keyframes constellationPulse {
           0%, 100% { transform: scale(1) translateZ(0); opacity: 0.4; }
-          50% { transform: scale(1.5) translateZ(0); opacity: 1; }
+          50% { transform: scale(1.4) translateZ(0); opacity: 1; }
         }
         
-        /* ORBITAL RINGS */
+        /* ORBITAL RINGS - simplified */
         .orbital-ring {
           position: absolute;
           border-radius: 50%;
           top: 50%;
           left: 50%;
+          will-change: transform;
         }
         
         .ring-1 {
           width: 500px; height: 500px;
-          border: 1px solid rgba(200, 121, 82, 0.15);
+          border: 1px solid rgba(200, 121, 82, 0.12);
           margin: -250px 0 0 -250px;
-          animation: ringRotate 30s linear infinite;
+          animation: ringRotate 35s linear infinite;
         }
         
         .ring-2 {
           width: 700px; height: 700px;
-          border: 1px dashed rgba(232, 181, 148, 0.1);
+          border: 1px dashed rgba(232, 181, 148, 0.08);
           margin: -350px 0 0 -350px;
-          animation: ringRotate 45s linear infinite reverse;
+          animation: ringRotate 50s linear infinite reverse;
         }
         
         .ring-3 {
           width: 900px; height: 900px;
-          border: 1px solid rgba(200, 121, 82, 0.08);
+          border: 1px solid rgba(200, 121, 82, 0.06);
           margin: -450px 0 0 -450px;
-          animation: ringRotate 60s linear infinite;
-        }
-        
-        .ring-4 {
-          width: 1100px; height: 1100px;
-          border: 1px dotted rgba(200, 121, 82, 0.05);
-          margin: -550px 0 0 -550px;
-          animation: ringRotate 90s linear infinite reverse;
+          animation: ringRotate 70s linear infinite;
         }
         
         @keyframes ringRotate {
@@ -717,24 +660,19 @@ const LoadingScreen = () => {
           top: 50%;
           left: 50%;
           border-radius: 50%;
+          will-change: transform;
         }
         
         .ring-orbit-1 {
           width: 500px; height: 500px;
           margin: -250px 0 0 -250px;
-          animation: ringRotate 12s linear infinite;
+          animation: ringRotate 15s linear infinite;
         }
         
         .ring-orbit-2 {
           width: 700px; height: 700px;
           margin: -350px 0 0 -350px;
-          animation: ringRotate 18s linear infinite reverse;
-        }
-        
-        .ring-orbit-3 {
-          width: 900px; height: 900px;
-          margin: -450px 0 0 -450px;
-          animation: ringRotate 24s linear infinite;
+          animation: ringRotate 20s linear infinite reverse;
         }
         
         .orbit-dot {
@@ -744,29 +682,24 @@ const LoadingScreen = () => {
           left: 50%;
           transform: translateX(-50%);
           animation: dotPulse 2s ease-in-out infinite;
+          will-change: transform;
         }
         
         .orbit-dot-gold {
           width: 10px; height: 10px;
           background: #C87952;
-          box-shadow: 0 0 20px rgba(200, 121, 82, 1), 0 0 40px rgba(200, 121, 82, 0.5);
+          box-shadow: 0 0 15px rgba(200, 121, 82, 1);
         }
         
         .orbit-dot-champagne {
           width: 8px; height: 8px;
           background: #E8B594;
-          box-shadow: 0 0 15px rgba(232, 181, 148, 1);
-        }
-        
-        .orbit-dot-rose {
-          width: 6px; height: 6px;
-          background: #C48570;
-          box-shadow: 0 0 12px rgba(196, 133, 112, 1);
+          box-shadow: 0 0 12px rgba(232, 181, 148, 1);
         }
         
         @keyframes dotPulse {
           0%, 100% { transform: translateX(-50%) scale(1) translateZ(0); }
-          50% { transform: translateX(-50%) scale(1.5) translateZ(0); }
+          50% { transform: translateX(-50%) scale(1.4) translateZ(0); }
         }
         
         /* RIPPLES */
@@ -775,19 +708,19 @@ const LoadingScreen = () => {
           top: 50%;
           left: 50%;
           border-radius: 50%;
-          border: 1px solid rgba(200, 121, 82, 0.4);
-          animation: rippleExpand 4s ease-out infinite;
+          border: 1px solid rgba(200, 121, 82, 0.35);
+          animation: rippleExpand 5s ease-out infinite;
+          will-change: transform, opacity;
         }
         
         .ripple-1 { animation-delay: 0s; }
-        .ripple-2 { animation-delay: 1.3s; }
-        .ripple-3 { animation-delay: 2.6s; }
+        .ripple-2 { animation-delay: 2s; }
         
         @keyframes rippleExpand {
           0% {
             width: 100px; height: 100px;
             margin: -50px 0 0 -50px;
-            opacity: 0.8;
+            opacity: 0.7;
           }
           100% {
             width: 800px; height: 800px;
@@ -796,18 +729,16 @@ const LoadingScreen = () => {
           }
         }
         
-        /* LOGO UNDERLINE */
+        /* LOGO */
         .logo-underline {
           background: linear-gradient(90deg, transparent, #C87952, #E8B594, #C87952, transparent);
-          box-shadow: 0 0 20px rgba(200, 121, 82, 0.8);
+          box-shadow: 0 0 15px rgba(200, 121, 82, 0.7);
         }
         
-        /* LOGO LETTERS */
         .logo-letter {
           text-shadow:
-            0 0 40px rgba(200, 121, 82, 0.6),
-            0 0 80px rgba(200, 121, 82, 0.3),
-            0 2px 10px rgba(0, 0, 0, 0.5);
+            0 0 30px rgba(200, 121, 82, 0.5),
+            0 0 60px rgba(200, 121, 82, 0.2);
         }
         
         /* DIAMOND */
@@ -816,8 +747,9 @@ const LoadingScreen = () => {
           height: 12px;
           border: 1px solid rgba(200, 121, 82, 0.6);
           transform: rotate(45deg);
-          box-shadow: 0 0 10px rgba(200, 121, 82, 0.5);
-          animation: diamondSpin 10s linear infinite;
+          box-shadow: 0 0 8px rgba(200, 121, 82, 0.4);
+          animation: diamondSpin 12s linear infinite;
+          will-change: transform;
         }
         
         @keyframes diamondSpin {
@@ -828,14 +760,11 @@ const LoadingScreen = () => {
         /* PROGRESS BAR */
         .progress-track {
           background: linear-gradient(90deg, rgba(232, 181, 148, 0.1), rgba(200, 121, 82, 0.2), rgba(232, 181, 148, 0.1));
-          box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
         }
         
         .progress-fill {
-          background: linear-gradient(90deg, #8B4A32 0%, #C87952 30%, #E8B594 60%, #F5EBDD 100%);
-          box-shadow:
-            0 0 20px rgba(200, 121, 82, 1),
-            0 0 40px rgba(200, 121, 82, 0.6);
+          background: linear-gradient(90deg, #8B4A32 0%, #C87952 40%, #E8B594 100%);
+          box-shadow: 0 0 15px rgba(200, 121, 82, 0.9);
           transition: width 0.1s linear;
         }
         
@@ -844,48 +773,46 @@ const LoadingScreen = () => {
           top: 0;
           bottom: 0;
           width: 128px;
-          background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
-          filter: blur(4px);
-          animation: shimmerMove 1.5s linear infinite;
+          background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%);
+          animation: shimmerMove 1.8s linear infinite;
+          will-change: transform;
         }
         
         @keyframes shimmerMove {
-          0% { left: -15%; }
-          100% { left: 110%; }
+          0% { transform: translateX(-115%) translateZ(0); }
+          100% { transform: translateX(410%) translateZ(0); }
         }
         
         .progress-dot {
-          width: 16px;
-          height: 16px;
+          width: 14px;
+          height: 14px;
           border-radius: 50%;
           background: #F5EBDD;
           box-shadow:
-            0 0 20px rgba(245, 235, 221, 1),
-            0 0 40px rgba(232, 181, 148, 0.8),
-            0 0 60px rgba(200, 121, 82, 0.5);
+            0 0 15px rgba(245, 235, 221, 1),
+            0 0 30px rgba(232, 181, 148, 0.7);
           animation: dotPulse 1s ease-in-out infinite;
           transition: left 0.1s linear;
         }
         
-        /* PROGRESS COUNTER */
         .progress-counter {
           font-size: 0.8rem;
           color: #F5EBDD;
-          text-shadow: 0 0 10px rgba(200, 121, 82, 0.8);
+          text-shadow: 0 0 8px rgba(200, 121, 82, 0.7);
         }
         
         /* SKIP BUTTON */
         .skip-button {
           box-shadow:
-            0 0 40px rgba(200, 121, 82, 0.6),
-            0 0 80px rgba(200, 121, 82, 0.3),
-            0 10px 30px rgba(0, 0, 0, 0.5);
-          animation: skipFloat 2s ease-in-out infinite;
+            0 0 30px rgba(200, 121, 82, 0.5),
+            0 10px 25px rgba(0, 0, 0, 0.4);
+          animation: skipFloat 2.5s ease-in-out infinite;
+          will-change: transform;
         }
         
         @keyframes skipFloat {
           0%, 100% { transform: translateY(0) translateZ(0); }
-          50% { transform: translateY(-6px) translateZ(0); }
+          50% { transform: translateY(-5px) translateZ(0); }
         }
         
         .skip-button-glow {
@@ -894,11 +821,12 @@ const LoadingScreen = () => {
           border-radius: 9999px;
           background: #C87952;
           animation: skipGlow 2s ease-in-out infinite;
+          will-change: transform, opacity;
         }
         
         @keyframes skipGlow {
-          0%, 100% { transform: scale(1) translateZ(0); opacity: 0.7; }
-          50% { transform: scale(1.2) translateZ(0); opacity: 0; }
+          0%, 100% { transform: scale(1) translateZ(0); opacity: 0.6; }
+          50% { transform: scale(1.15) translateZ(0); opacity: 0; }
         }
         
         .skip-button-ring {
@@ -907,11 +835,30 @@ const LoadingScreen = () => {
           border-radius: 9999px;
           border: 2px solid #C87952;
           animation: skipRing 2.5s ease-in-out infinite;
+          will-change: transform, opacity;
         }
         
         @keyframes skipRing {
-          0%, 100% { transform: scale(1) translateZ(0); opacity: 0.4; }
-          50% { transform: scale(1.4) translateZ(0); opacity: 0; }
+          0%, 100% { transform: scale(1) translateZ(0); opacity: 0.3; }
+          50% { transform: scale(1.35) translateZ(0); opacity: 0; }
+        }
+        
+        /* MOBILE OPTIMIZATIONS */
+        @media (max-width: 768px) {
+          .ambient-orb {
+            filter: blur(35px);
+          }
+          
+          .ring-3 {
+            display: none; /* Hide outermost ring on mobile */
+          }
+        }
+        
+        /* RESPECT reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          .loading-screen-container * {
+            animation-duration: 0.01ms !important;
+          }
         }
       `}</style>
     </motion.div>
