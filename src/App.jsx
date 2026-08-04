@@ -218,7 +218,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [isReady, setIsReady] = useState(false)
   
-  const LOADING_DURATION = 4500  // ⏱️ 4.5 seconds
+  const LOADING_DURATION = 5000  // 5 seconds - smooth sweet spot
   
   // ─────────────────────────────────────────
   // LOADING SCREEN — SHOWS EVERY VISIT
