@@ -1,7 +1,11 @@
 import { useEffect } from 'react'
 import HeroSection from '../components/HeroSection'
-import FeaturedProducts from '../components/FeaturedProducts'
-import Newsletter from '../components/Newsletter'
+
+// ═══════════════════════════════════════════════════════════════
+// MAISON — HOMEPAGE (HERO ONLY!)
+// Just hero + footer (from App.jsx)
+// Users click buttons to go to /shop, /about, etc.
+// ═══════════════════════════════════════════════════════════════
 
 const Home = () => {
   useEffect(() => {
@@ -12,8 +16,6 @@ const Home = () => {
   return (
     <div className="bg-noir">
       <HeroSection />
-      <FeaturedProducts />
-      <Newsletter variant="default" />
     </div>
   )
 }
