@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import HeroSection from '../components/HeroSection'
+import FeaturedProducts from '../components/FeaturedProducts'
+import Newsletter from '../components/Newsletter'
 
 const Home = () => {
   useEffect(() => {
@@ -10,6 +12,8 @@ const Home = () => {
   return (
     <div className="bg-noir">
       <HeroSection />
+      <FeaturedProducts />
+      <Newsletter variant="default" />
     </div>
   )
 }
