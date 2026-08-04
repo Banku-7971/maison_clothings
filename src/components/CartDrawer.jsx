@@ -2,45 +2,13 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  FiX, 
-  FiPlus, 
-  FiMinus, 
-  FiTrash2, 
-  FiArrowRight,
-  FiShoppingBag,
-  FiCheck,
-  FiTruck,
+  FiX, FiPlus, FiMinus, FiTrash2, FiArrowRight,
+  FiShoppingBag, FiCheck, FiTruck,
 } from 'react-icons/fi'
 import useCartStore from '../store/cartStore'
 import { formatPrice } from '../utils/formatters'
 
-// ═══════════════════════════════════════════════════════════════
-// MAISON — CART DRAWER
-// ═══════════════════════════════════════════════════════════════
-// Slides in from the right when cart icon is clicked.
-// Shows all cart items with full functionality.
-//
-// Features:
-// - Slide-in animation from right
-// - Backdrop with blur
-// - Item list with images
-// - Quantity controls (+/-)
-// - Remove item
-// - Size and color display
-// - Subtotal calculation
-// - Free shipping progress bar
-// - Empty state
-// - Checkout CTA
-// - Continue shopping link
-// - Scroll shadow indicators
-// - Keyboard: ESC to close
-// - Lock body scroll when open
-// ═══════════════════════════════════════════════════════════════
-
 const CartDrawer = () => {
-  // ─────────────────────────────────────────
-  // STORE STATE
-  // ─────────────────────────────────────────
   const isOpen = useCartStore(state => state.isOpen)
   const items = useCartStore(state => state.items)
   const closeCart = useCartStore(state => state.closeCart)
@@ -55,9 +23,6 @@ const CartDrawer = () => {
   const itemCount = getItemCount()
   const shippingInfo = getShippingInfo()
   
-  // ─────────────────────────────────────────
-  // LOCK BODY SCROLL WHEN OPEN
-  // ─────────────────────────────────────────
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -69,16 +34,10 @@ const CartDrawer = () => {
     }
   }, [isOpen])
   
-  // ─────────────────────────────────────────
-  // ESC KEY TO CLOSE
-  // ─────────────────────────────────────────
   useEffect(() => {
     const handleEsc = (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        closeCart()
-      }
+      if (e.key === 'Escape' && isOpen) closeCart()
     }
-    
     window.addEventListener('keydown', handleEsc)
     return () => window.removeEventListener('keydown', handleEsc)
   }, [isOpen, closeCart])
@@ -87,9 +46,6 @@ const CartDrawer = () => {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* ═══════════════════════════════════════
-              BACKDROP
-          ═══════════════════════════════════════ */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -100,9 +56,6 @@ const CartDrawer = () => {
             aria-hidden="true"
           />
           
-          {/* ═══════════════════════════════════════
-              DRAWER PANEL
-          ═══════════════════════════════════════ */}
           <motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
@@ -113,10 +66,6 @@ const CartDrawer = () => {
             aria-labelledby="cart-title"
             aria-modal="true"
           >
-            
-            {/* ─────────────────────────────────
-                HEADER
-            ───────────────────────────────── */}
             <div className="flex items-center justify-between p-6 md:p-8 border-b border-graphite/50">
               <div>
                 <p 
@@ -135,7 +84,7 @@ const CartDrawer = () => {
               
               <button
                 onClick={closeCart}
-                className="w-10 h-10 flex items-center justify-center text-ivory hover:text-gold transition-colors duration-400"
+                className="w-10 h-10 flex items-center justify-center text-ivory hover:text-gold transition-colors duration-400 rounded-full hover:bg-graphite/50"
                 aria-label="Close cart"
                 data-cursor="hover"
               >
@@ -143,9 +92,7 @@ const CartDrawer = () => {
               </button>
             </div>
             
-            {/* ─────────────────────────────────
-                FREE SHIPPING PROGRESS
-            ───────────────────────────────── */}
+            {/* FREE SHIPPING BAR — INDIA */}
             {items.length > 0 && (
               <div className="px-6 md:px-8 py-4 border-b border-graphite/50">
                 {shippingInfo.qualifiesForFreeShipping ? (
@@ -156,7 +103,7 @@ const CartDrawer = () => {
                   >
                     <FiTruck size={16} />
                     <p className="text-xs tracking-wider">
-                      You've qualified for complimentary shipping
+                      You've qualified for free shipping across India
                     </p>
                   </motion.div>
                 ) : (
@@ -171,7 +118,7 @@ const CartDrawer = () => {
                         {Math.round(shippingInfo.percentage)}%
                       </p>
                     </div>
-                    <div className="h-px bg-graphite overflow-hidden">
+                    <div className="h-px bg-graphite overflow-hidden rounded-full">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${shippingInfo.percentage}%` }}
@@ -184,9 +131,7 @@ const CartDrawer = () => {
               </div>
             )}
             
-            {/* ═══════════════════════════════════════
-                EMPTY STATE
-            ═══════════════════════════════════════ */}
+            {/* EMPTY STATE */}
             {items.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
                 <motion.div
@@ -207,18 +152,21 @@ const CartDrawer = () => {
                   </p>
                   <button
                     onClick={closeCart}
-                    className="btn-luxury"
+                    className="inline-flex items-center gap-3 py-4 px-8 bg-gold text-noir hover:bg-ivory transition-all duration-500 rounded-full"
                     data-cursor="hover"
                   >
-                    <span className="relative z-10">Explore Collection</span>
+                    <span 
+                      className="text-tiny tracking-mega uppercase font-semibold"
+                      style={{ fontSize: '0.7rem' }}
+                    >
+                      Explore Collection
+                    </span>
                   </button>
                 </motion.div>
               </div>
             ) : (
               <>
-                {/* ═══════════════════════════════════════
-                    CART ITEMS LIST
-                ═══════════════════════════════════════ */}
+                {/* ITEMS */}
                 <div className="flex-1 overflow-y-auto no-scrollbar">
                   <ul className="divide-y divide-graphite/50">
                     <AnimatePresence>
@@ -236,12 +184,10 @@ const CartDrawer = () => {
                           className="p-6 md:p-8"
                         >
                           <div className="flex gap-4">
-                            
-                            {/* Product Image */}
                             <Link
                               to={`/product/${item.slug}`}
                               onClick={closeCart}
-                              className="flex-shrink-0 block w-24 h-32 md:w-28 md:h-36 bg-charcoal overflow-hidden"
+                              className="flex-shrink-0 block w-24 h-32 md:w-28 md:h-36 bg-charcoal overflow-hidden rounded-xl border border-graphite/40"
                               data-cursor="view"
                             >
                               <img
@@ -251,10 +197,8 @@ const CartDrawer = () => {
                               />
                             </Link>
                             
-                            {/* Product Details */}
                             <div className="flex-1 min-w-0 flex flex-col justify-between">
                               <div>
-                                {/* Name */}
                                 <Link
                                   to={`/product/${item.slug}`}
                                   onClick={closeCart}
@@ -274,7 +218,6 @@ const CartDrawer = () => {
                                   )}
                                 </Link>
                                 
-                                {/* Size & Color */}
                                 <div className="flex items-center gap-3 mt-3 text-xs text-platinum">
                                   {item.color && item.color !== 'Default' && (
                                     <div className="flex items-center gap-1.5">
@@ -291,11 +234,8 @@ const CartDrawer = () => {
                                 </div>
                               </div>
                               
-                              {/* Price & Quantity Controls */}
                               <div className="flex items-end justify-between mt-4">
-                                
-                                {/* Quantity */}
-                                <div className="inline-flex items-center border border-graphite/50">
+                                <div className="inline-flex items-center border border-graphite/50 rounded-full">
                                   <button
                                     onClick={() => decrementQuantity(item.key)}
                                     className="w-8 h-8 flex items-center justify-center text-ivory hover:text-gold transition-colors duration-300"
@@ -319,13 +259,11 @@ const CartDrawer = () => {
                                   </button>
                                 </div>
                                 
-                                {/* Price */}
                                 <p className="font-cormorant text-lg text-ivory tabular-nums">
                                   {formatPrice(item.price * item.quantity)}
                                 </p>
                               </div>
                               
-                              {/* Remove Button */}
                               <button
                                 onClick={() => removeItem(item.key)}
                                 className="mt-3 inline-flex items-center gap-2 text-tiny text-silver hover:text-gold uppercase tracking-mega transition-colors duration-400"
@@ -343,12 +281,8 @@ const CartDrawer = () => {
                   </ul>
                 </div>
                 
-                {/* ═══════════════════════════════════════
-                    FOOTER — TOTALS & CHECKOUT
-                ═══════════════════════════════════════ */}
+                {/* FOOTER */}
                 <div className="border-t border-graphite/50 p-6 md:p-8 space-y-6 bg-noir">
-                  
-                  {/* Subtotal */}
                   <div className="space-y-3">
                     <div className="flex items-baseline justify-between">
                       <span 
@@ -365,14 +299,12 @@ const CartDrawer = () => {
                       className="text-tiny text-silver italic font-cormorant"
                       style={{ fontSize: '0.75rem' }}
                     >
-                      Shipping and taxes calculated at checkout
+                      Shipping and GST calculated at checkout
                     </p>
                   </div>
                   
-                  {/* Divider */}
                   <div className="h-px bg-graphite/50" />
                   
-                  {/* Checkout Button */}
                   <Link
                     to="/checkout"
                     onClick={closeCart}
@@ -380,10 +312,10 @@ const CartDrawer = () => {
                     data-cursor="hover"
                   >
                     <button
-                      className="w-full py-4 bg-ivory text-noir flex items-center justify-center gap-3 group hover:bg-gold transition-all duration-500 ease-luxury"
+                      className="w-full py-4 bg-gold text-noir flex items-center justify-center gap-3 group hover:bg-ivory transition-all duration-500 ease-luxury rounded-full"
                     >
                       <span 
-                        className="text-tiny tracking-mega uppercase font-medium"
+                        className="text-tiny tracking-mega uppercase font-semibold"
                         style={{ fontSize: '0.75rem' }}
                       >
                         Proceed to Checkout
@@ -395,7 +327,6 @@ const CartDrawer = () => {
                     </button>
                   </Link>
                   
-                  {/* View Cart Link */}
                   <Link
                     to="/cart"
                     onClick={closeCart}
@@ -410,7 +341,6 @@ const CartDrawer = () => {
                     </span>
                   </Link>
                   
-                  {/* Trust Signals */}
                   <div className="grid grid-cols-3 gap-4 pt-4 border-t border-graphite/30">
                     <div className="text-center">
                       <FiCheck className="text-gold mx-auto mb-1.5" size={14} />
@@ -433,12 +363,9 @@ const CartDrawer = () => {
                     <div className="text-center">
                       <svg 
                         className="text-gold mx-auto mb-1.5" 
-                        width="14" 
-                        height="14" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2"
+                        width="14" height="14" 
+                        viewBox="0 0 24 24" fill="none" 
+                        stroke="currentColor" strokeWidth="2"
                       >
                         <path d="M12 2 L15 8 L22 9 L17 14 L18 21 L12 18 L6 21 L7 14 L2 9 L9 8 Z" />
                       </svg>
