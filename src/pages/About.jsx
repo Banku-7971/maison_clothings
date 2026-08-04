@@ -1,34 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
-import { FiArrowUpRight, FiInstagram } from 'react-icons/fi'
-import ImageReveal from '../components/ImageReveal'
-import AnimatedText from '../components/AnimatedText'
+import { FiArrowUpRight } from 'react-icons/fi'
 import MarqueeStrip from '../components/MarqueeStrip'
 import Newsletter from '../components/Newsletter'
 
 // ═══════════════════════════════════════════════════════════════
-// MAISON — ABOUT PAGE
-// ═══════════════════════════════════════════════════════════════
-// The story. The philosophy. The atelier.
-// Where visitors fall in love with the brand.
-//
-// Sections:
-// 1. Hero — Massive editorial statement
-// 2. Manifesto — Our beliefs
-// 3. Craft Section — With image + parallax
-// 4. Stats — Numbers of obsession
-// 5. Materials — Where we source
-// 6. Atelier — Behind the scenes
-// 7. Team — The people
-// 8. Timeline — Our history
-// 9. Values — What we stand for
-// 10. Call to Action
+// MAISON INDIA — ABOUT PAGE (Kolkata Story)
 // ═══════════════════════════════════════════════════════════════
 
-// ─────────────────────────────────────────
-// VALUES DATA
-// ─────────────────────────────────────────
 const VALUES = [
   {
     number: '01',
@@ -38,17 +18,17 @@ const VALUES = [
   {
     number: '02',
     title: 'Craftsmanship',
-    description: 'Every piece is handmade by master artisans. Machines cannot replicate what human hands know.',
+    description: 'Every piece is handmade by Indian master artisans. Machines cannot replicate what human hands know.',
   },
   {
     number: '03',
     title: 'Materials',
-    description: 'We source only the finest natural materials from mills that share our obsession with quality.',
+    description: 'We source only the finest natural materials from mills across India — Kashmir cashmere, Bangalore silk, Kanpur leather.',
   },
   {
     number: '04',
     title: 'Sustainability',
-    description: 'Fewer pieces, better made. Less waste. Longer life. This is our contribution to a wiser world.',
+    description: 'Fewer pieces, better made. Less waste. Longer life. This is our contribution to a wiser India.',
   },
   {
     number: '05',
@@ -57,14 +37,11 @@ const VALUES = [
   },
 ]
 
-// ─────────────────────────────────────────
-// TIMELINE DATA
-// ─────────────────────────────────────────
 const TIMELINE = [
   {
     year: '2025',
     title: 'The Beginning',
-    description: 'MAISON is founded in Paris. First atelier opens in the 8th arrondissement.',
+    description: 'MAISON is founded in Kolkata. First atelier opens on Park Street.',
   },
   {
     year: '2025',
@@ -74,25 +51,22 @@ const TIMELINE = [
   {
     year: '2025',
     title: 'Master Artisans',
-    description: 'Twelve master artisans join the atelier, bringing centuries of combined experience.',
+    description: 'Twelve master artisans join the atelier, bringing generations of Indian craftsmanship.',
   },
   {
     year: '2025',
-    title: 'Sustainable Commitment',
-    description: 'We commit to sourcing only from mills with certified ethical practices.',
+    title: 'Pan-India Delivery',
+    description: 'We expand shipping to every state in India, connecting artisans to admirers nationwide.',
   },
 ]
 
-// ─────────────────────────────────────────
-// MATERIALS DATA
-// ─────────────────────────────────────────
 const MATERIALS = [
-  { name: 'Italian Wool', origin: 'Biella, Italy', description: 'Super 130s virgin wool' },
-  { name: 'Mongolian Cashmere', origin: 'Mongolia', description: 'Grade-A extra-fine fibers' },
-  { name: 'Japanese Denim', origin: 'Hiroshima, Japan', description: 'Kaihara Mills selvedge' },
-  { name: 'Egyptian Cotton', origin: 'Nile Valley', description: 'Giza 87 long-staple' },
-  { name: 'Tuscan Leather', origin: 'Florence, Italy', description: 'Vegetable-tanned calfskin' },
-  { name: 'Belgian Linen', origin: 'Flanders, Belgium', description: 'Pure European linen' },
+  { name: 'Kashmiri Cashmere', origin: 'Kashmir, India', description: 'Grade-A extra-fine fibers' },
+  { name: 'Bangalore Silk', origin: 'Karnataka, India', description: 'Mulberry silk of the highest grade' },
+  { name: 'Kanpur Leather', origin: 'Uttar Pradesh, India', description: 'Vegetable-tanned buffalo leather' },
+  { name: 'Gujarat Cotton', origin: 'Ahmedabad, India', description: 'Giza long-staple cotton' },
+  { name: 'Ladakh Merino', origin: 'Himalayas, India', description: 'Extra-fine Merino wool' },
+  { name: 'Kerala Linen', origin: 'Kerala, India', description: 'Pure natural linen' },
 ]
 
 
@@ -100,9 +74,6 @@ const About = () => {
   const containerRef = useRef(null)
   const imageRef = useRef(null)
   
-  // ─────────────────────────────────────────
-  // DOCUMENT TITLE
-  // ─────────────────────────────────────────
   useEffect(() => {
     document.title = 'The Atelier — MAISON'
     return () => {
@@ -110,9 +81,6 @@ const About = () => {
     }
   }, [])
   
-  // ─────────────────────────────────────────
-  // PARALLAX
-  // ─────────────────────────────────────────
   const { scrollYProgress } = useScroll({
     target: imageRef,
     offset: ['start end', 'end start'],
@@ -124,13 +92,9 @@ const About = () => {
   return (
     <div className="bg-noir min-h-screen">
       
-      {/* ═══════════════════════════════════════
-          1. HERO SECTION
-      ═══════════════════════════════════════ */}
+      {/* HERO */}
       <section className="pt-32 md:pt-48 pb-16 md:pb-24">
         <div className="container-luxury">
-          
-          {/* Label */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -141,7 +105,6 @@ const About = () => {
             — The Story
           </motion.p>
           
-          {/* Massive Statement */}
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -158,26 +121,22 @@ const About = () => {
             <em className="italic text-gold">obsession.</em>
           </motion.h1>
           
-          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             className="font-cormorant italic text-platinum text-lg md:text-2xl max-w-2xl leading-relaxed"
           >
-            Founded in Paris in 2025 with a singular belief: 
+            Founded in Kolkata in 2025 with a singular belief: 
             that clothing should be an heirloom, not an object of consumption.
           </motion.p>
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          2. MANIFESTO
-      ═══════════════════════════════════════ */}
+      {/* MANIFESTO */}
       <section className="py-24 md:py-32 border-y border-graphite/30">
         <div className="container-luxury">
           <div className="max-w-4xl mx-auto text-center">
-            
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -231,28 +190,24 @@ const About = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          3. CRAFT SECTION WITH IMAGE
-      ═══════════════════════════════════════ */}
+      {/* CRAFT SECTION */}
       <section className="py-24 md:py-32">
         <div className="container-luxury">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             
-            {/* Left: Parallax Image */}
-            <div ref={imageRef} className="relative aspect-[3/4] overflow-hidden">
+            <div ref={imageRef} className="relative aspect-[3/4] overflow-hidden rounded-2xl">
               <motion.div
                 style={{ y: smoothImageY }}
                 className="absolute inset-0 w-full h-[120%]"
               >
                 <img
                   src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=1600&q=90"
-                  alt="MAISON Atelier"
+                  alt="MAISON Atelier Kolkata"
                   className="w-full h-full object-cover"
                   draggable={false}
                 />
               </motion.div>
               
-              {/* Corner Brackets */}
               <div className="absolute top-6 left-6 z-10">
                 <div className="w-4 h-px bg-gold" />
                 <div className="w-px h-4 bg-gold" />
@@ -262,7 +217,6 @@ const About = () => {
                 <div className="w-4 h-px bg-gold ml-auto" />
               </div>
               
-              {/* Label */}
               <div className="absolute bottom-6 left-6">
                 <p 
                   className="text-tiny tracking-mega text-ivory/70 uppercase font-mono mb-1"
@@ -271,12 +225,11 @@ const About = () => {
                   The Atelier
                 </p>
                 <p className="font-cormorant italic text-ivory text-base">
-                  Paris, France
+                  Kolkata, India
                 </p>
               </div>
             </div>
             
-            {/* Right: Text */}
             <div>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -312,9 +265,10 @@ const About = () => {
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="font-cormorant text-platinum text-lg leading-relaxed"
                 >
-                  Our atelier sits in the 8th arrondissement of Paris, 
+                  Our atelier sits on Park Street in Kolkata, 
                   where twelve master artisans work with materials sourced 
-                  from the finest mills in Italy, Scotland, and Japan.
+                  from the finest regions across India — Kashmir, Bangalore, 
+                  Kanpur, and beyond.
                 </motion.p>
                 
                 <motion.p
@@ -336,7 +290,7 @@ const About = () => {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="font-cormorant italic text-gold text-lg leading-relaxed"
                 >
-                  This is not fashion. This is architecture for the body.
+                  This is not fashion. This is Indian architecture for the body.
                 </motion.p>
               </div>
             </div>
@@ -344,12 +298,9 @@ const About = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          4. STATS
-      ═══════════════════════════════════════ */}
+      {/* STATS */}
       <section className="py-24 md:py-32 border-y border-graphite/30 bg-charcoal/30">
         <div className="container-luxury">
-          
           <div className="text-center mb-16">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -377,7 +328,7 @@ const About = () => {
             {[
               { number: '47', label: 'Hours Per Piece' },
               { number: '12', label: 'Master Artisans' },
-              { number: '05', label: 'Countries Sourced' },
+              { number: '08', label: 'Indian States Sourced' },
               { number: '100', label: 'Percent Handcrafted' },
             ].map((stat, index) => (
               <motion.div
@@ -409,12 +360,9 @@ const About = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          5. MATERIALS
-      ═══════════════════════════════════════ */}
+      {/* MATERIALS */}
       <section className="py-24 md:py-32">
         <div className="container-luxury">
-          
           <div className="grid lg:grid-cols-12 gap-12 mb-16">
             <div className="lg:col-span-5">
               <motion.p
@@ -439,7 +387,7 @@ const About = () => {
                 }}
               >
                 Sourced from<br />
-                <em className="italic text-gold">the finest.</em>
+                <em className="italic text-gold">across India.</em>
               </motion.h2>
             </div>
             
@@ -451,10 +399,10 @@ const About = () => {
               className="lg:col-span-7 lg:pt-8"
             >
               <p className="font-cormorant italic text-platinum text-lg leading-relaxed">
-                We travel to source. We meet the farmers who raise the sheep. 
-                We visit the mills that spin the yarn. We shake hands with the 
-                tanners who cure the leather. Every material has a name, a face, 
-                a story that we honor.
+                We travel across India to source. We visit the shepherds in Ladakh 
+                who tend the pashmina goats. We meet the silk weavers in Bangalore. 
+                We shake hands with the tanners in Kanpur. Every material has a name, 
+                a face, a story that we honor.
               </p>
             </motion.div>
           </div>
@@ -467,7 +415,7 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.08 }}
-                className="p-6 border border-graphite hover:border-gold transition-all duration-400 group"
+                className="p-6 border border-graphite hover:border-gold transition-all duration-400 group rounded-2xl"
               >
                 <p 
                   className="text-tiny tracking-mega text-gold uppercase mb-3"
@@ -487,12 +435,9 @@ const About = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          6. VALUES
-      ═══════════════════════════════════════ */}
+      {/* VALUES */}
       <section className="py-24 md:py-32 border-y border-graphite/30">
         <div className="container-luxury">
-          
           <div className="text-center mb-20">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -554,12 +499,9 @@ const About = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          7. TIMELINE
-      ═══════════════════════════════════════ */}
+      {/* TIMELINE */}
       <section className="py-24 md:py-32">
         <div className="container-luxury">
-          
           <div className="text-center mb-20">
             <motion.p
               initial={{ opacity: 0 }}
@@ -587,7 +529,6 @@ const About = () => {
           </div>
           
           <div className="max-w-3xl mx-auto relative">
-            {/* Vertical line */}
             <div className="absolute left-8 md:left-24 top-0 bottom-0 w-px bg-graphite" />
             
             {TIMELINE.map((event, index) => (
@@ -599,7 +540,6 @@ const About = () => {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 className="relative grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-6 md:gap-12 pb-16 last:pb-0"
               >
-                {/* Dot */}
                 <div className="absolute left-6 md:left-22 top-1 w-4 h-4 rounded-full bg-gold border-2 border-noir z-10" />
                 
                 <div>
@@ -625,19 +565,14 @@ const About = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          8. MARQUEE
-      ═══════════════════════════════════════ */}
       <MarqueeStrip
-        items={['MAISON', 'Est. 2025', 'Paris']}
+        items={['MAISON', 'Est. 2025', 'Kolkata, India']}
         variant="huge"
         separator="diamond"
         speed={50}
       />
       
-      {/* ═══════════════════════════════════════
-          9. CTA — VISIT US
-      ═══════════════════════════════════════ */}
+      {/* CTA */}
       <section className="py-24 md:py-32 border-y border-graphite/30">
         <div className="container-luxury text-center">
           <motion.p
@@ -672,7 +607,7 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-cormorant italic text-platinum text-lg md:text-xl max-w-2xl mx-auto mb-12"
           >
-            Book a private appointment in our Paris atelier. 
+            Book a private appointment in our Kolkata atelier on Park Street. 
             Meet the artisans. See the craftsmanship. 
             Discover the pieces that will define your wardrobe.
           </motion.p>
@@ -685,25 +620,17 @@ const About = () => {
           >
             <Link
               to="/contact"
-              className="inline-flex items-center gap-4 group"
+              className="inline-flex items-center gap-4 group py-4 px-12 bg-gold text-noir hover:bg-ivory transition-all duration-500 rounded-full shadow-warm-lg"
               data-cursor="hover"
             >
-              <span className="relative overflow-hidden">
-                <span 
-                  className="inline-block py-4 px-12 border border-ivory text-ivory text-tiny tracking-mega uppercase relative z-10 transition-colors duration-500 group-hover:text-noir"
-                  style={{ fontSize: '0.75rem' }}
-                >
-                  Book Appointment
-                  <motion.span 
-                    className="absolute inset-0 bg-ivory -z-10"
-                    initial={{ y: '100%' }}
-                    whileHover={{ y: '0%' }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                </span>
+              <span 
+                className="text-tiny tracking-mega uppercase font-semibold"
+                style={{ fontSize: '0.75rem' }}
+              >
+                Book Appointment
               </span>
               <FiArrowUpRight 
-                className="text-ivory group-hover:text-gold group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-400" 
+                className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-400" 
                 size={18} 
               />
             </Link>
@@ -711,9 +638,6 @@ const About = () => {
         </div>
       </section>
       
-      {/* ═══════════════════════════════════════
-          10. NEWSLETTER
-      ═══════════════════════════════════════ */}
       <Newsletter variant="default" />
     </div>
   )
