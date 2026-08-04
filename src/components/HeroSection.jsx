@@ -1,0 +1,469 @@
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
+import { FiArrowDown, FiArrowRight } from 'react-icons/fi'
+
+// ═══════════════════════════════════════════════════════════════
+// MAISON — CINEMATIC HERO SECTION
+// ═══════════════════════════════════════════════════════════════
+// The opening scene. The first breath of MAISON.
+// Everything after this must live up to what it promises.
+//
+// Features:
+// - Full-viewport hero (100vh)
+// - Cinematic background image with parallax
+// - Massive animated headline with word-by-word reveal
+// - Italic accent word in gold
+// - Split-line subtitle
+// - Two premium CTAs (primary + ghost)
+// - Corner brackets (film aesthetic)
+// - Scroll indicator with animated arrow
+// - Live season/date info
+// - Top labels with animation
+// - Bottom marquee text
+// - Ambient gradient overlay
+// - Grain layer
+// ═══════════════════════════════════════════════════════════════
+
+const HeroSection = () => {
+  const containerRef = useRef(null)
+  const [mounted, setMounted] = useState(false)
+  
+  // ─────────────────────────────────────────
+  // PARALLAX SCROLL EFFECT
+  // ─────────────────────────────────────────
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  })
+  
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '50%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  
+  // Smooth spring for parallax
+  const smoothImageY = useSpring(imageY, { stiffness: 100, damping: 30 })
+  const smoothTextY = useSpring(textY, { stiffness: 100, damping: 30 })
+  
+  // ─────────────────────────────────────────
+  // MOUNT ANIMATION TRIGGER
+  // ─────────────────────────────────────────
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 100)
+    return () => clearTimeout(timer)
+  }, [])
+  
+  // ─────────────────────────────────────────
+  // HEADLINE WORDS FOR STAGGER
+  // ─────────────────────────────────────────
+  const headlineLine1 = 'Where'
+  const headlineLine2 = 'craftsmanship'
+  const headlineAccent = 'meets'
+  const headlineLine3 = 'couture.'
+  
+  // ═══════════════════════════════════════════
+  // ANIMATION VARIANTS
+  // ═══════════════════════════════════════════
+  
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
+      },
+    },
+  }
+  
+  const wordVariants = {
+    hidden: { 
+      y: '110%',
+      opacity: 0,
+    },
+    visible: {
+      y: '0%',
+      opacity: 1,
+      transition: {
+        duration: 1.2,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  }
+  
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  }
+  
+  return (
+    <section 
+      ref={containerRef}
+      className="relative w-full h-screen min-h-[700px] overflow-hidden bg-noir"
+    >
+      
+      {/* ═══════════════════════════════════════
+          BACKGROUND IMAGE with PARALLAX
+      ═══════════════════════════════════════ */}
+      <motion.div
+        style={{ y: smoothImageY }}
+        className="absolute inset-0 w-full h-[130%]"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=2400&q=90"
+          alt="MAISON — Signature Collection"
+          className="w-full h-full object-cover"
+          draggable={false}
+        />
+      </motion.div>
+      
+      {/* ═══════════════════════════════════════
+          AMBIENT GRADIENT OVERLAYS
+      ═══════════════════════════════════════ */}
+      
+      {/* Top gradient (for navbar readability) */}
+      <div 
+        className="absolute inset-x-0 top-0 h-60 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, transparent 100%)',
+        }}
+      />
+      
+      {/* Bottom gradient (for text readability) */}
+      <div 
+        className="absolute inset-x-0 bottom-0 h-2/3 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.4) 50%, transparent 100%)',
+        }}
+      />
+      
+      {/* Radial vignette */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 0%, rgba(10,10,10,0.5) 100%)',
+        }}
+      />
+      
+      {/* Gold accent glow */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-20"
+        style={{
+          background: 'radial-gradient(circle at 70% 30%, rgba(201,169,110,0.3) 0%, transparent 40%)',
+        }}
+      />
+      
+      {/* ═══════════════════════════════════════
+          CORNER MARKERS (Film aesthetic)
+      ═══════════════════════════════════════ */}
+      
+      {/* Top Left */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={mounted ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 0.8, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute top-24 left-6 md:top-32 md:left-12 z-10"
+      >
+        <div className="w-6 h-px bg-gold" />
+        <div className="w-px h-6 bg-gold" />
+      </motion.div>
+      
+      {/* Top Right */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={mounted ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 0.8, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute top-24 right-6 md:top-32 md:right-12 z-10"
+      >
+        <div className="w-6 h-px bg-gold ml-auto" />
+        <div className="w-px h-6 bg-gold ml-auto" />
+      </motion.div>
+      
+      {/* Bottom Left */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={mounted ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 0.8, delay: 1.7, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute bottom-24 left-6 md:bottom-32 md:left-12 z-10"
+      >
+        <div className="w-px h-6 bg-gold" />
+        <div className="w-6 h-px bg-gold" />
+      </motion.div>
+      
+      {/* Bottom Right */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={mounted ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 0.8, delay: 1.7, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute bottom-24 right-6 md:bottom-32 md:right-12 z-10"
+      >
+        <div className="w-px h-6 bg-gold ml-auto" />
+        <div className="w-6 h-px bg-gold ml-auto" />
+      </motion.div>
+      
+      {/* ═══════════════════════════════════════
+          TOP LABELS
+      ═══════════════════════════════════════ */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={mounted ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute top-24 md:top-32 left-0 right-0 z-10"
+      >
+        <div className="container-luxury">
+          <div className="flex items-center justify-between">
+            
+            {/* Left: Collection */}
+            <div className="hidden md:block">
+              <p 
+                className="text-tiny tracking-mega text-gold uppercase font-mono"
+                style={{ fontSize: '0.7rem' }}
+              >
+                Fall / Winter 2025
+              </p>
+            </div>
+            
+            {/* Center: Volume */}
+            <div className="hidden md:block">
+              <p 
+                className="text-tiny tracking-mega text-silver uppercase font-mono"
+                style={{ fontSize: '0.7rem' }}
+              >
+                Vol. 001 — Noir
+              </p>
+            </div>
+            
+            {/* Right: Location */}
+            <div>
+              <p 
+                className="text-tiny tracking-mega text-silver uppercase font-mono"
+                style={{ fontSize: '0.7rem' }}
+              >
+                Paris — 48.8566° N
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+      
+      {/* ═══════════════════════════════════════
+          MAIN CONTENT
+      ═══════════════════════════════════════ */}
+      <motion.div
+        style={{ y: smoothTextY, opacity }}
+        className="relative z-10 h-full flex items-center"
+      >
+        <div className="container-luxury w-full">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={mounted ? "visible" : "hidden"}
+            className="max-w-6xl"
+          >
+            
+            {/* ─────────────────────────────────
+                MASSIVE HEADLINE
+            ───────────────────────────────── */}
+            <h1 
+              className="font-cormorant font-light text-ivory leading-none mb-8 md:mb-12"
+              style={{ 
+                fontSize: 'clamp(3rem, 12vw, 12rem)',
+                lineHeight: 0.95,
+                letterSpacing: '-0.03em',
+              }}
+            >
+              {/* Line 1: "Where" */}
+              <div className="overflow-hidden mb-2">
+                <motion.span 
+                  className="inline-block"
+                  variants={wordVariants}
+                >
+                  {headlineLine1}
+                </motion.span>
+              </div>
+              
+              {/* Line 2: "craftsmanship" */}
+              <div className="overflow-hidden mb-2">
+                <motion.span 
+                  className="inline-block"
+                  variants={wordVariants}
+                >
+                  {headlineLine2}
+                </motion.span>
+              </div>
+              
+              {/* Line 3: "meets couture." with italic gold accent */}
+              <div className="overflow-hidden">
+                <motion.span 
+                  className="inline-block"
+                  variants={wordVariants}
+                >
+                  <em className="italic text-gold font-normal mr-6">
+                    {headlineAccent}
+                  </em>
+                  {headlineLine3}
+                </motion.span>
+              </div>
+            </h1>
+            
+            {/* ─────────────────────────────────
+                SUBTITLE
+            ───────────────────────────────── */}
+            <motion.div
+              variants={fadeInUp}
+              className="mb-12 max-w-lg"
+            >
+              <p 
+                className="font-cormorant italic text-platinum leading-relaxed"
+                style={{ fontSize: 'clamp(1.125rem, 1.75vw, 1.5rem)' }}
+              >
+                Timeless pieces meticulously crafted by master artisans 
+                for the discerning few. Editorial fashion redefined 
+                through craftsmanship, heritage, and quiet obsession.
+              </p>
+            </motion.div>
+            
+            {/* ─────────────────────────────────
+                CTA BUTTONS
+            ───────────────────────────────── */}
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-wrap items-center gap-6"
+            >
+              
+              {/* Primary CTA */}
+              <Link
+                to="/shop"
+                className="group inline-flex items-center gap-3"
+                data-cursor="hover"
+              >
+                <span className="relative overflow-hidden">
+                  <span 
+                    className="inline-block py-4 px-10 border border-ivory text-ivory text-tiny tracking-mega uppercase relative z-10 transition-colors duration-500 group-hover:text-noir"
+                    style={{ fontSize: '0.75rem' }}
+                  >
+                    Discover Collection
+                    <motion.span 
+                      className="absolute inset-0 bg-ivory -z-10"
+                      initial={{ y: '100%' }}
+                      whileHover={{ y: '0%' }}
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    />
+                  </span>
+                </span>
+              </Link>
+              
+              {/* Ghost CTA */}
+              <Link
+                to="/about"
+                className="group inline-flex items-center gap-3 py-4"
+                data-cursor="hover"
+              >
+                <span 
+                  className="text-tiny tracking-mega text-ivory uppercase group-hover:text-gold transition-colors duration-400"
+                  style={{ fontSize: '0.75rem' }}
+                >
+                  Our Story
+                </span>
+                <FiArrowRight 
+                  className="text-ivory group-hover:text-gold group-hover:translate-x-1 transition-all duration-400" 
+                  size={16} 
+                />
+              </Link>
+              
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.div>
+      
+      {/* ═══════════════════════════════════════
+          BOTTOM MARQUEE STRIP
+      ═══════════════════════════════════════ */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={mounted ? { opacity: 1 } : {}}
+        transition={{ duration: 1, delay: 2 }}
+        className="absolute bottom-0 left-0 right-0 py-4 border-t border-graphite/30 overflow-hidden z-10 bg-noir/40 backdrop-blur-sm"
+      >
+        <div 
+          className="flex gap-16 animate-marquee whitespace-nowrap"
+          style={{ animation: 'marqueeHero 40s linear infinite' }}
+        >
+          {[...Array(3)].map((_, groupIndex) => (
+            <div key={groupIndex} className="flex gap-16 flex-shrink-0">
+              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
+                <span className="w-2 h-2 rounded-full bg-gold" />
+                Handcrafted in Paris
+              </span>
+              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
+                <span className="w-2 h-2 rounded-full bg-gold" />
+                Since 2025
+              </span>
+              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
+                <span className="w-2 h-2 rounded-full bg-gold" />
+                Limited Editions
+              </span>
+              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
+                <span className="w-2 h-2 rounded-full bg-gold" />
+                Master Artisans
+              </span>
+              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
+                <span className="w-2 h-2 rounded-full bg-gold" />
+                Ethical Sourcing
+              </span>
+              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
+                <span className="w-2 h-2 rounded-full bg-gold" />
+                Timeless Design
+              </span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+      
+      {/* ═══════════════════════════════════════
+          SCROLL INDICATOR
+      ═══════════════════════════════════════ */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={mounted ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1, delay: 2.5 }}
+        className="absolute bottom-20 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
+      >
+        <span 
+          className="text-tiny tracking-mega text-silver uppercase font-mono"
+          style={{ fontSize: '0.65rem' }}
+        >
+          Scroll to Explore
+        </span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{
+            duration: 2,
+            ease: 'easeInOut',
+            repeat: Infinity,
+          }}
+        >
+          <FiArrowDown className="text-gold" size={16} />
+        </motion.div>
+      </motion.div>
+      
+      {/* ═══════════════════════════════════════
+          MARQUEE ANIMATION KEYFRAMES
+      ═══════════════════════════════════════ */}
+      <style>{`
+        @keyframes marqueeHero {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+      `}</style>
+    </section>
+  )
+}
+
+export default HeroSection
