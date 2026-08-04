@@ -48,58 +48,48 @@ const HeroSection = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative w-full h-screen min-h-[700px] overflow-hidden bg-gradient-espresso"
+      className="relative w-full h-screen min-h-[700px] overflow-hidden bg-noir"
     >
-      {/* IMAGE with sepia terracotta tint */}
+      {/* BACKGROUND IMAGE with PARALLAX */}
       <motion.div
         style={{ y: smoothImageY }}
         className="absolute inset-0 w-full h-[130%]"
       >
         <img
           src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=2400&q=90"
-          alt="MAISON Collection"
+          alt="MAISON — Signature Collection"
           className="w-full h-full object-cover"
           style={{ filter: 'sepia(0.3) saturate(1.2) hue-rotate(-10deg)' }}
           draggable={false}
         />
       </motion.div>
       
-      {/* MULTI-COLOR OVERLAYS */}
+      {/* GRADIENT OVERLAYS */}
       <div 
         className="absolute inset-x-0 top-0 h-60 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, rgba(42,31,26,0.95) 0%, transparent 100%)',
+          background: 'linear-gradient(to bottom, rgba(42,31,26,0.9) 0%, transparent 100%)',
         }}
       />
       
       <div 
         className="absolute inset-x-0 bottom-0 h-2/3 pointer-events-none"
         style={{
-          background: 'linear-gradient(to top, rgba(42,31,26,0.98) 0%, rgba(92,30,46,0.6) 40%, rgba(200,121,82,0.3) 70%, transparent 100%)',
+          background: 'linear-gradient(to top, rgba(42,31,26,0.95) 0%, rgba(42,31,26,0.5) 50%, transparent 100%)',
         }}
       />
       
-      {/* WINE GLOW */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-40"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle at 20% 80%, rgba(92,30,46,0.5) 0%, transparent 40%)',
+          background: 'radial-gradient(ellipse at center, transparent 0%, rgba(42,31,26,0.5) 100%)',
         }}
       />
       
-      {/* TERRACOTTA GLOW */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-40"
+        className="absolute inset-0 pointer-events-none opacity-25"
         style={{
-          background: 'radial-gradient(circle at 80% 20%, rgba(200,121,82,0.6) 0%, transparent 40%)',
-        }}
-      />
-      
-      {/* CHAMPAGNE HIGHLIGHT */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-30"
-        style={{
-          background: 'radial-gradient(circle at 50% 50%, rgba(232,181,148,0.4) 0%, transparent 60%)',
+          background: 'radial-gradient(circle at 70% 30%, rgba(183,110,93,0.4) 0%, transparent 40%)',
         }}
       />
       
@@ -228,7 +218,7 @@ const HeroSection = () => {
               </p>
             </motion.div>
             
-            {/* BUTTONS with GRADIENTS! */}
+            {/* CTA BUTTONS */}
             <motion.div
               variants={fadeInUp}
               className="flex flex-wrap items-center gap-4"
