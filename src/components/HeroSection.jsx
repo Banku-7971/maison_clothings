@@ -26,9 +26,7 @@ const HeroSection = () => {
   
   const containerVariants = {
     hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.15, delayChildren: 0.3 },
-    },
+    visible: { transition: { staggerChildren: 0.15, delayChildren: 0.3 } },
   }
   
   const wordVariants = {
@@ -50,45 +48,58 @@ const HeroSection = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative w-full h-screen min-h-[700px] overflow-hidden bg-noir"
+      className="relative w-full h-screen min-h-[700px] overflow-hidden bg-gradient-espresso"
     >
+      {/* IMAGE with sepia terracotta tint */}
       <motion.div
         style={{ y: smoothImageY }}
         className="absolute inset-0 w-full h-[130%]"
       >
         <img
           src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=2400&q=90"
-          alt="MAISON — Signature Collection"
+          alt="MAISON Collection"
           className="w-full h-full object-cover"
+          style={{ filter: 'sepia(0.3) saturate(1.2) hue-rotate(-10deg)' }}
           draggable={false}
         />
       </motion.div>
       
+      {/* MULTI-COLOR OVERLAYS */}
       <div 
         className="absolute inset-x-0 top-0 h-60 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, rgba(42,31,26,0.9) 0%, transparent 100%)',
+          background: 'linear-gradient(to bottom, rgba(42,31,26,0.95) 0%, transparent 100%)',
         }}
       />
       
       <div 
         className="absolute inset-x-0 bottom-0 h-2/3 pointer-events-none"
         style={{
-          background: 'linear-gradient(to top, rgba(42,31,26,0.95) 0%, rgba(42,31,26,0.5) 50%, transparent 100%)',
+          background: 'linear-gradient(to top, rgba(42,31,26,0.98) 0%, rgba(92,30,46,0.6) 40%, rgba(200,121,82,0.3) 70%, transparent 100%)',
         }}
       />
       
+      {/* WINE GLOW */}
       <div 
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-40"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 0%, rgba(42,31,26,0.5) 100%)',
+          background: 'radial-gradient(circle at 20% 80%, rgba(92,30,46,0.5) 0%, transparent 40%)',
         }}
       />
       
+      {/* TERRACOTTA GLOW */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-25"
+        className="absolute inset-0 pointer-events-none opacity-40"
         style={{
-          background: 'radial-gradient(circle at 70% 30%, rgba(183,110,93,0.4) 0%, transparent 40%)',
+          background: 'radial-gradient(circle at 80% 20%, rgba(200,121,82,0.6) 0%, transparent 40%)',
+        }}
+      />
+      
+      {/* CHAMPAGNE HIGHLIGHT */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-30"
+        style={{
+          background: 'radial-gradient(circle at 50% 50%, rgba(232,181,148,0.4) 0%, transparent 60%)',
         }}
       />
       
@@ -109,8 +120,8 @@ const HeroSection = () => {
         transition={{ duration: 0.8, delay: 1.5 }}
         className="absolute top-32 right-6 md:top-40 md:right-12 z-10"
       >
-        <div className="w-6 h-px bg-gold ml-auto" />
-        <div className="w-px h-6 bg-gold ml-auto" />
+        <div className="w-6 h-px bg-champagne ml-auto" />
+        <div className="w-px h-6 bg-champagne ml-auto" />
       </motion.div>
       
       <motion.div
@@ -119,8 +130,8 @@ const HeroSection = () => {
         transition={{ duration: 0.8, delay: 1.7 }}
         className="absolute bottom-32 left-6 md:bottom-40 md:left-12 z-10"
       >
-        <div className="w-px h-6 bg-gold" />
-        <div className="w-6 h-px bg-gold" />
+        <div className="w-px h-6 bg-wine-warm" />
+        <div className="w-6 h-px bg-wine-warm" />
       </motion.div>
       
       <motion.div
@@ -133,7 +144,7 @@ const HeroSection = () => {
         <div className="w-6 h-px bg-gold ml-auto" />
       </motion.div>
       
-      {/* TOP LABELS — NOW KOLKATA! */}
+      {/* TOP LABELS */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={mounted ? { opacity: 1, y: 0 } : {}}
@@ -148,7 +159,7 @@ const HeroSection = () => {
               </p>
             </div>
             <div className="hidden md:block">
-              <p className="text-tiny tracking-mega text-silver uppercase font-mono" style={{ fontSize: '0.7rem' }}>
+              <p className="text-tiny tracking-mega text-champagne uppercase font-mono" style={{ fontSize: '0.7rem' }}>
                 Vol. 001 — Noir
               </p>
             </div>
@@ -161,6 +172,7 @@ const HeroSection = () => {
         </div>
       </motion.div>
       
+      {/* MAIN CONTENT */}
       <motion.div
         style={{ y: smoothTextY, opacity }}
         className="relative z-10 h-full flex items-center"
@@ -187,7 +199,10 @@ const HeroSection = () => {
               </div>
               
               <div className="overflow-hidden mb-2">
-                <motion.span className="inline-block" variants={wordVariants}>
+                <motion.span 
+                  className="inline-block bg-gradient-to-r from-champagne via-gold to-terracotta bg-clip-text text-transparent"
+                  variants={wordVariants}
+                >
                   craftsmanship
                 </motion.span>
               </div>
@@ -204,7 +219,7 @@ const HeroSection = () => {
             
             <motion.div variants={fadeInUp} className="mb-12 max-w-lg">
               <p 
-                className="font-cormorant italic text-platinum leading-relaxed"
+                className="font-cormorant italic text-cream leading-relaxed"
                 style={{ fontSize: 'clamp(1.125rem, 1.75vw, 1.5rem)' }}
               >
                 Timeless pieces meticulously crafted by master artisans 
@@ -213,13 +228,14 @@ const HeroSection = () => {
               </p>
             </motion.div>
             
+            {/* BUTTONS with GRADIENTS! */}
             <motion.div
               variants={fadeInUp}
               className="flex flex-wrap items-center gap-4"
             >
               <Link
                 to="/shop"
-                className="group inline-flex items-center gap-3 py-4 px-8 md:py-5 md:px-10 bg-gold text-noir rounded-full hover:bg-ivory transition-all duration-500 ease-luxury shadow-warm-lg hover:shadow-gold-glow-lg"
+                className="group inline-flex items-center gap-3 py-4 px-8 md:py-5 md:px-10 bg-gradient-terracotta text-ivory rounded-full hover:shadow-gold-glow-lg transition-all duration-500 ease-luxury shadow-warm-lg"
                 data-cursor="hover"
               >
                 <span 
@@ -236,7 +252,7 @@ const HeroSection = () => {
               
               <Link
                 to="/about"
-                className="group inline-flex items-center gap-3 py-4 px-8 md:py-5 md:px-10 border-2 border-ivory/50 text-ivory rounded-full hover:border-ivory hover:bg-ivory/10 transition-all duration-500 backdrop-blur-sm"
+                className="group inline-flex items-center gap-3 py-4 px-8 md:py-5 md:px-10 border-2 border-champagne/50 text-champagne rounded-full hover:border-champagne hover:bg-champagne/10 transition-all duration-500 backdrop-blur-sm"
                 data-cursor="hover"
               >
                 <span 
@@ -255,12 +271,16 @@ const HeroSection = () => {
         </div>
       </motion.div>
       
-      {/* BOTTOM MARQUEE — INDIA! */}
+      {/* BOTTOM MARQUEE */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={mounted ? { opacity: 1 } : {}}
         transition={{ duration: 1, delay: 2 }}
-        className="absolute bottom-0 left-0 right-0 py-4 border-t border-graphite/30 overflow-hidden z-10 bg-noir/60 backdrop-blur-md"
+        className="absolute bottom-0 left-0 right-0 py-4 border-t border-terracotta/30 overflow-hidden z-10"
+        style={{
+          background: 'linear-gradient(to right, rgba(92,30,46,0.6), rgba(42,31,26,0.8), rgba(200,121,82,0.6))',
+          backdropFilter: 'blur(10px)',
+        }}
       >
         <div 
           className="flex gap-16 whitespace-nowrap"
@@ -268,30 +288,19 @@ const HeroSection = () => {
         >
           {[...Array(3)].map((_, groupIndex) => (
             <div key={groupIndex} className="flex gap-16 flex-shrink-0">
-              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
-                <span className="w-2 h-2 rounded-full bg-gold" />
-                Handcrafted in India
-              </span>
-              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
-                <span className="w-2 h-2 rounded-full bg-gold" />
-                Est. Kolkata 2025
-              </span>
-              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
-                <span className="w-2 h-2 rounded-full bg-gold" />
-                Pan-India Delivery
-              </span>
-              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
-                <span className="w-2 h-2 rounded-full bg-gold" />
-                Master Artisans
-              </span>
-              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
-                <span className="w-2 h-2 rounded-full bg-gold" />
-                Free Shipping ₹5,000+
-              </span>
-              <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
-                <span className="w-2 h-2 rounded-full bg-gold" />
-                COD Available
-              </span>
+              {[
+                { text: 'Handcrafted in India', color: 'text-champagne' },
+                { text: 'Est. Kolkata 2025', color: 'text-cream' },
+                { text: 'Pan-India Delivery', color: 'text-gold' },
+                { text: 'Master Artisans', color: 'text-rose-gold' },
+                { text: 'Free Shipping ₹5,000+', color: 'text-champagne' },
+                { text: 'COD Available', color: 'text-gold' },
+              ].map((item, i) => (
+                <span key={i} className={`text-tiny tracking-mega ${item.color} uppercase font-mono flex items-center gap-4`} style={{ fontSize: '0.7rem' }}>
+                  <span className="w-2 h-2 rounded-full bg-gold" />
+                  {item.text}
+                </span>
+              ))}
             </div>
           ))}
         </div>
@@ -304,7 +313,7 @@ const HeroSection = () => {
         className="absolute bottom-20 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
       >
         <span 
-          className="text-tiny tracking-mega text-silver uppercase font-mono"
+          className="text-tiny tracking-mega text-champagne uppercase font-mono"
           style={{ fontSize: '0.65rem' }}
         >
           Scroll to Explore
