@@ -1,20 +1,25 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { FiChevronRight } from 'react-icons/fi'
 
 // ═══════════════════════════════════════════════════════════════
-// MAISON — LEGENDARY CINEMATIC LOADING SCREEN
-// Duration: 4.5 seconds
-// With: Skip button for impatient users
+// MAISON — LEGENDARY LOADING SCREEN
+// GUARANTEED 4.5 seconds duration
+// Uses requestAnimationFrame for reliable timing
 // ═══════════════════════════════════════════════════════════════
 
-const LoadingScreen = ({ onComplete }) => {
+const LoadingScreen = () => {
   const [progress, setProgress] = useState(0)
   const [currentMessage, setCurrentMessage] = useState(0)
   const [showLogo, setShowLogo] = useState(false)
   const [showBar, setShowBar] = useState(false)
   const [showSkip, setShowSkip] = useState(false)
   const [skipHovered, setSkipHovered] = useState(false)
+  
+  const startTimeRef = useRef(null)
+  const animationRef = useRef(null)
+  
+  const DURATION = 4500  // 4.5 seconds
   
   const messages = [
     'Curating your experience',
@@ -25,47 +30,48 @@ const LoadingScreen = ({ onComplete }) => {
     'Almost there',
   ]
   
-  // Progress counter — 4.5 seconds total
+  // ⚡ USE requestAnimationFrame FOR ACCURATE TIMING
   useEffect(() => {
-    const duration = 4500  // ⏱️ INCREASED TO 4.5 SECONDS
-    const interval = 30
-    const increment = 100 / (duration / interval)
+    startTimeRef.current = performance.now()
     
-    const timer = setInterval(() => {
-      setProgress(prev => {
-        const next = prev + increment
-        if (next >= 100) {
-          clearInterval(timer)
-          return 100
-        }
-        return next
-      })
-    }, interval)
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTimeRef.current
+      const percent = Math.min((elapsed / DURATION) * 100, 100)
+      
+      setProgress(percent)
+      
+      if (elapsed < DURATION) {
+        animationRef.current = requestAnimationFrame(animate)
+      } else {
+        setProgress(100)
+      }
+    }
+    
+    animationRef.current = requestAnimationFrame(animate)
     
     // Show elements progressively
-    setTimeout(() => setShowLogo(true), 300)
-    setTimeout(() => setShowBar(true), 1400)
-    setTimeout(() => setShowSkip(true), 1500)  // ⭐ Skip button appears
+    const logoTimer = setTimeout(() => setShowLogo(true), 300)
+    const barTimer = setTimeout(() => setShowBar(true), 1400)
+    const skipTimer = setTimeout(() => setShowSkip(true), 1500)
     
-    // Rotate messages
+    // Rotate messages every 750ms
     const messageTimer = setInterval(() => {
       setCurrentMessage(prev => (prev + 1) % messages.length)
     }, 750)
     
     return () => {
-      clearInterval(timer)
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+      clearTimeout(logoTimer)
+      clearTimeout(barTimer)
+      clearTimeout(skipTimer)
       clearInterval(messageTimer)
     }
   }, [])
   
-  // Handle skip button
   const handleSkip = () => {
     setProgress(100)
-    if (onComplete) {
-      onComplete()
-    }
-    // Trigger the parent to close loading screen
-    // We do this by dispatching a custom event
     window.dispatchEvent(new CustomEvent('skipLoading'))
   }
   
@@ -89,7 +95,7 @@ const LoadingScreen = ({ onComplete }) => {
         }
       }}
     >
-      {/* LAYER 1: Breathing radial gradient */}
+      {/* Breathing radial gradient */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         animate={{ 
@@ -106,7 +112,7 @@ const LoadingScreen = ({ onComplete }) => {
         }}
       />
       
-      {/* LAYER 2: Film grain */}
+      {/* Film grain */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-[0.12] mix-blend-overlay"
         style={{
@@ -115,7 +121,7 @@ const LoadingScreen = ({ onComplete }) => {
         }}
       />
       
-      {/* LAYER 3: Scan lines */}
+      {/* Scan lines */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-[0.06]"
         style={{
@@ -124,7 +130,7 @@ const LoadingScreen = ({ onComplete }) => {
         }}
       />
       
-      {/* LAYER 4: Ambient orbs */}
+      {/* Ambient orbs */}
       {[
         { top: '15%', left: '10%', size: 300, color: '200, 121, 82', delay: 0 },
         { top: '60%', left: '75%', size: 400, color: '232, 181, 148', delay: 1.5 },
@@ -156,7 +162,7 @@ const LoadingScreen = ({ onComplete }) => {
         />
       ))}
       
-      {/* LAYER 5: Orbital rings */}
+      {/* Orbital rings */}
       <motion.div
         className="absolute pointer-events-none"
         style={{
@@ -179,7 +185,6 @@ const LoadingScreen = ({ onComplete }) => {
         transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
       />
       
-      {/* Third ring */}
       <motion.div
         className="absolute pointer-events-none"
         style={{
@@ -226,7 +231,6 @@ const LoadingScreen = ({ onComplete }) => {
         />
       </motion.div>
       
-      {/* Third orbiting dot */}
       <motion.div
         className="absolute pointer-events-none"
         animate={{ rotate: 360 }}
@@ -244,7 +248,7 @@ const LoadingScreen = ({ onComplete }) => {
         />
       </motion.div>
       
-      {/* Corner brackets - Top Left */}
+      {/* Corner brackets */}
       <motion.div
         initial={{ opacity: 0, x: 100, y: 100 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
@@ -265,7 +269,6 @@ const LoadingScreen = ({ onComplete }) => {
         />
       </motion.div>
       
-      {/* Corner brackets - Top Right */}
       <motion.div
         initial={{ opacity: 0, x: -100, y: 100 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
@@ -286,7 +289,6 @@ const LoadingScreen = ({ onComplete }) => {
         />
       </motion.div>
       
-      {/* Corner brackets - Bottom Left */}
       <motion.div
         initial={{ opacity: 0, x: 100, y: -100 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
@@ -307,7 +309,6 @@ const LoadingScreen = ({ onComplete }) => {
         />
       </motion.div>
       
-      {/* Corner brackets - Bottom Right */}
       <motion.div
         initial={{ opacity: 0, x: -100, y: -100 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
@@ -331,7 +332,6 @@ const LoadingScreen = ({ onComplete }) => {
       {/* MAIN CONTENT */}
       <div className="relative z-10 flex flex-col items-center px-6">
         
-        {/* TOP LABEL */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -348,7 +348,6 @@ const LoadingScreen = ({ onComplete }) => {
           <div className="w-8 h-px bg-gold/50" />
         </motion.div>
         
-        {/* MAISON LOGO */}
         <div className="flex items-center justify-center relative">
           <motion.div
             className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent"
@@ -379,7 +378,7 @@ const LoadingScreen = ({ onComplete }) => {
                 } : {}}
                 transition={{
                   duration: 1.2,
-                  delay: 0.4 + index * 0.15,  // Slightly longer stagger
+                  delay: 0.4 + index * 0.15,
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 className="inline-block font-cormorant font-light"
@@ -403,7 +402,6 @@ const LoadingScreen = ({ onComplete }) => {
           ))}
         </div>
         
-        {/* TAGLINE */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={showLogo ? { opacity: 1, y: 0 } : {}}
@@ -418,7 +416,6 @@ const LoadingScreen = ({ onComplete }) => {
           Where craftsmanship meets couture
         </motion.p>
         
-        {/* Decorative line */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={showLogo ? { scaleX: 1 } : {}}
@@ -438,8 +435,8 @@ const LoadingScreen = ({ onComplete }) => {
               background: 'linear-gradient(90deg, rgba(232, 181, 148, 0.1), rgba(200, 121, 82, 0.2), rgba(232, 181, 148, 0.1))',
             }}
           >
-            <motion.div
-              className="absolute inset-y-0 left-0 rounded-full"
+            <div
+              className="absolute inset-y-0 left-0 rounded-full transition-all"
               style={{
                 width: `${progress}%`,
                 background: 'linear-gradient(90deg, #8B4A32 0%, #C87952 50%, #E8B594 100%)',
@@ -527,9 +524,7 @@ const LoadingScreen = ({ onComplete }) => {
         </div>
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          ⭐ SKIP BUTTON — Elegant & Understated
-      ═══════════════════════════════════════════════ */}
+      {/* SKIP BUTTON */}
       <AnimatePresence>
         {showSkip && (
           <motion.button
@@ -544,18 +539,14 @@ const LoadingScreen = ({ onComplete }) => {
             data-cursor="hover"
           >
             <div className="flex items-center gap-3">
-              {/* Text */}
-              <motion.span
+              <span
                 className="text-tiny tracking-mega text-champagne/70 group-hover:text-gold uppercase font-mono transition-colors duration-400"
                 style={{ fontSize: '0.65rem', letterSpacing: '0.3em' }}
               >
                 Skip Intro
-              </motion.span>
+              </span>
               
-              {/* Arrow container with border */}
               <div className="relative w-10 h-10 flex items-center justify-center rounded-full border border-champagne/30 group-hover:border-gold transition-colors duration-400 overflow-hidden">
-                
-                {/* Fill effect on hover */}
                 <motion.div
                   className="absolute inset-0 bg-gold rounded-full"
                   initial={{ scale: 0 }}
@@ -563,7 +554,6 @@ const LoadingScreen = ({ onComplete }) => {
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 />
                 
-                {/* Arrow icon */}
                 <FiChevronRight 
                   size={14}
                   className={`relative z-10 transition-colors duration-300 ${
@@ -574,12 +564,9 @@ const LoadingScreen = ({ onComplete }) => {
               </div>
             </div>
             
-            {/* Subtle "hold for magic" hint */}
             <motion.p
               initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: skipHovered ? 1 : 0,
-              }}
+              animate={{ opacity: skipHovered ? 1 : 0 }}
               transition={{ duration: 0.3 }}
               className="absolute -top-6 right-0 text-tiny text-gold/60 italic font-cormorant whitespace-nowrap"
               style={{ fontSize: '0.65rem' }}
