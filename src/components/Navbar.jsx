@@ -2,20 +2,11 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  FiSearch, 
-  FiHeart, 
-  FiShoppingBag, 
-  FiMenu, 
-  FiX,
-  FiChevronRight,
+  FiSearch, FiHeart, FiShoppingBag, FiMenu, FiX, FiChevronRight,
 } from 'react-icons/fi'
 import useCartStore from '../store/cartStore'
 import useWishlistStore from '../store/wishlistStore'
 import useUIStore from '../store/uiStore'
-
-// ═══════════════════════════════════════════════════════════════
-// MAISON — NAVIGATION (FIXED SPACING)
-// ═══════════════════════════════════════════════════════════════
 
 const NAV_LINKS = [
   { name: 'Shop', path: '/shop' },
@@ -24,11 +15,13 @@ const NAV_LINKS = [
   { name: 'Contact', path: '/contact' },
 ]
 
+// INDIA ANNOUNCEMENTS
 const ANNOUNCEMENTS = [
-  'Complimentary shipping on orders above $500',
+  'Free shipping on orders above ₹5,000',
   'New arrivals — Discover the Noir Collection',
-  'Handcrafted in Paris • Est. 2025',
-  'Free returns within 30 days',
+  'Handcrafted in India • Est. Kolkata 2025',
+  'Free returns within 30 days • Pan-India delivery',
+  'Cash on Delivery available across India',
 ]
 
 const MEGA_MENU_ITEMS = {
@@ -63,16 +56,13 @@ const Navbar = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       setScrolled(currentScrollY > 50)
-      
       if (currentScrollY > lastScrollY && currentScrollY > 200) {
         setHidden(true)
       } else {
         setHidden(false)
       }
-      
       setLastScrollY(currentScrollY)
     }
-    
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [lastScrollY])
@@ -81,7 +71,6 @@ const Navbar = () => {
     const interval = setInterval(() => {
       setAnnouncementIndex(prev => (prev + 1) % ANNOUNCEMENTS.length)
     }, 5000)
-    
     return () => clearInterval(interval)
   }, [])
   
@@ -102,7 +91,6 @@ const Navbar = () => {
   
   return (
     <>
-      {/* ANNOUNCEMENT BAR */}
       <div className="fixed top-0 left-0 right-0 z-40 bg-noir border-b border-graphite h-8 overflow-hidden">
         <div className="h-full flex items-center justify-center px-4">
           <AnimatePresence mode="wait">
@@ -121,7 +109,6 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* MAIN NAVIGATION — FIXED SPACING! */}
       <motion.nav
         className={`
           fixed left-0 right-0 z-50 
@@ -136,12 +123,9 @@ const Navbar = () => {
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="container-luxury">
-          {/* GRID LAYOUT prevents overlap */}
           <div className="grid grid-cols-[auto_1fr_auto] items-center h-16 md:h-20 gap-4">
             
-            {/* LEFT: Mobile Menu OR Desktop Nav Links */}
             <div className="flex items-center">
-              {/* Mobile Menu Button */}
               <button
                 className="lg:hidden w-10 h-10 flex items-center justify-center text-ivory rounded-full hover:bg-graphite/50 transition-colors"
                 onClick={() => setMobileMenuOpen(true)}
@@ -151,7 +135,6 @@ const Navbar = () => {
                 <FiMenu size={20} />
               </button>
               
-              {/* Desktop Nav Links */}
               <div className="hidden lg:flex items-center gap-8 xl:gap-10">
                 {NAV_LINKS.map((link) => (
                   <Link
@@ -181,13 +164,8 @@ const Navbar = () => {
               </div>
             </div>
             
-            {/* CENTER: LOGO — Own column, always centered */}
             <div className="flex items-center justify-center">
-              <Link
-                to="/"
-                data-cursor="hover"
-                aria-label="MAISON Home"
-              >
+              <Link to="/" data-cursor="hover" aria-label="MAISON Home">
                 <span 
                   className="font-cormorant font-light text-ivory block"
                   style={{ 
@@ -201,10 +179,7 @@ const Navbar = () => {
               </Link>
             </div>
             
-            {/* RIGHT: Action Icons — Own column */}
             <div className="flex items-center gap-1 md:gap-2">
-              
-              {/* Search */}
               <button
                 onClick={openSearch}
                 className="w-10 h-10 flex items-center justify-center text-ivory hover:text-gold hover:bg-graphite/50 rounded-full transition-all duration-400"
@@ -214,7 +189,6 @@ const Navbar = () => {
                 <FiSearch size={18} />
               </button>
               
-              {/* Wishlist */}
               <Link
                 to="/wishlist"
                 className="relative w-10 h-10 flex items-center justify-center text-ivory hover:text-gold hover:bg-graphite/50 rounded-full transition-all duration-400"
@@ -233,7 +207,6 @@ const Navbar = () => {
                 )}
               </Link>
               
-              {/* Cart */}
               <button
                 onClick={openCart}
                 className="relative w-10 h-10 flex items-center justify-center text-ivory hover:text-gold hover:bg-graphite/50 rounded-full transition-all duration-400"
@@ -251,13 +224,11 @@ const Navbar = () => {
                   </motion.span>
                 )}
               </button>
-              
             </div>
           </div>
         </div>
       </motion.nav>
       
-      {/* MOBILE MENU */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
@@ -355,14 +326,19 @@ const Navbar = () => {
                 </p>
                 <a 
                   href="mailto:atelier@maison.com" 
-                  className="text-sm text-ivory hover:text-gold transition-colors"
+                  className="text-sm text-ivory hover:text-gold transition-colors block mb-2"
                 >
                   atelier@maison.com
                 </a>
-                <div className="mt-6 flex gap-4">
-                  <a href="#" className="text-xs text-silver hover:text-gold uppercase tracking-widest">Instagram</a>
-                  <a href="#" className="text-xs text-silver hover:text-gold uppercase tracking-widest">Pinterest</a>
-                </div>
+                <a 
+                  href="tel:+919876543210" 
+                  className="text-sm text-ivory hover:text-gold transition-colors block"
+                >
+                  +91 98765 43210
+                </a>
+                <p className="text-tiny text-silver italic mt-4" style={{ fontSize: '0.7rem' }}>
+                  Kolkata, West Bengal
+                </p>
               </div>
             </motion.div>
           </>
