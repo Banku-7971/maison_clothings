@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { FiArrowDown, FiArrowRight } from 'react-icons/fi'
 
-// ═══════════════════════════════════════════════════════════════
-// MAISON — CINEMATIC HERO SECTION (WARM + ROUNDED)
-// ═══════════════════════════════════════════════════════════════
-
 const HeroSection = () => {
   const containerRef = useRef(null)
   const [mounted, setMounted] = useState(false)
@@ -31,37 +27,23 @@ const HeroSection = () => {
   const containerVariants = {
     hidden: {},
     visible: {
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.15, delayChildren: 0.3 },
     },
   }
   
   const wordVariants = {
-    hidden: { 
-      y: '110%',
-      opacity: 0,
-    },
+    hidden: { y: '110%', opacity: 0 },
     visible: {
-      y: '0%',
-      opacity: 1,
-      transition: {
-        duration: 1.2,
-        ease: [0.22, 1, 0.36, 1],
-      },
+      y: '0%', opacity: 1,
+      transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
     },
   }
   
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1,
-        ease: [0.22, 1, 0.36, 1],
-      },
+      opacity: 1, y: 0,
+      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
     },
   }
   
@@ -70,8 +52,6 @@ const HeroSection = () => {
       ref={containerRef}
       className="relative w-full h-screen min-h-[700px] overflow-hidden bg-noir"
     >
-      
-      {/* BACKGROUND IMAGE with PARALLAX */}
       <motion.div
         style={{ y: smoothImageY }}
         className="absolute inset-0 w-full h-[130%]"
@@ -84,7 +64,6 @@ const HeroSection = () => {
         />
       </motion.div>
       
-      {/* GRADIENT OVERLAYS */}
       <div 
         className="absolute inset-x-0 top-0 h-60 pointer-events-none"
         style={{
@@ -154,7 +133,7 @@ const HeroSection = () => {
         <div className="w-6 h-px bg-gold ml-auto" />
       </motion.div>
       
-      {/* TOP LABELS - Now BELOW navbar */}
+      {/* TOP LABELS — NOW KOLKATA! */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={mounted ? { opacity: 1, y: 0 } : {}}
@@ -175,14 +154,13 @@ const HeroSection = () => {
             </div>
             <div>
               <p className="text-tiny tracking-mega text-silver uppercase font-mono" style={{ fontSize: '0.7rem' }}>
-                Paris — 48.8566° N
+                Kolkata — 22.5726° N
               </p>
             </div>
           </div>
         </div>
       </motion.div>
       
-      {/* MAIN CONTENT */}
       <motion.div
         style={{ y: smoothTextY, opacity }}
         className="relative z-10 h-full flex items-center"
@@ -194,8 +172,6 @@ const HeroSection = () => {
             animate={mounted ? "visible" : "hidden"}
             className="max-w-6xl"
           >
-            
-            {/* HEADLINE */}
             <h1 
               className="font-cormorant font-light text-ivory leading-none mb-8 md:mb-12"
               style={{ 
@@ -226,25 +202,21 @@ const HeroSection = () => {
               </div>
             </h1>
             
-            {/* SUBTITLE */}
             <motion.div variants={fadeInUp} className="mb-12 max-w-lg">
               <p 
                 className="font-cormorant italic text-platinum leading-relaxed"
                 style={{ fontSize: 'clamp(1.125rem, 1.75vw, 1.5rem)' }}
               >
                 Timeless pieces meticulously crafted by master artisans 
-                for the discerning few. Editorial fashion redefined 
-                through craftsmanship, heritage, and quiet obsession.
+                across India. Handmade luxury, delivered nationwide 
+                from our Kolkata atelier.
               </p>
             </motion.div>
             
-            {/* CTA BUTTONS — FULLY ROUNDED & BEAUTIFUL */}
             <motion.div
               variants={fadeInUp}
               className="flex flex-wrap items-center gap-4"
             >
-              
-              {/* PRIMARY CTA — GOLD PILL BUTTON */}
               <Link
                 to="/shop"
                 className="group inline-flex items-center gap-3 py-4 px-8 md:py-5 md:px-10 bg-gold text-noir rounded-full hover:bg-ivory transition-all duration-500 ease-luxury shadow-warm-lg hover:shadow-gold-glow-lg"
@@ -262,7 +234,6 @@ const HeroSection = () => {
                 />
               </Link>
               
-              {/* GHOST CTA — ROUNDED BORDER */}
               <Link
                 to="/about"
                 className="group inline-flex items-center gap-3 py-4 px-8 md:py-5 md:px-10 border-2 border-ivory/50 text-ivory rounded-full hover:border-ivory hover:bg-ivory/10 transition-all duration-500 backdrop-blur-sm"
@@ -279,13 +250,12 @@ const HeroSection = () => {
                   size={14} 
                 />
               </Link>
-              
             </motion.div>
           </motion.div>
         </div>
       </motion.div>
       
-      {/* BOTTOM MARQUEE STRIP */}
+      {/* BOTTOM MARQUEE — INDIA! */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={mounted ? { opacity: 1 } : {}}
@@ -300,15 +270,15 @@ const HeroSection = () => {
             <div key={groupIndex} className="flex gap-16 flex-shrink-0">
               <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
                 <span className="w-2 h-2 rounded-full bg-gold" />
-                Handcrafted in Paris
+                Handcrafted in India
               </span>
               <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
                 <span className="w-2 h-2 rounded-full bg-gold" />
-                Since 2025
+                Est. Kolkata 2025
               </span>
               <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
                 <span className="w-2 h-2 rounded-full bg-gold" />
-                Limited Editions
+                Pan-India Delivery
               </span>
               <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
                 <span className="w-2 h-2 rounded-full bg-gold" />
@@ -316,18 +286,17 @@ const HeroSection = () => {
               </span>
               <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
                 <span className="w-2 h-2 rounded-full bg-gold" />
-                Ethical Sourcing
+                Free Shipping ₹5,000+
               </span>
               <span className="text-tiny tracking-mega text-silver uppercase font-mono flex items-center gap-4" style={{ fontSize: '0.7rem' }}>
                 <span className="w-2 h-2 rounded-full bg-gold" />
-                Timeless Design
+                COD Available
               </span>
             </div>
           ))}
         </div>
       </motion.div>
       
-      {/* SCROLL INDICATOR */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={mounted ? { opacity: 1, y: 0 } : {}}
@@ -342,11 +311,7 @@ const HeroSection = () => {
         </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
-          transition={{
-            duration: 2,
-            ease: 'easeInOut',
-            repeat: Infinity,
-          }}
+          transition={{ duration: 2, ease: 'easeInOut', repeat: Infinity }}
         >
           <FiArrowDown className="text-gold" size={16} />
         </motion.div>
