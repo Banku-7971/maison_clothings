@@ -34,67 +34,31 @@ const HeroSection = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
   
-  const globeRotate = useTransform(mouseX, [-0.5, 0.5], [-15, 15])
-  const globeTilt = useTransform(mouseY, [-0.5, 0.5], [10, -10])
+  const globeRotate = useTransform(mouseX, [-0.5, 0.5], [-20, 20])
+  const globeTilt = useTransform(mouseY, [-0.5, 0.5], [15, -15])
   
   return (
     <section 
       ref={containerRef}
-      className="relative w-full h-screen min-h-[700px] overflow-hidden bg-noir hero-creative"
+      className="relative w-full h-screen min-h-[800px] overflow-hidden bg-noir hero-india"
     >
-      {/* ═══════════════════════════════════════════════
-          COLORFUL BACKGROUND GRADIENT
-      ═══════════════════════════════════════════════ */}
+      {/* Colorful background */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'linear-gradient(135deg, #2A1F1A 0%, #3D2E24 50%, #5C1E2E 100%)',
+          background: 'linear-gradient(135deg, #2A1F1A 0%, #3D2E24 40%, #5C1E2E 100%)',
         }}
       />
       
-      {/* Colorful ambient orbs */}
+      {/* Ambient orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="creative-orb creative-orb-1" />
-        <div className="creative-orb creative-orb-2" />
-        <div className="creative-orb creative-orb-3" />
-        <div className="creative-orb creative-orb-4" />
+        <div className="india-orb orb-saffron" />
+        <div className="india-orb orb-green" />
+        <div className="india-orb orb-gold" />
       </div>
       
       {/* ═══════════════════════════════════════════════
-          FLOATING STICKERS/EMOJIS (Playful!)
-      ═══════════════════════════════════════════════ */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0, rotate: -20 }}
-        animate={mounted ? { opacity: 1, scale: 1, rotate: 0 } : {}}
-        transition={{ duration: 0.8, delay: 1.5, ease: [0.68, -0.55, 0.265, 1.55] }}
-        className="absolute top-32 md:top-40 right-8 md:right-32 z-20 pointer-events-none"
-        style={{ animation: 'floatSlow 6s ease-in-out infinite' }}
-      >
-        <div className="floating-sticker sticker-star" />
-      </motion.div>
-      
-      <motion.div
-        initial={{ opacity: 0, scale: 0, rotate: 20 }}
-        animate={mounted ? { opacity: 1, scale: 1, rotate: 0 } : {}}
-        transition={{ duration: 0.8, delay: 1.8, ease: [0.68, -0.55, 0.265, 1.55] }}
-        className="absolute top-1/2 left-8 md:left-24 z-20 pointer-events-none"
-        style={{ animation: 'floatSlow 5s ease-in-out infinite 1s' }}
-      >
-        <div className="floating-sticker sticker-sparkle" />
-      </motion.div>
-      
-      <motion.div
-        initial={{ opacity: 0, scale: 0, rotate: -30 }}
-        animate={mounted ? { opacity: 1, scale: 1, rotate: 0 } : {}}
-        transition={{ duration: 0.8, delay: 2, ease: [0.68, -0.55, 0.265, 1.55] }}
-        className="absolute bottom-40 right-16 md:right-40 z-20 pointer-events-none"
-        style={{ animation: 'floatSlow 7s ease-in-out infinite 2s' }}
-      >
-        <div className="floating-sticker sticker-diamond" />
-      </motion.div>
-      
-      {/* ═══════════════════════════════════════════════
-          THE STAR — CARTOON EARTH GLOBE
+          THE MASSIVE INDIA GLOBE 🇮🇳
       ═══════════════════════════════════════════════ */}
       <motion.div
         style={{ 
@@ -107,50 +71,131 @@ const HeroSection = () => {
         <motion.div
           initial={{ scale: 0, opacity: 0, rotate: -180 }}
           animate={mounted ? { scale: 1, opacity: 1, rotate: 0 } : {}}
-          transition={{ 
-            duration: 2, 
-            delay: 0.8,
-            ease: [0.22, 1, 0.36, 1] 
-          }}
+          transition={{ duration: 2.5, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="relative"
           style={{ 
-            perspective: '1000px',
+            perspective: '1200px',
             transformStyle: 'preserve-3d',
           }}
         >
-          <div className="cartoon-earth" style={{ animation: 'earthRotate 20s linear infinite' }}>
+          <div className="india-globe" style={{ animation: 'globeRotate 30s linear infinite' }}>
             {/* Ocean base */}
-            <div className="earth-ocean" />
+            <div className="globe-ocean" />
             
-            {/* Continents (SVG-style) */}
-            <div className="continent continent-1" />
-            <div className="continent continent-2" />
-            <div className="continent continent-3" />
-            <div className="continent continent-4" />
-            <div className="continent continent-5" />
+            {/* India shape prominent */}
+            <div className="india-shape" />
+            
+            {/* Continents subtle */}
+            <div className="globe-continent globe-continent-1" />
+            <div className="globe-continent globe-continent-2" />
+            <div className="globe-continent globe-continent-3" />
+            
+            {/* Grid lines (like a globe) */}
+            <div className="globe-grid globe-grid-h" />
+            <div className="globe-grid globe-grid-v" />
             
             {/* Clouds */}
-            <div className="cloud cloud-1" />
-            <div className="cloud cloud-2" />
-            <div className="cloud cloud-3" />
+            <div className="globe-cloud globe-cloud-1" />
+            <div className="globe-cloud globe-cloud-2" />
             
-            {/* Highlight shine */}
-            <div className="earth-shine" />
+            {/* Shine highlight */}
+            <div className="globe-shine" />
             
             {/* Shadow */}
-            <div className="earth-shadow" />
+            <div className="globe-shadow" />
+            
+            {/* ═══════════════════════════════════
+                INDIAN LANDMARKS ON GLOBE
+            ═══════════════════════════════════ */}
+            
+            {/* TAJ MAHAL (top center of India) */}
+            <div className="landmark landmark-taj" style={{ animation: 'landmarkFloat 4s ease-in-out infinite' }}>
+              <div className="landmark-emoji">🕌</div>
+              <div className="landmark-label">Taj Mahal</div>
+            </div>
+            
+            {/* RED FORT / INDIA GATE (Delhi) */}
+            <div className="landmark landmark-delhi" style={{ animation: 'landmarkFloat 4s ease-in-out infinite 0.5s' }}>
+              <div className="landmark-emoji">🏛️</div>
+              <div className="landmark-label">Delhi</div>
+            </div>
+            
+            {/* GOLDEN TEMPLE */}
+            <div className="landmark landmark-golden" style={{ animation: 'landmarkFloat 4s ease-in-out infinite 1s' }}>
+              <div className="landmark-emoji">🛕</div>
+              <div className="landmark-label">Golden Temple</div>
+            </div>
+            
+            {/* GATEWAY OF INDIA (Mumbai) */}
+            <div className="landmark landmark-mumbai" style={{ animation: 'landmarkFloat 4s ease-in-out infinite 1.5s' }}>
+              <div className="landmark-emoji">🌊</div>
+              <div className="landmark-label">Mumbai</div>
+            </div>
+            
+            {/* VICTORIA MEMORIAL (Kolkata - YOUR CITY!) */}
+            <div className="landmark landmark-kolkata" style={{ animation: 'landmarkFloat 4s ease-in-out infinite 2s' }}>
+              <div className="landmark-emoji">🏛️</div>
+              <div className="landmark-label">Kolkata ⭐</div>
+            </div>
+            
+            {/* CHARMINAR (Hyderabad) */}
+            <div className="landmark landmark-hyderabad" style={{ animation: 'landmarkFloat 4s ease-in-out infinite 2.5s' }}>
+              <div className="landmark-emoji">🕌</div>
+              <div className="landmark-label">Hyderabad</div>
+            </div>
+            
+            {/* MYSORE PALACE */}
+            <div className="landmark landmark-mysore" style={{ animation: 'landmarkFloat 4s ease-in-out infinite 3s' }}>
+              <div className="landmark-emoji">🏰</div>
+              <div className="landmark-label">Mysore</div>
+            </div>
+            
+            {/* KONARK SUN TEMPLE */}
+            <div className="landmark landmark-konark" style={{ animation: 'landmarkFloat 4s ease-in-out infinite 3.5s' }}>
+              <div className="landmark-emoji">☀️</div>
+              <div className="landmark-label">Konark</div>
+            </div>
+            
+            {/* HIMALAYAS (top) */}
+            <div className="landmark landmark-himalaya" style={{ animation: 'landmarkFloat 4s ease-in-out infinite 4s' }}>
+              <div className="landmark-emoji">⛰️</div>
+              <div className="landmark-label">Himalayas</div>
+            </div>
+            
+            {/* KERALA (South) */}
+            <div className="landmark landmark-kerala" style={{ animation: 'landmarkFloat 4s ease-in-out infinite 4.5s' }}>
+              <div className="landmark-emoji">🌴</div>
+              <div className="landmark-label">Kerala</div>
+            </div>
           </div>
           
-          {/* Glow ring around earth */}
-          <div className="earth-glow" />
+          {/* Glow around globe */}
+          <div className="india-glow" />
           
-          {/* Orbit ring */}
-          <div className="earth-orbit-ring" />
+          {/* Multiple orbit rings */}
+          <div className="india-orbit-ring india-orbit-ring-1" />
+          <div className="india-orbit-ring india-orbit-ring-2" />
+          <div className="india-orbit-ring india-orbit-ring-3" />
+          
+          {/* Orbiting satellite - Airplane */}
+          <div className="orbiting-plane" style={{ animation: 'orbitPlane 15s linear infinite' }}>
+            <div className="plane-emoji">✈️</div>
+          </div>
+          
+          {/* Orbiting satellite - Star */}
+          <div className="orbiting-star" style={{ animation: 'orbitStar 20s linear infinite reverse' }}>
+            <div className="star-emoji">⭐</div>
+          </div>
+          
+          {/* Orbiting satellite - Sparkle */}
+          <div className="orbiting-sparkle" style={{ animation: 'orbitSparkle 12s linear infinite' }}>
+            <div className="sparkle-emoji">✨</div>
+          </div>
         </motion.div>
       </motion.div>
       
       {/* ═══════════════════════════════════════════════
-          TOP LABEL (Playful)
+          TOP LABEL
       ═══════════════════════════════════════════════ */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -159,8 +204,8 @@ const HeroSection = () => {
         className="absolute top-32 md:top-40 left-0 right-0 z-10 pointer-events-none"
       >
         <div className="container-luxury">
-          <div className="flex items-center justify-center gap-4">
-            <span className="text-2xl">🌍</span>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <span className="text-2xl">🇮🇳</span>
             <p 
               className="text-tiny tracking-mega uppercase font-mono"
               style={{ 
@@ -169,7 +214,7 @@ const HeroSection = () => {
                 color: '#E8B594',
               }}
             >
-              Est. Kolkata · Made for the World
+              Made in India · Loved Worldwide
             </p>
             <span className="text-2xl">✨</span>
           </div>
@@ -177,20 +222,19 @@ const HeroSection = () => {
       </motion.div>
       
       {/* ═══════════════════════════════════════════════
-          MAIN CONTENT (Layered over globe)
+          MAIN HEADLINE (Bottom half)
       ═══════════════════════════════════════════════ */}
       <motion.div
         style={{ opacity }}
-        className="relative z-10 h-full flex items-center"
+        className="relative z-10 h-full flex items-end pb-32 md:pb-40"
       >
         <div className="container-luxury w-full">
           <div className="max-w-6xl mx-auto text-center">
             
-            {/* HEADLINE — Playful & Bold */}
             <h1 
-              className="font-cormorant font-light text-ivory leading-none mb-8 md:mb-12"
+              className="font-cormorant font-light text-ivory leading-none mb-8"
               style={{ 
-                fontSize: 'clamp(3rem, 12vw, 12rem)',
+                fontSize: 'clamp(2.5rem, 8vw, 8rem)',
                 lineHeight: 0.9,
                 letterSpacing: '-0.03em',
               }}
@@ -202,24 +246,10 @@ const HeroSection = () => {
                   transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   className="inline-block"
                   style={{
-                    textShadow: '0 0 40px rgba(200, 121, 82, 0.5), 0 0 80px rgba(200, 121, 82, 0.3)',
+                    textShadow: '0 0 40px rgba(200, 121, 82, 0.5)',
                   }}
                 >
-                  Craft
-                </motion.span>
-              </div>
-              
-              <div className="overflow-hidden mb-2">
-                <motion.span 
-                  initial={{ y: '120%', opacity: 0 }}
-                  animate={mounted ? { y: '0%', opacity: 1 } : {}}
-                  transition={{ duration: 1.2, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-block bg-gradient-to-r from-champagne via-gold to-terracotta bg-clip-text text-transparent"
-                  style={{
-                    filter: 'drop-shadow(0 0 30px rgba(200, 121, 82, 0.5))',
-                  }}
-                >
-                  from
+                  Handmade in
                 </motion.span>
               </div>
               
@@ -227,39 +257,35 @@ const HeroSection = () => {
                 <motion.span 
                   initial={{ y: '120%', opacity: 0 }}
                   animate={mounted ? { y: '0%', opacity: 1 } : {}}
-                  transition={{ duration: 1.2, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-block"
+                  transition={{ duration: 1.2, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                  className="inline-block bg-gradient-to-r from-champagne via-gold to-terracotta bg-clip-text text-transparent"
+                  style={{
+                    filter: 'drop-shadow(0 0 40px rgba(200, 121, 82, 0.6))',
+                  }}
                 >
-                  <em 
-                    className="italic text-gold font-normal"
-                    style={{
-                      textShadow: '0 0 30px rgba(200, 121, 82, 0.8), 0 0 60px rgba(200, 121, 82, 0.4)',
-                    }}
-                  >
-                    India
-                  </em>
-                  <span className="text-cream ml-4">🌏</span>
+                  <em className="italic">Incredible India</em>
                 </motion.span>
               </div>
             </h1>
             
-            {/* Playful subtitle */}
+            {/* Subtitle */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={mounted ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1, delay: 1 }}
-              className="mb-12 max-w-2xl mx-auto"
+              className="mb-10 max-w-2xl mx-auto"
             >
               <p 
                 className="font-cormorant italic text-cream leading-relaxed"
                 style={{ 
-                  fontSize: 'clamp(1.125rem, 1.75vw, 1.5rem)',
+                  fontSize: 'clamp(1rem, 1.5vw, 1.375rem)',
                   textShadow: '0 2px 10px rgba(0, 0, 0, 0.7)',
                 }}
               >
-                Handmade luxury clothing, born in Kolkata,
+                From the streets of Kolkata to your doorstep.
                 <br />
-                shipped to <span className="text-gold not-italic">every corner</span> of India.
+                Delivered with <span className="text-gold not-italic">love</span> 
+                {' '}across every state of India.
               </p>
             </motion.div>
             
@@ -272,7 +298,7 @@ const HeroSection = () => {
             >
               <Link
                 to="/shop"
-                className="hero-btn-primary group inline-flex items-center gap-3 py-4 px-8 md:py-5 md:px-10 rounded-full transition-all duration-500 ease-luxury"
+                className="hero-btn-primary group inline-flex items-center gap-3 py-4 px-8 md:py-5 md:px-10 rounded-full transition-all duration-500"
                 data-cursor="hover"
               >
                 <div className="hero-btn-glow" />
@@ -282,7 +308,7 @@ const HeroSection = () => {
                   className="relative z-10 text-tiny tracking-mega uppercase font-bold text-noir flex items-center gap-2"
                   style={{ fontSize: '0.75rem', letterSpacing: '0.2em' }}
                 >
-                  <span>Shop the Collection</span>
+                  <span>Explore Collection</span>
                   <span className="text-lg">🛍️</span>
                 </span>
               </Link>
@@ -305,32 +331,30 @@ const HeroSection = () => {
         </div>
       </motion.div>
       
-      {/* ═══════════════════════════════════════════════
-          BOTTOM MARQUEE (Playful with emojis)
-      ═══════════════════════════════════════════════ */}
+      {/* Bottom marquee */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={mounted ? { opacity: 1 } : {}}
         transition={{ duration: 1, delay: 2 }}
         className="absolute bottom-0 left-0 right-0 py-4 border-t border-gold/20 overflow-hidden z-10"
         style={{
-          background: 'linear-gradient(to right, rgba(92,30,46,0.6), rgba(42,31,26,0.9), rgba(200,121,82,0.6))',
+          background: 'linear-gradient(to right, rgba(92,30,46,0.7), rgba(42,31,26,0.95), rgba(200,121,82,0.7))',
           backdropFilter: 'blur(20px)',
         }}
       >
         <div 
           className="flex gap-16 whitespace-nowrap"
-          style={{ animation: 'marqueeCreative 30s linear infinite' }}
+          style={{ animation: 'marqueeIndia 30s linear infinite' }}
         >
           {[...Array(4)].map((_, groupIndex) => (
             <div key={groupIndex} className="flex gap-16 flex-shrink-0">
               {[
-                { text: 'Handcrafted in India', emoji: '🇮🇳' },
+                { text: 'Est. Kolkata 2025', emoji: '🇮🇳' },
+                { text: 'Handcrafted', emoji: '✨' },
                 { text: 'Free Shipping ₹5,000+', emoji: '📦' },
-                { text: 'Made with Love', emoji: '❤️' },
                 { text: 'COD Available', emoji: '💰' },
-                { text: 'Est. Kolkata 2025', emoji: '✨' },
                 { text: 'Pan-India Delivery', emoji: '🌏' },
+                { text: 'Made with Love', emoji: '❤️' },
               ].map((item, i) => (
                 <span 
                   key={i} 
@@ -346,246 +370,217 @@ const HeroSection = () => {
         </div>
       </motion.div>
       
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={mounted ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 1, delay: 2.5 }}
-        className="absolute bottom-20 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3 pointer-events-none"
-      >
-        <span 
-          className="text-tiny tracking-mega uppercase font-mono flex items-center gap-2"
-          style={{ 
-            fontSize: '0.65rem',
-            color: '#E4B590',
-            letterSpacing: '0.3em',
-          }}
-        >
-          <span>👇</span> Scroll for magic <span>👇</span>
-        </span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, ease: 'easeInOut', repeat: Infinity }}
-        >
-          <FiArrowDown className="text-gold" size={16} />
-        </motion.div>
-      </motion.div>
-      
       <style>{`
-        .hero-creative * {
+        .hero-india * {
           will-change: auto;
           transform: translateZ(0);
         }
         
-        @keyframes marqueeCreative {
+        @keyframes marqueeIndia {
           0% { transform: translateX(0); }
           100% { transform: translateX(-25%); }
         }
         
-        @keyframes floatSlow {
-          0%, 100% { transform: translateY(0) rotate(0deg) translateZ(0); }
-          50% { transform: translateY(-20px) rotate(5deg) translateZ(0); }
-        }
-        
-        /* COLORFUL AMBIENT ORBS */
-        .creative-orb {
+        /* AMBIENT ORBS */
+        .india-orb {
           position: absolute;
           border-radius: 50%;
           filter: blur(80px);
-          animation: creativeOrb 15s ease-in-out infinite;
-          will-change: transform;
+          animation: orbFloat 15s ease-in-out infinite;
         }
         
-        .creative-orb-1 {
-          top: 10%; left: 5%;
+        .orb-saffron {
+          top: 10%; left: 10%;
           width: 500px; height: 500px;
-          background: radial-gradient(circle, rgba(200, 121, 82, 0.4) 0%, transparent 70%);
-          animation-delay: 0s;
+          background: radial-gradient(circle, rgba(255, 153, 51, 0.3) 0%, transparent 70%);
         }
         
-        .creative-orb-2 {
-          top: 40%; right: 5%;
-          width: 600px; height: 600px;
-          background: radial-gradient(circle, rgba(92, 30, 46, 0.4) 0%, transparent 70%);
+        .orb-green {
+          top: 40%; right: 10%;
+          width: 500px; height: 500px;
+          background: radial-gradient(circle, rgba(19, 136, 8, 0.25) 0%, transparent 70%);
           animation-delay: 3s;
         }
         
-        .creative-orb-3 {
-          bottom: 10%; left: 20%;
+        .orb-gold {
+          bottom: 20%; left: 30%;
           width: 400px; height: 400px;
-          background: radial-gradient(circle, rgba(232, 181, 148, 0.3) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(200, 121, 82, 0.4) 0%, transparent 70%);
           animation-delay: 6s;
         }
         
-        .creative-orb-4 {
-          top: 20%; right: 30%;
-          width: 350px; height: 350px;
-          background: radial-gradient(circle, rgba(139, 74, 50, 0.4) 0%, transparent 70%);
-          animation-delay: 9s;
-        }
-        
-        @keyframes creativeOrb {
-          0%, 100% { transform: translate(0, 0) scale(1) translateZ(0); }
-          33% { transform: translate(50px, -50px) scale(1.2) translateZ(0); }
-          66% { transform: translate(-30px, 40px) scale(0.9) translateZ(0); }
+        @keyframes orbFloat {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(30px, -40px) scale(1.15); }
         }
         
         /* ═══════════════════════════════════════════════
-           CARTOON EARTH GLOBE
+           MASSIVE INDIA GLOBE
         ═══════════════════════════════════════════════ */
-        .cartoon-earth {
+        .india-globe {
           position: relative;
-          width: 400px;
-          height: 400px;
+          width: 550px;
+          height: 550px;
           border-radius: 50%;
           overflow: hidden;
           box-shadow:
-            inset -30px -30px 60px rgba(0, 0, 0, 0.5),
-            inset 30px 30px 80px rgba(255, 255, 255, 0.1),
-            0 0 60px rgba(100, 180, 255, 0.4),
-            0 0 120px rgba(100, 180, 255, 0.2),
-            0 30px 60px rgba(0, 0, 0, 0.4);
-          background: radial-gradient(circle at 30% 30%, #4A90E2 0%, #2E5C8A 50%, #1A3B5C 100%);
+            inset -40px -40px 80px rgba(0, 0, 0, 0.6),
+            inset 40px 40px 100px rgba(255, 255, 255, 0.15),
+            0 0 80px rgba(100, 180, 255, 0.5),
+            0 0 160px rgba(200, 121, 82, 0.3),
+            0 40px 80px rgba(0, 0, 0, 0.5);
+          background: radial-gradient(circle at 30% 30%, #4A90E2 0%, #2874A6 40%, #1A5490 100%);
+        }
+        
+        @media (max-width: 1024px) {
+          .india-globe {
+            width: 450px;
+            height: 450px;
+          }
         }
         
         @media (max-width: 768px) {
-          .cartoon-earth {
+          .india-globe {
+            width: 350px;
+            height: 350px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .india-globe {
             width: 280px;
             height: 280px;
           }
         }
         
-        @media (max-width: 480px) {
-          .cartoon-earth {
-            width: 220px;
-            height: 220px;
-          }
-        }
-        
-        @keyframes earthRotate {
+        @keyframes globeRotate {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
         
         /* OCEAN */
-        .earth-ocean {
+        .globe-ocean {
           position: absolute;
           inset: 0;
           border-radius: 50%;
-          background: 
-            radial-gradient(circle at 30% 30%, #5DADE2 0%, #2874A6 40%, #1A5490 100%);
+          background: radial-gradient(circle at 30% 30%, #5DADE2 0%, #2874A6 50%, #1A5490 100%);
         }
         
-        /* CONTINENTS (blob shapes) */
-        .continent {
+        /* INDIA PROMINENT SHAPE (Saffron/Orange - Peninsula) */
+        .india-shape {
           position: absolute;
-          background: linear-gradient(135deg, #7CB342 0%, #558B2F 50%, #33691E 100%);
-          border-radius: 50% 40% 60% 30% / 40% 50% 60% 50%;
+          top: 25%;
+          left: 45%;
+          width: 22%;
+          height: 45%;
+          background: linear-gradient(135deg, #FF9933 0%, #FF6B00 50%, #C44500 100%);
+          border-radius: 40% 60% 30% 70% / 30% 40% 60% 70%;
+          transform: rotate(-5deg);
+          box-shadow: 
+            0 0 20px rgba(255, 153, 51, 0.6),
+            inset 0 -5px 15px rgba(0, 0, 0, 0.3);
           filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
         }
         
-        .continent-1 {
-          /* Africa/Europe */
+        /* Other continents (subtle green) */
+        .globe-continent {
+          position: absolute;
+          background: linear-gradient(135deg, #138808 0%, #0D6E06 100%);
+          border-radius: 50% 40% 60% 30% / 40% 50% 60% 50%;
+          filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+          opacity: 0.9;
+        }
+        
+        .globe-continent-1 {
           top: 20%;
-          left: 30%;
-          width: 40%;
-          height: 45%;
+          left: 15%;
+          width: 30%;
+          height: 40%;
           border-radius: 40% 60% 30% 70% / 30% 40% 60% 70%;
           transform: rotate(-15deg);
         }
         
-        .continent-2 {
-          /* Americas */
-          top: 15%;
-          left: 5%;
-          width: 30%;
-          height: 55%;
-          border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
-          transform: rotate(20deg);
-        }
-        
-        .continent-3 {
-          /* Asia */
-          top: 25%;
-          right: 5%;
-          width: 35%;
-          height: 40%;
+        .globe-continent-2 {
+          top: 40%;
+          right: 8%;
+          width: 25%;
+          height: 30%;
           border-radius: 50% 50% 60% 40% / 40% 50% 60% 50%;
-          background: linear-gradient(135deg, #8BC34A 0%, #689F38 100%);
         }
         
-        .continent-4 {
-          /* Australia */
-          bottom: 20%;
+        .globe-continent-3 {
+          bottom: 15%;
           right: 20%;
-          width: 20%;
-          height: 20%;
+          width: 15%;
+          height: 15%;
           border-radius: 50%;
-          background: linear-gradient(135deg, #9CCC65 0%, #7CB342 100%);
         }
         
-        .continent-5 {
-          /* Small island */
-          bottom: 35%;
-          left: 15%;
-          width: 8%;
-          height: 8%;
-          border-radius: 50%;
-          background: #7CB342;
+        /* GRID LINES (globe effect) */
+        .globe-grid {
+          position: absolute;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          pointer-events: none;
+        }
+        
+        .globe-grid-h {
+          top: 50%;
+          left: 0;
+          right: 0;
+          height: 1px;
+        }
+        
+        .globe-grid-v {
+          left: 50%;
+          top: 0;
+          bottom: 0;
+          width: 1px;
         }
         
         /* CLOUDS */
-        .cloud {
+        .globe-cloud {
           position: absolute;
-          background: rgba(255, 255, 255, 0.4);
+          background: rgba(255, 255, 255, 0.5);
           border-radius: 50%;
-          filter: blur(4px);
-          animation: cloudDrift 30s linear infinite;
+          filter: blur(6px);
+          animation: cloudDrift 25s linear infinite;
         }
         
-        .cloud-1 {
+        .globe-cloud-1 {
           top: 20%;
           left: 20%;
-          width: 60px;
-          height: 20px;
-        }
-        
-        .cloud-2 {
-          top: 50%;
-          right: 15%;
           width: 80px;
           height: 25px;
-          animation-delay: -10s;
         }
         
-        .cloud-3 {
-          bottom: 25%;
-          left: 30%;
-          width: 50px;
-          height: 18px;
-          animation-delay: -20s;
+        .globe-cloud-2 {
+          top: 55%;
+          right: 15%;
+          width: 100px;
+          height: 30px;
+          animation-delay: -12s;
         }
         
         @keyframes cloudDrift {
           from { transform: translateX(0); }
-          to { transform: translateX(400px); }
+          to { transform: translateX(600px); }
         }
         
-        /* SHINE HIGHLIGHT */
-        .earth-shine {
+        /* SHINE */
+        .globe-shine {
           position: absolute;
-          top: 10%;
-          left: 15%;
-          width: 40%;
-          height: 40%;
+          top: 8%;
+          left: 12%;
+          width: 45%;
+          height: 45%;
           border-radius: 50%;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
-          filter: blur(20px);
+          background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 60%);
+          filter: blur(25px);
           pointer-events: none;
         }
         
         /* SHADOW */
-        .earth-shadow {
+        .globe-shadow {
           position: absolute;
           top: 0;
           right: 0;
@@ -596,28 +591,153 @@ const HeroSection = () => {
           pointer-events: none;
         }
         
-        /* GLOW AROUND EARTH */
-        .earth-glow {
+        /* ═══════════════════════════════════════════════
+           INDIAN LANDMARKS (Floating on globe)
+        ═══════════════════════════════════════════════ */
+        .landmark {
           position: absolute;
-          inset: -40px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+          filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+          z-index: 10;
+        }
+        
+        .landmark-emoji {
+          font-size: 2rem;
+          background: rgba(245, 235, 221, 0.95);
+          border: 2px solid #C87952;
           border-radius: 50%;
-          background: radial-gradient(circle, rgba(100, 180, 255, 0.3) 0%, transparent 60%);
-          filter: blur(40px);
-          animation: earthGlow 4s ease-in-out infinite;
+          width: 50px;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(200, 121, 82, 0.4);
         }
         
-        @keyframes earthGlow {
-          0%, 100% { opacity: 0.5; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.1); }
+        .landmark-label {
+          font-size: 0.6rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: #F5EBDD;
+          background: rgba(42, 31, 26, 0.9);
+          padding: 3px 8px;
+          border-radius: 12px;
+          border: 1px solid rgba(200, 121, 82, 0.5);
+          white-space: nowrap;
+          font-weight: 600;
+          backdrop-filter: blur(4px);
         }
         
-        /* ORBIT RING */
-        .earth-orbit-ring {
+        @media (max-width: 768px) {
+          .landmark-emoji {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+          }
+          
+          .landmark-label {
+            font-size: 0.5rem;
+            padding: 2px 6px;
+          }
+        }
+        
+        @keyframes landmarkFloat {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-8px) scale(1.05); }
+        }
+        
+        /* LANDMARK POSITIONS ON GLOBE */
+        .landmark-taj {
+          top: 30%;
+          left: 55%;
+        }
+        
+        .landmark-delhi {
+          top: 22%;
+          left: 48%;
+        }
+        
+        .landmark-golden {
+          top: 20%;
+          left: 42%;
+        }
+        
+        .landmark-mumbai {
+          top: 55%;
+          left: 40%;
+        }
+        
+        .landmark-kolkata {
+          top: 40%;
+          right: 30%;
+        }
+        
+        .landmark-hyderabad {
+          top: 60%;
+          left: 50%;
+        }
+        
+        .landmark-mysore {
+          bottom: 25%;
+          left: 45%;
+        }
+        
+        .landmark-konark {
+          top: 50%;
+          right: 25%;
+        }
+        
+        .landmark-himalaya {
+          top: 15%;
+          left: 52%;
+        }
+        
+        .landmark-kerala {
+          bottom: 18%;
+          left: 43%;
+        }
+        
+        /* GLOW AROUND GLOBE */
+        .india-glow {
           position: absolute;
-          inset: -80px;
+          inset: -50px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(200, 121, 82, 0.4) 0%, transparent 60%);
+          filter: blur(50px);
+          animation: globeGlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes globeGlow {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.15); }
+        }
+        
+        /* ORBIT RINGS */
+        .india-orbit-ring {
+          position: absolute;
           border-radius: 50%;
           border: 2px dashed rgba(200, 121, 82, 0.3);
-          animation: orbitRotate 30s linear infinite;
+        }
+        
+        .india-orbit-ring-1 {
+          inset: -80px;
+          animation: orbitRotate 25s linear infinite;
+        }
+        
+        .india-orbit-ring-2 {
+          inset: -140px;
+          border-style: dotted;
+          border-color: rgba(232, 181, 148, 0.25);
+          animation: orbitRotate 40s linear infinite reverse;
+        }
+        
+        .india-orbit-ring-3 {
+          inset: -200px;
+          border-color: rgba(200, 121, 82, 0.15);
+          animation: orbitRotate 60s linear infinite;
         }
         
         @keyframes orbitRotate {
@@ -625,36 +745,70 @@ const HeroSection = () => {
           to { transform: rotate(360deg); }
         }
         
-        /* FLOATING STICKERS */
-        .floating-sticker {
-          width: 60px;
-          height: 60px;
-          filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+        /* ORBITING PLANE */
+        .orbiting-plane {
+          position: absolute;
+          inset: -80px;
+          border-radius: 50%;
+          pointer-events: none;
         }
         
-        @media (max-width: 768px) {
-          .floating-sticker {
-            width: 40px;
-            height: 40px;
-          }
+        .plane-emoji {
+          position: absolute;
+          top: -20px;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 2rem;
+          filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
         }
         
-        .sticker-star {
-          background: linear-gradient(135deg, #FFD700, #FFA500);
-          clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-          box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+        @keyframes orbitPlane {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
         
-        .sticker-sparkle {
-          background: linear-gradient(135deg, #E8B594, #C87952);
-          clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
-          box-shadow: 0 0 30px rgba(232, 181, 148, 0.6);
+        /* ORBITING STAR */
+        .orbiting-star {
+          position: absolute;
+          inset: -140px;
+          border-radius: 50%;
+          pointer-events: none;
         }
         
-        .sticker-diamond {
-          background: linear-gradient(135deg, #C87952, #8B4A32);
-          clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-          box-shadow: 0 0 30px rgba(200, 121, 82, 0.6);
+        .star-emoji {
+          position: absolute;
+          top: -15px;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 1.5rem;
+          filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+        }
+        
+        @keyframes orbitStar {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        /* ORBITING SPARKLE */
+        .orbiting-sparkle {
+          position: absolute;
+          inset: -200px;
+          border-radius: 50%;
+          pointer-events: none;
+        }
+        
+        .sparkle-emoji {
+          position: absolute;
+          top: -12px;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 1.5rem;
+          filter: drop-shadow(0 0 12px rgba(232, 181, 148, 0.8));
+        }
+        
+        @keyframes orbitSparkle {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
         
         /* PRIMARY BUTTON */
@@ -672,7 +826,7 @@ const HeroSection = () => {
             0 0 60px rgba(200, 121, 82, 0.7),
             0 0 120px rgba(200, 121, 82, 0.3),
             0 15px 40px rgba(0, 0, 0, 0.5);
-          transform: translateY(-3px) translateZ(0);
+          transform: translateY(-3px);
         }
         
         .hero-btn-glow {
@@ -684,8 +838,8 @@ const HeroSection = () => {
         }
         
         @keyframes heroBtnGlow {
-          0%, 100% { transform: scale(1) translateZ(0); opacity: 0.5; }
-          50% { transform: scale(1.15) translateZ(0); opacity: 0; }
+          0%, 100% { transform: scale(1); opacity: 0.5; }
+          50% { transform: scale(1.15); opacity: 0; }
         }
         
         .hero-btn-ring {
@@ -697,13 +851,17 @@ const HeroSection = () => {
         }
         
         @keyframes heroBtnRing {
-          0%, 100% { transform: scale(1) translateZ(0); opacity: 0.3; }
-          50% { transform: scale(1.3) translateZ(0); opacity: 0; }
+          0%, 100% { transform: scale(1); opacity: 0.3; }
+          50% { transform: scale(1.3); opacity: 0; }
         }
         
         @media (max-width: 768px) {
-          .creative-orb {
+          .india-orb {
             filter: blur(50px);
+          }
+          
+          .india-orbit-ring-3 {
+            display: none;
           }
         }
       `}</style>
