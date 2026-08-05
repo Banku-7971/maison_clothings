@@ -14,7 +14,8 @@ const HeroSection = () => {
   
   const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
   const textY = useTransform(scrollYProgress, [0, 1], ['0%', '50%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  // ✅ FIXED: Text stays visible until you scroll 70%
+  const opacity = useTransform(scrollYProgress, [0.7, 1], [1, 0.5])
   const bgTextX = useTransform(scrollYProgress, [0, 1], ['0%', '-15%'])
   
   const smoothImageY = useSpring(imageY, { stiffness: 100, damping: 30 })
@@ -228,7 +229,7 @@ const HeroSection = () => {
         </div>
       </motion.div>
       
-      {/* MAIN CONTENT */}
+      {/* MAIN CONTENT - FIXED OPACITY */}
       <motion.div
         style={{ y: smoothTextY, opacity }}
         className="relative z-10 h-full flex items-center"
@@ -446,7 +447,6 @@ const HeroSection = () => {
           100% { transform: translateX(-25%); }
         }
         
-        /* RESPONSIVE MAISON BACKGROUND TEXT */
         .bg-maison-text {
           font-size: 18rem;
         }
@@ -481,7 +481,6 @@ const HeroSection = () => {
           }
         }
         
-        /* AMBIENT ORBS */
         .hero-orb {
           position: absolute;
           border-radius: 50%;
@@ -517,7 +516,6 @@ const HeroSection = () => {
           66% { transform: translate(-20px, 30px) scale(0.9) translateZ(0); }
         }
         
-        /* PARTICLES */
         .hero-particle {
           position: absolute;
           border-radius: 50%;
@@ -560,7 +558,6 @@ const HeroSection = () => {
           }
         }
         
-        /* GOLD DUST */
         .hero-dust {
           position: absolute;
           top: -10px;
@@ -586,7 +583,6 @@ const HeroSection = () => {
           }
         }
         
-        /* SPARKLES */
         .hero-sparkle {
           position: absolute;
           width: 10px;
@@ -624,7 +620,6 @@ const HeroSection = () => {
           50% { transform: scale(1.5) rotate(180deg) translateZ(0); opacity: 1; }
         }
         
-        /* LIGHT BEAM */
         .hero-light-beam {
           background: linear-gradient(90deg, transparent 45%, rgba(200, 121, 82, 0.15) 50%, transparent 55%);
           animation: heroLightBeam 6s linear infinite;
@@ -638,7 +633,6 @@ const HeroSection = () => {
           100% { transform: translateX(100%) translateZ(0); }
         }
         
-        /* ROTATING RINGS */
         .hero-ring {
           position: absolute;
           border-radius: 50%;
@@ -679,7 +673,6 @@ const HeroSection = () => {
           background: linear-gradient(to right, transparent, rgba(200, 121, 82, 0.5), transparent);
         }
         
-        /* PRIMARY CTA BUTTON */
         .hero-btn-primary {
           background: linear-gradient(135deg, #C87952 0%, #E8B594 100%);
           box-shadow:
@@ -725,7 +718,6 @@ const HeroSection = () => {
           50% { transform: scale(1.3) translateZ(0); opacity: 0; }
         }
         
-        /* MOBILE OPTIMIZATIONS */
         @media (max-width: 768px) {
           .hero-orb {
             filter: blur(40px);
@@ -736,7 +728,6 @@ const HeroSection = () => {
           }
         }
         
-        /* REDUCED MOTION */
         @media (prefers-reduced-motion: reduce) {
           .hero-container *,
           .hero-container *::before,
