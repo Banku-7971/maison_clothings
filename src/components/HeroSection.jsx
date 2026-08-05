@@ -6,51 +6,36 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import * as THREE from 'three'
 
 // ═══════════════════════════════════════════════════════════════
-// 3D INDIAN LANDMARKS (Real geometry)
+// TAJ MAHAL
 // ═══════════════════════════════════════════════════════════════
-
-// TAJ MAHAL — Detailed
-function TajMahal({ position, rotation }) {
+function TajMahal({ position, rotation, scale = 1 }) {
   return (
-    <group position={position} rotation={rotation}>
-      {/* Base platform */}
+    <group position={position} rotation={rotation} scale={scale}>
       <mesh castShadow position={[0, 0.05, 0]}>
-        <boxGeometry args={[0.5, 0.1, 0.5]} />
-        <meshStandardMaterial color="#E8DCC8" roughness={0.6} />
+        <boxGeometry args={[0.4, 0.1, 0.4]} />
+        <meshStandardMaterial color="#E8DCC8" roughness={0.5} />
       </mesh>
-      
-      {/* Main building */}
-      <mesh castShadow position={[0, 0.2, 0]}>
-        <boxGeometry args={[0.4, 0.2, 0.4]} />
+      <mesh castShadow position={[0, 0.18, 0]}>
+        <boxGeometry args={[0.3, 0.15, 0.3]} />
         <meshStandardMaterial color="#F5EBDD" roughness={0.4} />
       </mesh>
-      
-      {/* Main dome */}
-      <mesh castShadow position={[0, 0.4, 0]}>
-        <sphereGeometry args={[0.2, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
-        <meshStandardMaterial color="#FFFFFF" roughness={0.3} metalness={0.1} />
+      <mesh castShadow position={[0, 0.32, 0]}>
+        <sphereGeometry args={[0.15, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshStandardMaterial color="#FFFFFF" roughness={0.3} />
       </mesh>
-      
-      {/* Dome spire */}
-      <mesh castShadow position={[0, 0.6, 0]}>
-        <coneGeometry args={[0.03, 0.15, 8]} />
-        <meshStandardMaterial color="#FFD700" metalness={0.8} roughness={0.2} />
+      <mesh castShadow position={[0, 0.5, 0]}>
+        <coneGeometry args={[0.02, 0.1, 8]} />
+        <meshStandardMaterial color="#FFD700" metalness={0.8} />
       </mesh>
-      
-      {/* 4 Minarets */}
-      {[[0.35, 0.35], [-0.35, 0.35], [0.35, -0.35], [-0.35, -0.35]].map((pos, i) => (
+      {[[0.25, 0.25], [-0.25, 0.25], [0.25, -0.25], [-0.25, -0.25]].map((pos, i) => (
         <group key={i} position={[pos[0], 0, pos[1]]}>
-          <mesh castShadow position={[0, 0.25, 0]}>
-            <cylinderGeometry args={[0.04, 0.05, 0.5, 8]} />
+          <mesh castShadow position={[0, 0.2, 0]}>
+            <cylinderGeometry args={[0.03, 0.04, 0.4, 8]} />
             <meshStandardMaterial color="#F5EBDD" roughness={0.4} />
           </mesh>
-          <mesh castShadow position={[0, 0.55, 0]}>
-            <sphereGeometry args={[0.06, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
-            <meshStandardMaterial color="#FFFFFF" roughness={0.3} />
-          </mesh>
-          <mesh castShadow position={[0, 0.63, 0]}>
-            <coneGeometry args={[0.02, 0.06, 8]} />
-            <meshStandardMaterial color="#FFD700" metalness={0.8} />
+          <mesh castShadow position={[0, 0.43, 0]}>
+            <sphereGeometry args={[0.05, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
+            <meshStandardMaterial color="#FFFFFF" />
           </mesh>
         </group>
       ))}
@@ -59,38 +44,19 @@ function TajMahal({ position, rotation }) {
 }
 
 // GOLDEN TEMPLE
-function GoldenTemple({ position, rotation }) {
+function GoldenTemple({ position, rotation, scale = 1 }) {
   return (
-    <group position={position} rotation={rotation}>
-      {/* Base */}
+    <group position={position} rotation={rotation} scale={scale}>
       <mesh castShadow position={[0, 0.05, 0]}>
-        <boxGeometry args={[0.4, 0.1, 0.4]} />
-        <meshStandardMaterial color="#FFD700" metalness={0.6} roughness={0.3} />
+        <boxGeometry args={[0.35, 0.1, 0.35]} />
+        <meshStandardMaterial color="#FFD700" metalness={0.7} roughness={0.3} />
       </mesh>
-      
-      {/* Middle */}
-      <mesh castShadow position={[0, 0.18, 0]}>
-        <boxGeometry args={[0.35, 0.15, 0.35]} />
-        <meshStandardMaterial color="#FFA500" metalness={0.7} roughness={0.3} />
-      </mesh>
-      
-      {/* Main dome */}
-      <mesh castShadow position={[0, 0.35, 0]}>
-        <sphereGeometry args={[0.18, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
+      <mesh castShadow position={[0, 0.2, 0]}>
+        <sphereGeometry args={[0.16, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
         <meshStandardMaterial color="#FFD700" metalness={0.9} roughness={0.15} />
       </mesh>
-      
-      {/* Small domes on corners */}
-      {[[0.15, 0.15], [-0.15, 0.15], [0.15, -0.15], [-0.15, -0.15]].map((pos, i) => (
-        <mesh key={i} castShadow position={[pos[0], 0.3, pos[1]]}>
-          <sphereGeometry args={[0.05, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
-          <meshStandardMaterial color="#FFD700" metalness={0.8} roughness={0.2} />
-        </mesh>
-      ))}
-      
-      {/* Top spire */}
-      <mesh castShadow position={[0, 0.55, 0]}>
-        <coneGeometry args={[0.03, 0.12, 8]} />
+      <mesh castShadow position={[0, 0.4, 0]}>
+        <coneGeometry args={[0.03, 0.1, 8]} />
         <meshStandardMaterial color="#FFA500" metalness={0.9} />
       </mesh>
     </group>
@@ -98,96 +64,67 @@ function GoldenTemple({ position, rotation }) {
 }
 
 // INDIA GATE
-function IndiaGate({ position, rotation }) {
+function IndiaGate({ position, rotation, scale = 1 }) {
   return (
-    <group position={position} rotation={rotation}>
-      {/* Base */}
+    <group position={position} rotation={rotation} scale={scale}>
       <mesh castShadow position={[0, 0.05, 0]}>
         <boxGeometry args={[0.5, 0.1, 0.2]} />
         <meshStandardMaterial color="#8B6543" roughness={0.7} />
       </mesh>
-      
-      {/* Main arch structure */}
       <mesh castShadow position={[0, 0.25, 0]}>
-        <boxGeometry args={[0.4, 0.35, 0.15]} />
+        <boxGeometry args={[0.4, 0.3, 0.15]} />
         <meshStandardMaterial color="#D4B896" roughness={0.6} />
       </mesh>
-      
-      {/* Top decoration */}
-      <mesh castShadow position={[0, 0.48, 0]}>
+      <mesh castShadow position={[0, 0.45, 0]}>
         <boxGeometry args={[0.45, 0.05, 0.18]} />
         <meshStandardMaterial color="#B8875E" roughness={0.6} />
       </mesh>
-      
-      {/* Arch opening (dark) */}
-      <mesh position={[0, 0.2, 0.076]}>
-        <boxGeometry args={[0.15, 0.25, 0.02]} />
-        <meshStandardMaterial color="#1A1108" />
-      </mesh>
     </group>
   )
 }
 
-// VICTORIA MEMORIAL (Kolkata!)
-function VictoriaMemorial({ position, rotation }) {
+// VICTORIA MEMORIAL
+function VictoriaMemorial({ position, rotation, scale = 1 }) {
   return (
-    <group position={position} rotation={rotation}>
-      {/* Base */}
+    <group position={position} rotation={rotation} scale={scale}>
       <mesh castShadow position={[0, 0.05, 0]}>
-        <boxGeometry args={[0.6, 0.1, 0.4]} />
+        <boxGeometry args={[0.5, 0.1, 0.35]} />
         <meshStandardMaterial color="#E8DCC8" roughness={0.5} />
       </mesh>
-      
-      {/* Main building */}
-      <mesh castShadow position={[0, 0.2, 0]}>
-        <boxGeometry args={[0.55, 0.2, 0.35]} />
+      <mesh castShadow position={[0, 0.18, 0]}>
+        <boxGeometry args={[0.45, 0.15, 0.3]} />
         <meshStandardMaterial color="#F5EBDD" roughness={0.4} />
       </mesh>
-      
-      {/* Central big dome */}
-      <mesh castShadow position={[0, 0.4, 0]}>
-        <sphereGeometry args={[0.15, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
+      <mesh castShadow position={[0, 0.32, 0]}>
+        <sphereGeometry args={[0.13, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
         <meshStandardMaterial color="#FFFFFF" roughness={0.3} />
       </mesh>
-      
-      {/* Center spire */}
-      <mesh castShadow position={[0, 0.58, 0]}>
-        <coneGeometry args={[0.02, 0.1, 8]} />
-        <meshStandardMaterial color="#FFD700" metalness={0.8} />
-      </mesh>
-      
-      {/* Side domes */}
-      <mesh castShadow position={[0.2, 0.35, 0]}>
-        <sphereGeometry args={[0.08, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
+      <mesh castShadow position={[0.18, 0.27, 0]}>
+        <sphereGeometry args={[0.07, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
         <meshStandardMaterial color="#FFFFFF" roughness={0.3} />
       </mesh>
-      <mesh castShadow position={[-0.2, 0.35, 0]}>
-        <sphereGeometry args={[0.08, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
+      <mesh castShadow position={[-0.18, 0.27, 0]}>
+        <sphereGeometry args={[0.07, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
         <meshStandardMaterial color="#FFFFFF" roughness={0.3} />
       </mesh>
     </group>
   )
 }
 
-// GATEWAY OF INDIA (Mumbai)
-function GatewayOfIndia({ position, rotation }) {
+// GATEWAY OF INDIA
+function GatewayOfIndia({ position, rotation, scale = 1 }) {
   return (
-    <group position={position} rotation={rotation}>
-      {/* Base */}
+    <group position={position} rotation={rotation} scale={scale}>
       <mesh castShadow position={[0, 0.05, 0]}>
-        <boxGeometry args={[0.4, 0.1, 0.25]} />
+        <boxGeometry args={[0.35, 0.1, 0.25]} />
         <meshStandardMaterial color="#8B6543" roughness={0.7} />
       </mesh>
-      
-      {/* Main structure */}
       <mesh castShadow position={[0, 0.2, 0]}>
-        <boxGeometry args={[0.35, 0.2, 0.2]} />
+        <boxGeometry args={[0.3, 0.2, 0.2]} />
         <meshStandardMaterial color="#C8A578" roughness={0.6} />
       </mesh>
-      
-      {/* Central dome */}
       <mesh castShadow position={[0, 0.4, 0]}>
-        <sphereGeometry args={[0.15, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <sphereGeometry args={[0.13, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
         <meshStandardMaterial color="#C8A578" roughness={0.5} />
       </mesh>
     </group>
@@ -195,31 +132,26 @@ function GatewayOfIndia({ position, rotation }) {
 }
 
 // CHARMINAR
-function Charminar({ position, rotation }) {
+function Charminar({ position, rotation, scale = 1 }) {
   return (
-    <group position={position} rotation={rotation}>
-      {/* Base */}
+    <group position={position} rotation={rotation} scale={scale}>
       <mesh castShadow position={[0, 0.05, 0]}>
-        <boxGeometry args={[0.4, 0.1, 0.4]} />
+        <boxGeometry args={[0.35, 0.1, 0.35]} />
         <meshStandardMaterial color="#8B6543" roughness={0.7} />
       </mesh>
-      
-      {/* Central structure */}
-      <mesh castShadow position={[0, 0.2, 0]}>
-        <boxGeometry args={[0.35, 0.2, 0.35]} />
+      <mesh castShadow position={[0, 0.18, 0]}>
+        <boxGeometry args={[0.3, 0.15, 0.3]} />
         <meshStandardMaterial color="#B8875E" roughness={0.6} />
       </mesh>
-      
-      {/* 4 Corner minarets */}
-      {[[0.15, 0.15], [-0.15, 0.15], [0.15, -0.15], [-0.15, -0.15]].map((pos, i) => (
+      {[[0.13, 0.13], [-0.13, 0.13], [0.13, -0.13], [-0.13, -0.13]].map((pos, i) => (
         <group key={i} position={[pos[0], 0, pos[1]]}>
-          <mesh castShadow position={[0, 0.3, 0]}>
-            <cylinderGeometry args={[0.03, 0.04, 0.5, 8]} />
+          <mesh castShadow position={[0, 0.28, 0]}>
+            <cylinderGeometry args={[0.025, 0.03, 0.4, 8]} />
             <meshStandardMaterial color="#D4B896" roughness={0.5} />
           </mesh>
-          <mesh castShadow position={[0, 0.6, 0]}>
-            <coneGeometry args={[0.05, 0.1, 8]} />
-            <meshStandardMaterial color="#8B6543" roughness={0.5} />
+          <mesh castShadow position={[0, 0.53, 0]}>
+            <coneGeometry args={[0.04, 0.08, 8]} />
+            <meshStandardMaterial color="#8B6543" />
           </mesh>
         </group>
       ))}
@@ -227,27 +159,24 @@ function Charminar({ position, rotation }) {
   )
 }
 
-// MOUNTAIN (Himalayas)
-function Mountain({ position, rotation }) {
+// MOUNTAIN
+function Mountain({ position, rotation, scale = 1 }) {
   return (
-    <group position={position} rotation={rotation}>
-      {/* Main peak */}
+    <group position={position} rotation={rotation} scale={scale}>
       <mesh castShadow position={[0, 0.25, 0]}>
         <coneGeometry args={[0.3, 0.5, 6]} />
         <meshStandardMaterial color="#6B7A85" roughness={0.9} />
       </mesh>
-      {/* Snow cap */}
       <mesh position={[0, 0.42, 0]}>
-        <coneGeometry args={[0.12, 0.15, 6]} />
+        <coneGeometry args={[0.13, 0.16, 6]} />
         <meshStandardMaterial color="#FFFFFF" roughness={0.8} />
       </mesh>
-      {/* Side peaks */}
-      <mesh castShadow position={[0.25, 0.2, 0.1]}>
-        <coneGeometry args={[0.2, 0.4, 6]} />
+      <mesh castShadow position={[0.28, 0.2, 0.1]}>
+        <coneGeometry args={[0.22, 0.4, 6]} />
         <meshStandardMaterial color="#5A6B75" roughness={0.9} />
       </mesh>
-      <mesh castShadow position={[-0.25, 0.18, 0.05]}>
-        <coneGeometry args={[0.22, 0.35, 6]} />
+      <mesh castShadow position={[-0.28, 0.18, 0.05]}>
+        <coneGeometry args={[0.24, 0.36, 6]} />
         <meshStandardMaterial color="#6B7A85" roughness={0.9} />
       </mesh>
     </group>
@@ -255,17 +184,15 @@ function Mountain({ position, rotation }) {
 }
 
 // HOUSE
-function House({ position, rotation, color = '#C87952' }) {
+function House({ position, rotation, color = '#C87952', scale = 1 }) {
   return (
-    <group position={position} rotation={rotation}>
-      {/* Body */}
+    <group position={position} rotation={rotation} scale={scale}>
       <mesh castShadow position={[0, 0.08, 0]}>
-        <boxGeometry args={[0.18, 0.16, 0.18]} />
+        <boxGeometry args={[0.2, 0.16, 0.2]} />
         <meshStandardMaterial color={color} roughness={0.6} />
       </mesh>
-      {/* Roof */}
-      <mesh castShadow position={[0, 0.2, 0]}>
-        <coneGeometry args={[0.14, 0.12, 4]} />
+      <mesh castShadow position={[0, 0.22, 0]}>
+        <coneGeometry args={[0.16, 0.14, 4]} />
         <meshStandardMaterial color="#8B4513" roughness={0.7} />
       </mesh>
     </group>
@@ -276,48 +203,42 @@ function House({ position, rotation, color = '#C87952' }) {
 function Tree({ position, rotation, scale = 1 }) {
   return (
     <group position={position} rotation={rotation} scale={scale}>
-      {/* Trunk */}
       <mesh castShadow position={[0, 0.1, 0]}>
-        <cylinderGeometry args={[0.03, 0.04, 0.15, 6]} />
+        <cylinderGeometry args={[0.03, 0.05, 0.15, 6]} />
         <meshStandardMaterial color="#5C3E28" roughness={0.9} />
       </mesh>
-      {/* Leaves layers */}
       <mesh castShadow position={[0, 0.25, 0]}>
-        <coneGeometry args={[0.15, 0.3, 8]} />
+        <coneGeometry args={[0.14, 0.3, 8]} />
         <meshStandardMaterial color="#2D5A2D" roughness={0.8} />
       </mesh>
-      <mesh castShadow position={[0, 0.4, 0]}>
-        <coneGeometry args={[0.12, 0.25, 8]} />
+      <mesh castShadow position={[0, 0.42, 0]}>
+        <coneGeometry args={[0.11, 0.25, 8]} />
         <meshStandardMaterial color="#3A7A3A" roughness={0.8} />
-      </mesh>
-      <mesh castShadow position={[0, 0.52, 0]}>
-        <coneGeometry args={[0.08, 0.18, 8]} />
-        <meshStandardMaterial color="#4A8A4A" roughness={0.8} />
       </mesh>
     </group>
   )
 }
 
 // CLOUD
-function Cloud({ position }) {
+function Cloud({ position, scale = 1 }) {
   return (
     <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.5}>
-      <group position={position}>
+      <group position={position} scale={scale}>
         <mesh>
+          <sphereGeometry args={[0.35, 12, 12]} />
+          <meshStandardMaterial color="#FFFFFF" opacity={0.9} transparent roughness={1} />
+        </mesh>
+        <mesh position={[0.3, 0.08, 0]}>
+          <sphereGeometry args={[0.28, 12, 12]} />
+          <meshStandardMaterial color="#FFFFFF" opacity={0.9} transparent roughness={1} />
+        </mesh>
+        <mesh position={[-0.28, 0.05, 0]}>
           <sphereGeometry args={[0.25, 12, 12]} />
-          <meshStandardMaterial color="#FFFFFF" opacity={0.85} transparent roughness={1} />
+          <meshStandardMaterial color="#FFFFFF" opacity={0.9} transparent roughness={1} />
         </mesh>
-        <mesh position={[0.2, 0.05, 0]}>
-          <sphereGeometry args={[0.18, 12, 12]} />
-          <meshStandardMaterial color="#FFFFFF" opacity={0.85} transparent roughness={1} />
-        </mesh>
-        <mesh position={[-0.18, 0.03, 0]}>
-          <sphereGeometry args={[0.16, 12, 12]} />
-          <meshStandardMaterial color="#FFFFFF" opacity={0.85} transparent roughness={1} />
-        </mesh>
-        <mesh position={[0, 0.1, 0.1]}>
-          <sphereGeometry args={[0.14, 12, 12]} />
-          <meshStandardMaterial color="#FFFFFF" opacity={0.85} transparent roughness={1} />
+        <mesh position={[0, 0.15, 0.15]}>
+          <sphereGeometry args={[0.22, 12, 12]} />
+          <meshStandardMaterial color="#FFFFFF" opacity={0.9} transparent roughness={1} />
         </mesh>
       </group>
     </Float>
@@ -333,16 +254,16 @@ function TinyPlanet() {
   
   useFrame((state, delta) => {
     if (planetRef.current) {
-      planetRef.current.rotation.y += delta * 0.1
+      planetRef.current.rotation.y += delta * 0.08
     }
     if (cloudsRef.current) {
-      cloudsRef.current.rotation.y -= delta * 0.03
+      cloudsRef.current.rotation.y -= delta * 0.02
     }
   })
   
   const sphereRadius = 2
   
-  // Function to place objects on sphere surface
+  // Position on sphere
   const onSphere = (lat, lon) => {
     const phi = (90 - lat) * (Math.PI / 180)
     const theta = (lon + 180) * (Math.PI / 180)
@@ -353,7 +274,6 @@ function TinyPlanet() {
     ]
   }
   
-  // Rotation to make object stand upright on sphere
   const rotOnSphere = (lat, lon) => {
     const phi = (90 - lat) * (Math.PI / 180)
     const theta = (lon + 180) * (Math.PI / 180)
@@ -366,10 +286,10 @@ function TinyPlanet() {
   
   return (
     <group>
-      {/* MAIN PLANET (rotates) */}
+      {/* PLANET (rotates) */}
       <group ref={planetRef}>
         
-        {/* GREEN GLOBE */}
+        {/* GREEN PLANET */}
         <mesh receiveShadow castShadow>
           <sphereGeometry args={[sphereRadius, 64, 64]} />
           <meshStandardMaterial 
@@ -379,120 +299,92 @@ function TinyPlanet() {
           />
         </mesh>
         
-        {/* Water/Ocean patches */}
-        <mesh position={[1.2, 0.8, 1.4]} scale={[0.9, 0.5, 0.5]}>
-          <sphereGeometry args={[sphereRadius, 32, 32]} />
+        {/* Ocean patches (smaller and less prominent) */}
+        <mesh position={[1.5, 0.8, 1.2]} scale={[0.7, 0.4, 0.5]}>
+          <sphereGeometry args={[sphereRadius * 0.95, 32, 32]} />
           <meshStandardMaterial 
             color="#4A90C2" 
             roughness={0.3}
             metalness={0.4}
-            transparent
-            opacity={0.85}
           />
         </mesh>
         
-        <mesh position={[-1.5, -0.5, 1]} scale={[0.6, 0.4, 0.6]}>
-          <sphereGeometry args={[sphereRadius, 32, 32]} />
+        <mesh position={[-1.6, -0.3, 1]} scale={[0.5, 0.4, 0.5]}>
+          <sphereGeometry args={[sphereRadius * 0.95, 32, 32]} />
           <meshStandardMaterial 
             color="#4A90C2" 
             roughness={0.3}
             metalness={0.4}
-            transparent
-            opacity={0.8}
           />
         </mesh>
         
-        <mesh position={[0.5, -1.5, 1.2]} scale={[0.5, 0.5, 0.5]}>
-          <sphereGeometry args={[sphereRadius, 32, 32]} />
-          <meshStandardMaterial 
-            color="#4A90C2" 
-            roughness={0.3}
-            metalness={0.4}
-            transparent
-            opacity={0.8}
-          />
-        </mesh>
-        
-        {/* Green grass patches (lighter areas) */}
-        <mesh position={[0, 2, 0]} scale={[0.8, 0.3, 0.8]}>
-          <sphereGeometry args={[sphereRadius, 32, 32]} />
-          <meshStandardMaterial color="#6B9B5A" roughness={0.9} transparent opacity={0.6} />
-        </mesh>
-        
-        {/* ═══════════════════════════════════
-            LANDMARKS on the sphere
-        ═══════════════════════════════════ */}
-        
-        {/* TAJ MAHAL - Top center */}
+        {/* LANDMARKS */}
         <group position={onSphere(70, 0)} rotation={rotOnSphere(70, 0)}>
-          <TajMahal position={[0, 0, 0]} rotation={[0, 0, 0]} />
+          <TajMahal position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.8} />
         </group>
         
-        {/* GOLDEN TEMPLE - Top left */}
-        <group position={onSphere(60, -40)} rotation={rotOnSphere(60, -40)}>
-          <GoldenTemple position={[0, 0, 0]} rotation={[0, 0, 0]} />
+        <group position={onSphere(50, -50)} rotation={rotOnSphere(50, -50)}>
+          <GoldenTemple position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.8} />
         </group>
         
-        {/* INDIA GATE - Middle right */}
-        <group position={onSphere(30, 60)} rotation={rotOnSphere(30, 60)}>
-          <IndiaGate position={[0, 0, 0]} rotation={[0, 0, 0]} />
+        <group position={onSphere(30, 70)} rotation={rotOnSphere(30, 70)}>
+          <IndiaGate position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.8} />
         </group>
         
-        {/* VICTORIA MEMORIAL (Kolkata!) - Front */}
-        <group position={onSphere(20, 120)} rotation={rotOnSphere(20, 120)}>
-          <VictoriaMemorial position={[0, 0, 0]} rotation={[0, 0, 0]} />
+        <group position={onSphere(20, 140)} rotation={rotOnSphere(20, 140)}>
+          <VictoriaMemorial position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.8} />
         </group>
         
-        {/* GATEWAY OF INDIA (Mumbai) - Left */}
-        <group position={onSphere(10, -90)} rotation={rotOnSphere(10, -90)}>
-          <GatewayOfIndia position={[0, 0, 0]} rotation={[0, 0, 0]} />
+        <group position={onSphere(0, -110)} rotation={rotOnSphere(0, -110)}>
+          <GatewayOfIndia position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.8} />
         </group>
         
-        {/* CHARMINAR - Bottom right */}
         <group position={onSphere(-30, 40)} rotation={rotOnSphere(-30, 40)}>
-          <Charminar position={[0, 0, 0]} rotation={[0, 0, 0]} />
+          <Charminar position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.8} />
         </group>
         
-        {/* HIMALAYAS - Top far */}
-        <group position={onSphere(75, 180)} rotation={rotOnSphere(75, 180)}>
-          <Mountain position={[0, 0, 0]} rotation={[0, 0, 0]} />
+        <group position={onSphere(75, 150)} rotation={rotOnSphere(75, 150)}>
+          <Mountain position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.9} />
         </group>
         
-        {/* MOUNTAIN 2 - Back */}
-        <group position={onSphere(40, 200)} rotation={rotOnSphere(40, 200)}>
-          <Mountain position={[0, 0, 0]} rotation={[0, 0, 0]} />
+        <group position={onSphere(-60, -50)} rotation={rotOnSphere(-60, -50)}>
+          <Mountain position={[0, 0, 0]} rotation={[0, 0, 0]} scale={0.8} />
         </group>
         
-        {/* HOUSES scattered */}
+        {/* HOUSES */}
         {[
-          { lat: 40, lon: 80, color: '#C87952' },
-          { lat: 20, lon: -60, color: '#5A8DBE' },
-          { lat: 50, lon: 30, color: '#E8B594' },
-          { lat: -20, lon: -30, color: '#C87952' },
-          { lat: -40, lon: 100, color: '#5A8DBE' },
-          { lat: -50, lon: -100, color: '#E8B594' },
-          { lat: 0, lon: 150, color: '#C87952' },
-          { lat: 30, lon: -150, color: '#5A8DBE' },
-          { lat: 45, lon: 150, color: '#E8B594' },
-          { lat: -30, lon: 170, color: '#C87952' },
+          { lat: 45, lon: 90, color: '#C87952' },
+          { lat: 25, lon: -60, color: '#5A8DBE' },
+          { lat: 55, lon: 30, color: '#E8B594' },
+          { lat: -25, lon: -30, color: '#C87952' },
+          { lat: -45, lon: 110, color: '#5A8DBE' },
+          { lat: -55, lon: -110, color: '#E8B594' },
+          { lat: 5, lon: 160, color: '#C87952' },
+          { lat: 35, lon: -160, color: '#5A8DBE' },
+          { lat: 50, lon: 160, color: '#E8B594' },
+          { lat: -35, lon: 170, color: '#C87952' },
+          { lat: 0, lon: -40, color: '#5A8DBE' },
+          { lat: -15, lon: 60, color: '#E8B594' },
         ].map((h, i) => (
           <group key={`house-${i}`} position={onSphere(h.lat, h.lon)} rotation={rotOnSphere(h.lat, h.lon)}>
-            <House position={[0, 0, 0]} rotation={[0, 0, 0]} color={h.color} />
+            <House position={[0, 0, 0]} rotation={[0, Math.random() * Math.PI * 2, 0]} color={h.color} scale={0.7} />
           </group>
         ))}
         
-        {/* TREES scattered everywhere */}
+        {/* TREES */}
         {[
-          { lat: 55, lon: -20 }, { lat: 45, lon: 50 }, { lat: 35, lon: -80 },
-          { lat: 25, lon: 90 }, { lat: 15, lon: -20 }, { lat: 5, lon: 40 },
-          { lat: -10, lon: 130 }, { lat: -20, lon: -50 }, { lat: -35, lon: 70 },
-          { lat: -45, lon: -30 }, { lat: -55, lon: 130 }, { lat: 65, lon: -60 },
+          { lat: 60, lon: -20 }, { lat: 50, lon: 60 }, { lat: 40, lon: -80 },
+          { lat: 30, lon: 100 }, { lat: 20, lon: -30 }, { lat: 10, lon: 40 },
+          { lat: -5, lon: 130 }, { lat: -15, lon: -50 }, { lat: -30, lon: 70 },
+          { lat: -40, lon: -30 }, { lat: -50, lon: 130 }, { lat: 65, lon: -60 },
           { lat: 55, lon: 100 }, { lat: 35, lon: 130 }, { lat: 25, lon: -140 },
           { lat: 10, lon: -170 }, { lat: -5, lon: 80 }, { lat: -15, lon: -110 },
           { lat: -30, lon: 40 }, { lat: -60, lon: -50 }, { lat: 60, lon: 50 },
           { lat: 40, lon: 170 }, { lat: 0, lon: -140 }, { lat: -25, lon: 150 },
           { lat: 15, lon: 130 }, { lat: -10, lon: -80 }, { lat: 20, lon: 20 },
           { lat: -45, lon: 90 }, { lat: 50, lon: -110 }, { lat: 35, lon: -50 },
+          { lat: 15, lon: 90 }, { lat: -20, lon: 100 }, { lat: 45, lon: -20 },
+          { lat: 0, lon: 20 }, { lat: -35, lon: -80 }, { lat: 25, lon: 170 },
         ].map((t, i) => (
           <group key={`tree-${i}`} position={onSphere(t.lat, t.lon)} rotation={rotOnSphere(t.lat, t.lon)}>
             <Tree 
@@ -504,49 +396,47 @@ function TinyPlanet() {
         ))}
       </group>
       
-      {/* CLOUDS - Don't rotate with planet */}
+      {/* CLOUDS - Independent rotation */}
       <group ref={cloudsRef}>
-        <Cloud position={[3, 1, 1]} />
-        <Cloud position={[-2.5, 0.5, 1.5]} />
-        <Cloud position={[1, 2.5, -1]} />
-        <Cloud position={[-1, -2.5, 1.5]} />
-        <Cloud position={[2.5, -1.5, -1.5]} />
-        <Cloud position={[-2.5, 2, -1]} />
-        <Cloud position={[0, 3, 0]} />
-        <Cloud position={[3, 0, -2]} />
+        <Cloud position={[3.5, 1.5, 1.5]} scale={0.8} />
+        <Cloud position={[-3.2, 0.8, 1.8]} scale={0.9} />
+        <Cloud position={[1.5, 3, -1]} scale={0.7} />
+        <Cloud position={[-1.5, -3, 1.8]} scale={0.8} />
+        <Cloud position={[3.2, -1.8, -1.8]} scale={0.75} />
+        <Cloud position={[-3.2, 2.5, -1.2]} scale={0.85} />
+        <Cloud position={[0, 3.5, 0]} scale={0.9} />
+        <Cloud position={[3.5, 0.5, -2.2]} scale={0.7} />
       </group>
       
-      {/* Glow ring around planet */}
+      {/* Glow ring */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[3.2, 3.4, 64]} />
-        <meshBasicMaterial color="#C87952" transparent opacity={0.15} side={THREE.DoubleSide} />
+        <ringGeometry args={[3, 3.15, 64]} />
+        <meshBasicMaterial color="#C87952" transparent opacity={0.2} side={THREE.DoubleSide} />
       </mesh>
     </group>
   )
 }
 
-// SCENE LIGHTING
+// LIGHTING
 function SceneLighting() {
   return (
     <>
-      <ambientLight intensity={0.6} />
+      <ambientLight intensity={0.7} />
       <directionalLight 
-        position={[5, 8, 5]} 
-        intensity={1.5}
+        position={[8, 12, 8]} 
+        intensity={2}
         castShadow
         shadow-mapSize={[2048, 2048]}
       />
-      <directionalLight position={[-5, -3, -5]} intensity={0.4} color="#C87952" />
-      <pointLight position={[0, 5, 5]} intensity={0.5} color="#FFD700" />
-      <pointLight position={[3, -3, 3]} intensity={0.3} color="#E8B594" />
+      <directionalLight position={[-8, -3, -5]} intensity={0.4} color="#C87952" />
+      <pointLight position={[0, 8, 8]} intensity={0.6} color="#FFD700" />
+      <pointLight position={[5, -5, 5]} intensity={0.3} color="#E8B594" />
     </>
   )
 }
 
 
-// ═══════════════════════════════════════════════════════════════
 // MAIN HERO
-// ═══════════════════════════════════════════════════════════════
 const HeroSection = () => {
   const containerRef = useRef(null)
   const [mounted, setMounted] = useState(false)
@@ -584,12 +474,12 @@ const HeroSection = () => {
       </div>
       
       {/* ═══════════════════════════════════════════════
-          3D CANVAS - DRAGGABLE PLANET!
+          3D CANVAS - CAMERA FIXED! Now sees whole planet
       ═══════════════════════════════════════════════ */}
       <div className="absolute inset-0 z-[5]">
         <Canvas
           shadows
-          camera={{ position: [0, 0, 7], fov: 45 }}
+          camera={{ position: [0, 2, 12], fov: 40 }}
           gl={{ antialias: true, alpha: true }}
           dpr={[1, 2]}
         >
@@ -600,11 +490,13 @@ const HeroSection = () => {
               enableZoom={true}
               enablePan={false}
               autoRotate={false}
-              minDistance={5}
-              maxDistance={12}
+              minDistance={8}
+              maxDistance={20}
               rotateSpeed={0.5}
               enableDamping
               dampingFactor={0.05}
+              minPolarAngle={Math.PI / 4}
+              maxPolarAngle={Math.PI / 1.5}
             />
           </Suspense>
         </Canvas>
@@ -628,7 +520,7 @@ const HeroSection = () => {
                 color: '#E8B594',
               }}
             >
-              Drag to Explore India · 360°
+              Drag to Rotate · Pinch to Zoom
             </p>
             <span className="text-2xl">✨</span>
           </div>
