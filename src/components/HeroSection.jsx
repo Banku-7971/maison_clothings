@@ -51,9 +51,7 @@ const HeroSection = () => {
       ref={containerRef}
       className="relative w-full h-screen min-h-[700px] overflow-hidden bg-noir hero-container"
     >
-      {/* ═══════════════════════════════════════════════
-          BACKGROUND IMAGE with PARALLAX
-      ═══════════════════════════════════════════════ */}
+      {/* BACKGROUND IMAGE */}
       <motion.div
         style={{ y: smoothImageY }}
         className="absolute inset-0 w-full h-[130%]"
@@ -67,9 +65,7 @@ const HeroSection = () => {
         />
       </motion.div>
       
-      {/* ═══════════════════════════════════════════════
-          MASSIVE BACKGROUND "MAISON" TEXT
-      ═══════════════════════════════════════════════ */}
+      {/* RESPONSIVE BACKGROUND MAISON TEXT */}
       <motion.div
         style={{ x: bgTextX }}
         className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
@@ -78,9 +74,8 @@ const HeroSection = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={mounted ? { opacity: 0.06, scale: 1 } : {}}
           transition={{ duration: 3, delay: 1 }}
-          className="font-cormorant font-light text-cream whitespace-nowrap select-none"
+          className="font-cormorant font-light text-cream whitespace-nowrap select-none bg-maison-text"
           style={{
-            fontSize: 'clamp(15rem, 40vw, 40rem)',
             letterSpacing: '0.15em',
             lineHeight: 1,
             paddingLeft: '0.15em',
@@ -90,9 +85,7 @@ const HeroSection = () => {
         </motion.h2>
       </motion.div>
       
-      {/* ═══════════════════════════════════════════════
-          GRADIENT OVERLAYS
-      ═══════════════════════════════════════════════ */}
+      {/* GRADIENT OVERLAYS */}
       <div 
         className="absolute inset-x-0 top-0 h-60 pointer-events-none z-[1]"
         style={{
@@ -114,18 +107,14 @@ const HeroSection = () => {
         }}
       />
       
-      {/* ═══════════════════════════════════════════════
-          BREATHING AMBIENT GLOWS (like loading screen)
-      ═══════════════════════════════════════════════ */}
+      {/* AMBIENT ORBS */}
       <div className="absolute inset-0 pointer-events-none z-[2]">
         <div className="hero-orb hero-orb-1" />
         <div className="hero-orb hero-orb-2" />
         <div className="hero-orb hero-orb-3" />
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          FLOATING PARTICLES
-      ═══════════════════════════════════════════════ */}
+      {/* PARTICLES */}
       <div className="absolute inset-0 pointer-events-none z-[3]">
         {[...Array(20)].map((_, i) => (
           <div 
@@ -140,9 +129,7 @@ const HeroSection = () => {
         ))}
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          FALLING GOLD DUST
-      ═══════════════════════════════════════════════ */}
+      {/* GOLD DUST */}
       <div className="absolute inset-0 pointer-events-none z-[3]">
         {[...Array(12)].map((_, i) => (
           <div 
@@ -157,9 +144,7 @@ const HeroSection = () => {
         ))}
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          SPARKLES (Random luxury sparkles)
-      ═══════════════════════════════════════════════ */}
+      {/* SPARKLES */}
       <div className="absolute inset-0 pointer-events-none z-[3]">
         {[...Array(8)].map((_, i) => (
           <div 
@@ -174,14 +159,10 @@ const HeroSection = () => {
         ))}
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          LIGHT BEAM SWEEPING
-      ═══════════════════════════════════════════════ */}
+      {/* LIGHT BEAM */}
       <div className="absolute inset-0 pointer-events-none z-[2] hero-light-beam" />
       
-      {/* ═══════════════════════════════════════════════
-          SCAN LINES (subtle CRT effect)
-      ═══════════════════════════════════════════════ */}
+      {/* SCAN LINES */}
       <div 
         className="absolute inset-0 pointer-events-none z-[2] opacity-[0.03]"
         style={{
@@ -190,17 +171,13 @@ const HeroSection = () => {
         }}
       />
       
-      {/* ═══════════════════════════════════════════════
-          ROTATING RING BEHIND TEXT (subtle)
-      ═══════════════════════════════════════════════ */}
+      {/* ROTATING RINGS */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[4]">
         <div className="hero-ring hero-ring-1" />
         <div className="hero-ring hero-ring-2" />
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          TERRACOTTA GLOW ACCENTS
-      ═══════════════════════════════════════════════ */}
+      {/* TERRACOTTA GLOWS */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-30 z-[2]"
         style={{
@@ -215,9 +192,7 @@ const HeroSection = () => {
         }}
       />
       
-      {/* ═══════════════════════════════════════════════
-          TOP LABELS (Elegant, no corners)
-      ═══════════════════════════════════════════════ */}
+      {/* TOP LABEL */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={mounted ? { opacity: 1, y: 0 } : {}}
@@ -253,9 +228,7 @@ const HeroSection = () => {
         </div>
       </motion.div>
       
-      {/* ═══════════════════════════════════════════════
-          MAIN CONTENT — HEADLINE
-      ═══════════════════════════════════════════════ */}
+      {/* MAIN CONTENT */}
       <motion.div
         style={{ y: smoothTextY, opacity }}
         className="relative z-10 h-full flex items-center"
@@ -267,7 +240,6 @@ const HeroSection = () => {
             animate={mounted ? "visible" : "hidden"}
             className="max-w-6xl mx-auto text-center"
           >
-            {/* Small label above title */}
             <motion.p
               variants={fadeInUp}
               className="text-tiny tracking-mega text-gold uppercase mb-6 font-mono"
@@ -280,7 +252,6 @@ const HeroSection = () => {
               — Est. Kolkata · 2025
             </motion.p>
             
-            {/* MAIN HEADLINE with glow */}
             <h1 
               className="font-cormorant font-light text-ivory leading-none mb-8 md:mb-12 hero-headline"
               style={{ 
@@ -334,7 +305,6 @@ const HeroSection = () => {
               </div>
             </h1>
             
-            {/* Animated underline */}
             <motion.div
               className="mx-auto mb-8 h-[1px]"
               initial={{ width: 0, opacity: 0 }}
@@ -346,7 +316,6 @@ const HeroSection = () => {
               }}
             />
             
-            {/* Subtitle */}
             <motion.div variants={fadeInUp} className="mb-12 max-w-2xl mx-auto">
               <p 
                 className="font-cormorant italic text-cream leading-relaxed"
@@ -361,12 +330,10 @@ const HeroSection = () => {
               </p>
             </motion.div>
             
-            {/* CTA BUTTONS */}
             <motion.div
               variants={fadeInUp}
               className="flex flex-wrap items-center justify-center gap-4"
             >
-              {/* Discover Collection - Gold pill */}
               <Link
                 to="/shop"
                 className="hero-btn-primary group inline-flex items-center gap-3 py-4 px-8 md:py-5 md:px-10 rounded-full transition-all duration-500 ease-luxury"
@@ -387,7 +354,6 @@ const HeroSection = () => {
                 />
               </Link>
               
-              {/* Our Story - Ghost pill */}
               <Link
                 to="/about"
                 className="group inline-flex items-center gap-3 py-4 px-8 md:py-5 md:px-10 border border-champagne/40 text-champagne rounded-full hover:border-champagne hover:bg-champagne/10 transition-all duration-500 backdrop-blur-sm"
@@ -409,9 +375,7 @@ const HeroSection = () => {
         </div>
       </motion.div>
       
-      {/* ═══════════════════════════════════════════════
-          BOTTOM MARQUEE (Elegant, animated)
-      ═══════════════════════════════════════════════ */}
+      {/* MARQUEE */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={mounted ? { opacity: 1 } : {}}
@@ -446,9 +410,7 @@ const HeroSection = () => {
         </div>
       </motion.div>
       
-      {/* ═══════════════════════════════════════════════
-          SCROLL INDICATOR (Elegant)
-      ═══════════════════════════════════════════════ */}
+      {/* SCROLL INDICATOR */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={mounted ? { opacity: 1, y: 0 } : {}}
@@ -468,15 +430,11 @@ const HeroSection = () => {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, ease: 'easeInOut', repeat: Infinity }}
-          className="p-1 rounded-full"
         >
           <FiArrowDown className="text-gold" size={16} style={{ filter: 'drop-shadow(0 0 8px rgba(200, 121, 82, 0.8))' }} />
         </motion.div>
       </motion.div>
       
-      {/* ═══════════════════════════════════════════════
-          CSS ANIMATIONS (GPU-accelerated, smooth)
-      ═══════════════════════════════════════════════ */}
       <style>{`
         .hero-container * {
           will-change: auto;
@@ -486,6 +444,41 @@ const HeroSection = () => {
         @keyframes marqueeHero {
           0% { transform: translateX(0); }
           100% { transform: translateX(-25%); }
+        }
+        
+        /* RESPONSIVE MAISON BACKGROUND TEXT */
+        .bg-maison-text {
+          font-size: 18rem;
+        }
+        
+        @media (max-width: 1280px) {
+          .bg-maison-text {
+            font-size: 14rem;
+          }
+        }
+        
+        @media (max-width: 1024px) {
+          .bg-maison-text {
+            font-size: 11rem;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .bg-maison-text {
+            font-size: 7rem;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .bg-maison-text {
+            font-size: 5rem;
+          }
+        }
+        
+        @media (max-width: 380px) {
+          .bg-maison-text {
+            font-size: 4rem;
+          }
         }
         
         /* AMBIENT ORBS */
@@ -672,7 +665,6 @@ const HeroSection = () => {
           to { transform: rotate(360deg) translateZ(0); }
         }
         
-        /* HEADLINE GLOW */
         .hero-headline em {
           position: relative;
         }
