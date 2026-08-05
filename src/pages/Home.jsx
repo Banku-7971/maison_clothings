@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import HeroSection from '../components/HeroSection'
+import ManifestoSection from '../components/ManifestoSection'
 
 const Home = () => {
   useEffect(() => {
@@ -10,6 +11,7 @@ const Home = () => {
   return (
     <div className="bg-noir">
       <HeroSection />
+      <ManifestoSection />
     </div>
   )
 }
