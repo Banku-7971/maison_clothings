@@ -1,367 +1,412 @@
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 
 const PageTransition = ({ children }) => {
   const [showLiquid, setShowLiquid] = useState(true)
-  const [noiseFreq, setNoiseFreq] = useState(0.015)
-  const [liquidY, setLiquidY] = useState(0)
-  const rafRef = useRef(null)
-  const startTimeRef = useRef(null)
+  const svgRef = useRef(null)
+  const turbulenceRef = useRef(null)
+  const displacementRef = useRef(null)
   
-  // Animate liquid sliding down with accelerating gravity
+  // Framer Motion values — NO React state updates per frame!
+  const liquidProgress = useMotionValue(0)
+  const liquidY = useTransform(liquidProgress, [0, 0.25, 1], [0, 0, 120])
+  const liquidScale = useTransform(liquidProgress, [0, 0.15, 0.25, 1], [0, 1, 1, 1])
+  const liquidOpacity = useTransform(liquidProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0])
+  const glossX = useTransform(liquidProgress, [0, 0.4], [-100, 200])
+  const glossOpacity = useTransform(liquidProgress, [0, 0.15, 0.4], [0, 0.8, 0])
+  const refractionOpacity = useTransform(liquidProgress, [0.1, 0.25, 0.8, 1], [0, 0.6, 0.3, 0])
+  
   useEffect(() => {
-    startTimeRef.current = performance.now()
+    // Animate the single progress value (0 to 1)
+    // This drives EVERYTHING without React re-renders
+    const controls = animate(liquidProgress, 1, {
+      duration: 2.2,
+      ease: [0.22, 1, 0.36, 1],
+      onComplete: () => setShowLiquid(false),
+    })
     
-    const animate = (now) => {
-      const elapsed = (now - startTimeRef.current) / 1000
+    // Animate SVG turbulence directly on DOM (no React!)
+    let frameId
+    const startTime = performance.now()
+    
+    const animateNoise = (now) => {
+      const elapsed = (now - startTime) / 1000
       
-      // Phase 1: Hold (0-0.4s) — liquid covers screen
-      // Phase 2: Slide (0.4-1.8s) — gravity pulls liquid down
-      // Phase 3: Clean (1.8s+) — remove everything
-      
-      if (elapsed < 0.4) {
-        // Hold phase - liquid stays, noise increases
-        setNoiseFreq(0.015 + elapsed * 0.02)
-        setLiquidY(0)
-      } else if (elapsed < 1.8) {
-        // Gravity phase - accelerating downward
-        const gravityTime = elapsed - 0.4
-        const gravity = gravityTime * gravityTime * 1.2 // Accelerating
-        setLiquidY(gravity * 100)
+      if (turbulenceRef.current && elapsed < 2.2) {
+        // Noise evolves based on gravity phase
+        const gravityPhase = Math.max(0, (elapsed - 0.5) / 1.5)
+        const freq = 0.012 + gravityPhase * 0.03
+        const seed = Math.floor(elapsed * 8) // Stepping seed for organic change
         
-        // Noise increases as liquid stretches
-        setNoiseFreq(0.015 + gravityTime * 0.04)
-      } else {
-        // Clean phase
-        setShowLiquid(false)
-        return
+        turbulenceRef.current.setAttribute('baseFrequency', `${freq} ${freq * 0.8}`)
+        turbulenceRef.current.setAttribute('seed', seed)
+        
+        // Displacement scale increases as liquid stretches
+        if (displacementRef.current) {
+          const scale = 20 + gravityPhase * 40
+          displacementRef.current.setAttribute('scale', scale)
+        }
+        
+        frameId = requestAnimationFrame(animateNoise)
       }
-      
-      rafRef.current = requestAnimationFrame(animate)
     }
     
-    rafRef.current = requestAnimationFrame(animate)
+    frameId = requestAnimationFrame(animateNoise)
     
     // Safety cleanup
-    const safetyTimer = setTimeout(() => setShowLiquid(false), 3000)
+    const safety = setTimeout(() => setShowLiquid(false), 3000)
     
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-      clearTimeout(safetyTimer)
+      controls.stop()
+      cancelAnimationFrame(frameId)
+      clearTimeout(safety)
     }
   }, [])
   
   return (
-    <div className="liquid-glass-wrapper">
+    <div className="liquid-glass-transition">
       
-      {/* ═══════════════════════════════════════
-          SVG FILTERS (The magic sauce!)
-          Creates organic liquid edges
-      ═══════════════════════════════════════ */}
-      <svg className="fixed" style={{ width: 0, height: 0, position: 'absolute' }}>
+      {/* SVG FILTERS — Defined once, referenced by CSS */}
+      <svg 
+        ref={svgRef}
+        style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}
+        aria-hidden="true"
+      >
         <defs>
-          {/* GOOEY FILTER — Makes shapes merge like liquid */}
-          <filter id="liquid-goo" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur" />
+          {/* GOOEY MERGE FILTER — Makes shapes connect like liquid */}
+          <filter id="goo-merge" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur" />
             <feColorMatrix
               in="blur"
               type="matrix"
               values="1 0 0 0 0
                       0 1 0 0 0
                       0 0 1 0 0
-                      0 0 0 25 -10"
+                      0 0 0 30 -12"
               result="goo"
             />
             <feComposite in="SourceGraphic" in2="goo" operator="atop" />
           </filter>
           
-          {/* DISTORTION FILTER — Warps edges organically */}
-          <filter id="liquid-distort" x="-10%" y="-10%" width="120%" height="120%">
+          {/* NOISE DISTORTION — Organic edges driven by turbulence */}
+          <filter id="liquid-noise" x="-15%" y="-15%" width="130%" height="130%">
             <feTurbulence
+              ref={turbulenceRef}
               type="fractalNoise"
-              baseFrequency={noiseFreq}
-              numOctaves="3"
+              baseFrequency="0.012 0.01"
+              numOctaves="4"
               seed="42"
+              stitchTiles="stitch"
               result="noise"
-            >
-              <animate
-                attributeName="baseFrequency"
-                values="0.015;0.025;0.035;0.02"
-                dur="2s"
-                repeatCount="1"
-              />
-            </feTurbulence>
+            />
             <feDisplacementMap
+              ref={displacementRef}
               in="SourceGraphic"
               in2="noise"
-              scale="30"
+              scale="20"
               xChannelSelector="R"
               yChannelSelector="G"
             />
           </filter>
           
-          {/* GLASS REFRACTION — Distorts content behind liquid */}
-          <filter id="glass-refract" x="-5%" y="-5%" width="110%" height="110%">
+          {/* LIQUID MASK for refraction — Only blurs where liquid exists */}
+          <filter id="glass-warp" x="-5%" y="-5%" width="110%" height="110%">
             <feTurbulence
               type="fractalNoise"
-              baseFrequency="0.02"
-              numOctaves="2"
-              seed="7"
-              result="noise"
+              baseFrequency="0.025 0.02"
+              numOctaves="3"
+              seed="13"
+              result="warpNoise"
             />
             <feDisplacementMap
               in="SourceGraphic"
-              in2="noise"
-              scale="15"
+              in2="warpNoise"
+              scale="12"
               xChannelSelector="R"
               yChannelSelector="G"
             />
-            <feGaussianBlur stdDeviation="1.5" />
+            <feGaussianBlur stdDeviation="2" />
           </filter>
         </defs>
       </svg>
       
       {/* ═══════════════════════════════════════
-          CONTENT — Page underneath
+          PAGE CONTENT
       ═══════════════════════════════════════ */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.3, delay: 0.3 }}
-        style={{ minHeight: '100vh', width: '100%' }}
+        transition={{ duration: 0.25 }}
       >
-        {children}
+        <motion.div
+          initial={{ filter: 'blur(4px)' }}
+          animate={{ filter: 'blur(0px)' }}
+          exit={{ filter: 'blur(3px)' }}
+          transition={{ duration: 0.4, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          style={{ minHeight: '100vh', width: '100%' }}
+        >
+          {children}
+        </motion.div>
       </motion.div>
       
       {/* ═══════════════════════════════════════
-          THE LIQUID — One connected mass
+          LIQUID SYSTEM (All driven by motionValues)
       ═══════════════════════════════════════ */}
       {showLiquid && (
         <>
-          {/* Main liquid body with gooey filter */}
-          <div 
+          {/* MAIN LIQUID MASS — One connected body */}
+          <motion.div
             className="fixed inset-0 z-[9000] pointer-events-none"
-            style={{ filter: 'url(#liquid-distort)' }}
+            style={{
+              opacity: liquidOpacity,
+              willChange: 'opacity',
+            }}
           >
             <motion.div
-              initial={{ y: '-5%' }}
-              animate={{ y: `${liquidY}%` }}
               className="absolute left-0 right-0"
               style={{
-                top: '-20%',
-                height: '140%',
+                top: '-25%',
+                height: '150%',
+                y: liquidY,
+                scale: liquidScale,
+                filter: 'url(#liquid-noise)',
                 willChange: 'transform',
               }}
             >
-              {/* Connected liquid mass with gooey effect */}
-              <div 
-                style={{ 
-                  width: '100%', 
-                  height: '100%',
-                  filter: 'url(#liquid-goo)',
-                }}
-              >
-                {/* Main body blob */}
+              {/* Gooey group — everything inside MERGES */}
+              <div style={{ 
+                width: '100%', 
+                height: '100%',
+                filter: 'url(#goo-merge)',
+              }}>
+                {/* Central liquid mass */}
                 <div 
-                  className="absolute left-0 right-0"
                   style={{
-                    top: '10%',
-                    height: '75%',
+                    position: 'absolute',
+                    left: '-5%',
+                    right: '-5%',
+                    top: '12%',
+                    height: '68%',
                     background: `linear-gradient(180deg, 
-                      #2A1F1A 0%, 
-                      #3D2E24 15%,
-                      #6B4A35 30%,
-                      #C87952 45%,
+                      #1F1612 0%, 
+                      #2A1F1A 10%,
+                      #3D2E24 20%,
+                      #6B4A35 35%,
+                      #C87952 48%,
                       #E8B594 50%,
-                      #C87952 55%,
-                      #6B4A35 70%,
-                      #3D2E24 85%,
-                      #2A1F1A 100%
+                      #C87952 52%,
+                      #6B4A35 65%,
+                      #3D2E24 80%,
+                      #2A1F1A 90%,
+                      #1F1612 100%
                     )`,
-                    borderRadius: '0% 0% 50% 50% / 0% 0% 20% 20%',
+                    borderRadius: '0% 0% 45% 55% / 0% 0% 15% 15%',
                   }}
                 />
                 
-                {/* Connected drip bulges at bottom
-                    These MERGE with main body via gooey filter! */}
+                {/* Drip bulges — CONNECTED to main body via gooey filter */}
                 {[
-                  { left: '8%', size: 60, delay: 0 },
-                  { left: '18%', size: 45, delay: 0.1 },
-                  { left: '30%', size: 70, delay: 0.05 },
-                  { left: '42%', size: 50, delay: 0.15 },
-                  { left: '55%', size: 65, delay: 0.08 },
-                  { left: '65%', size: 40, delay: 0.2 },
-                  { left: '75%', size: 55, delay: 0.12 },
-                  { left: '85%', size: 48, delay: 0.07 },
-                  { left: '93%', size: 58, delay: 0.18 },
+                  { x: '5%', w: 55, d: 0 },
+                  { x: '14%', w: 40, d: 0.08 },
+                  { x: '24%', w: 65, d: 0.03 },
+                  { x: '33%', w: 45, d: 0.12 },
+                  { x: '43%', w: 70, d: 0.06 },
+                  { x: '52%', w: 38, d: 0.15 },
+                  { x: '62%', w: 60, d: 0.04 },
+                  { x: '71%', w: 42, d: 0.1 },
+                  { x: '80%', w: 55, d: 0.07 },
+                  { x: '89%', w: 48, d: 0.13 },
                 ].map((drip, i) => (
                   <motion.div
                     key={i}
-                    initial={{ y: 0, scaleY: 0.5 }}
-                    animate={{ 
-                      y: [0, 20, 80, 200],
-                      scaleY: [0.5, 1, 1.8, 2.5],
-                    }}
-                    transition={{
-                      duration: 1.2,
-                      delay: 0.5 + drip.delay,
-                      ease: [0.55, 0, 1, 0.45],
-                    }}
-                    className="absolute origin-top"
                     style={{
-                      left: drip.left,
-                      top: '82%',
-                      width: drip.size,
-                      height: drip.size * 2.5,
-                      background: 'radial-gradient(ellipse at 40% 20%, #6B4A35, #3D2E24, #2A1F1A)',
-                      borderRadius: '45% 45% 50% 50% / 20% 20% 80% 80%',
+                      position: 'absolute',
+                      left: drip.x,
+                      top: '77%',
+                      width: drip.w,
+                      height: drip.w * 3,
+                      background: `radial-gradient(ellipse at 40% 15%, 
+                        #6B4A35 0%, 
+                        #3D2E24 40%, 
+                        #2A1F1A 100%
+                      )`,
+                      borderRadius: '45% 45% 50% 50% / 10% 10% 90% 90%',
+                      y: useTransform(
+                        liquidProgress,
+                        [0.3 + drip.d, 0.5 + drip.d, 0.8 + drip.d * 0.5, 1],
+                        [0, 30, 120, 350]
+                      ),
+                      scaleY: useTransform(
+                        liquidProgress,
+                        [0.3 + drip.d, 0.5 + drip.d, 0.8 + drip.d * 0.5, 1],
+                        [0.4, 1, 1.8, 2.5]
+                      ),
+                      transformOrigin: 'top center',
+                      willChange: 'transform',
                     }}
                   />
                 ))}
                 
-                {/* Extra small drip bulges (merge together) */}
+                {/* Smaller secondary drips (fill gaps) */}
                 {[
-                  { left: '12%', size: 30 },
-                  { left: '25%', size: 25 },
-                  { left: '38%', size: 35 },
-                  { left: '50%', size: 28 },
-                  { left: '60%', size: 32 },
-                  { left: '72%', size: 26 },
-                  { left: '80%', size: 33 },
-                  { left: '90%', size: 29 },
+                  { x: '10%', w: 28 },
+                  { x: '20%', w: 22 },
+                  { x: '29%', w: 30 },
+                  { x: '38%', w: 25 },
+                  { x: '48%', w: 32 },
+                  { x: '58%', w: 24 },
+                  { x: '67%', w: 28 },
+                  { x: '76%', w: 26 },
+                  { x: '85%', w: 30 },
+                  { x: '94%', w: 22 },
                 ].map((drip, i) => (
                   <motion.div
-                    key={`small-${i}`}
-                    initial={{ y: 0, scaleY: 0.3 }}
-                    animate={{ 
-                      y: [0, 30, 120, 300],
-                      scaleY: [0.3, 0.8, 1.5, 2],
-                    }}
-                    transition={{
-                      duration: 1,
-                      delay: 0.7 + i * 0.06,
-                      ease: [0.55, 0, 1, 0.45],
-                    }}
-                    className="absolute origin-top"
+                    key={`sm-${i}`}
                     style={{
-                      left: drip.left,
-                      top: '84%',
-                      width: drip.size,
-                      height: drip.size * 2,
-                      background: 'radial-gradient(ellipse at 40% 20%, #5A4A3F, #3D2E24)',
-                      borderRadius: '45% 45% 50% 50% / 15% 15% 85% 85%',
+                      position: 'absolute',
+                      left: drip.x,
+                      top: '79%',
+                      width: drip.w,
+                      height: drip.w * 2.5,
+                      background: `radial-gradient(ellipse at 40% 15%, 
+                        #5A4A3F 0%, 
+                        #3D2E24 60%, 
+                        #2A1F1A 100%
+                      )`,
+                      borderRadius: '45% 45% 50% 50% / 10% 10% 90% 90%',
+                      y: useTransform(
+                        liquidProgress,
+                        [0.4 + i * 0.02, 0.6 + i * 0.02, 0.9, 1],
+                        [0, 20, 100, 280]
+                      ),
+                      scaleY: useTransform(
+                        liquidProgress,
+                        [0.4 + i * 0.02, 0.6 + i * 0.02, 0.9, 1],
+                        [0.3, 0.8, 1.5, 2]
+                      ),
+                      transformOrigin: 'top center',
+                      willChange: 'transform',
                     }}
                   />
                 ))}
               </div>
             </motion.div>
-          </div>
+          </motion.div>
           
-          {/* Glossy highlight layer (sweeps across liquid) */}
+          {/* GLOSSY HIGHLIGHT — Sweeps across liquid */}
           <motion.div
-            initial={{ x: '-100%', opacity: 0.8 }}
-            animate={{ x: '200%', opacity: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
             className="fixed inset-0 z-[9001] pointer-events-none"
             style={{
-              background: 'linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.3) 48%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.3) 52%, transparent 65%)',
+              x: glossX,
+              opacity: glossOpacity,
+              background: 'linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.35) 48%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.35) 52%, transparent 65%)',
+              willChange: 'transform, opacity',
             }}
           />
           
-          {/* Second gloss sweep (delayed, softer) */}
+          {/* GLASS REFRACTION — Masked to liquid area only */}
           <motion.div
-            initial={{ x: '-100%', opacity: 0.4 }}
-            animate={{ x: '200%', opacity: 0 }}
-            transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
-            className="fixed inset-0 z-[9001] pointer-events-none"
-            style={{
-              background: 'linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.2) 49%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0.2) 51%, transparent 60%)',
-            }}
-          />
-          
-          {/* Glass refraction where liquid exists */}
-          <motion.div
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 0 }}
-            transition={{ duration: 1.5, delay: 0.6, ease: 'easeOut' }}
             className="fixed inset-0 z-[8998] pointer-events-none"
             style={{
-              backdropFilter: 'blur(3px) saturate(1.4)',
-              WebkitBackdropFilter: 'blur(3px) saturate(1.4)',
-              maskImage: 'linear-gradient(180deg, black 0%, black 60%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(180deg, black 0%, black 60%, transparent 100%)',
+              opacity: refractionOpacity,
+              backdropFilter: 'blur(4px) saturate(1.5)',
+              WebkitBackdropFilter: 'blur(4px) saturate(1.5)',
+              maskImage: useTransform(
+                liquidProgress,
+                [0, 0.25, 0.8, 1],
+                [
+                  'linear-gradient(180deg, black 0%, black 100%)',
+                  'linear-gradient(180deg, black 0%, black 80%, transparent 100%)',
+                  'linear-gradient(180deg, black 0%, black 30%, transparent 60%)',
+                  'linear-gradient(180deg, transparent 0%, transparent 100%)',
+                ]
+              ),
+              WebkitMaskImage: useTransform(
+                liquidProgress,
+                [0, 0.25, 0.8, 1],
+                [
+                  'linear-gradient(180deg, black 0%, black 100%)',
+                  'linear-gradient(180deg, black 0%, black 80%, transparent 100%)',
+                  'linear-gradient(180deg, black 0%, black 30%, transparent 60%)',
+                  'linear-gradient(180deg, transparent 0%, transparent 100%)',
+                ]
+              ),
+              willChange: 'opacity',
             }}
           />
           
-          {/* Detaching droplets (fall AFTER separating from body) */}
+          {/* DETACHING DROPLETS — Separate after stretching */}
           <div className="fixed inset-0 z-[9002] pointer-events-none">
-            {[...Array(12)].map((_, i) => (
+            {[...Array(10)].map((_, i) => (
               <motion.div
-                key={`detach-${i}`}
-                initial={{ 
-                  y: `${50 + Math.random() * 30}vh`,
-                  opacity: 0,
-                  scale: 0,
-                }}
-                animate={{ 
-                  y: '120vh',
-                  opacity: [0, 1, 1, 0],
-                  scale: [0, 1, 0.8, 0.6],
-                }}
-                transition={{ 
-                  duration: 0.7 + Math.random() * 0.4,
-                  delay: 1 + Math.random() * 0.6,
-                  ease: [0.55, 0, 1, 0.45],
-                }}
-                className="absolute"
+                key={`det-${i}`}
                 style={{
-                  left: `${5 + Math.random() * 90}%`,
-                  width: `${4 + Math.random() * 8}px`,
-                  height: `${6 + Math.random() * 12}px`,
+                  position: 'absolute',
+                  left: `${8 + i * 9}%`,
+                  width: 4 + Math.random() * 6,
+                  height: 6 + Math.random() * 10,
                   background: i % 2 === 0 
                     ? 'radial-gradient(ellipse at 35% 25%, #C87952, #6B4A35, #3D2E24)' 
                     : 'radial-gradient(ellipse at 35% 25%, #E8B594, #C87952, #8B4A32)',
                   borderRadius: '50% 50% 50% 50% / 35% 35% 65% 65%',
-                  boxShadow: 'inset 1px -1px 2px rgba(255,255,255,0.25), 1px 2px 3px rgba(0,0,0,0.4)',
+                  boxShadow: 'inset 1px -1px 2px rgba(255,255,255,0.2), 1px 2px 3px rgba(0,0,0,0.4)',
+                  y: useTransform(
+                    liquidProgress,
+                    [0.6 + i * 0.03, 0.7 + i * 0.03, 1],
+                    ['70vh', '80vh', '120vh']
+                  ),
+                  opacity: useTransform(
+                    liquidProgress,
+                    [0.6 + i * 0.03, 0.7 + i * 0.03, 0.95, 1],
+                    [0, 1, 0.8, 0]
+                  ),
+                  willChange: 'transform, opacity',
                 }}
               />
             ))}
           </div>
           
-          {/* Glass streaks (thin residue on glass) */}
+          {/* GLASS STREAKS — Residue on glass */}
           <div className="fixed inset-0 z-[8997] pointer-events-none">
             {[...Array(8)].map((_, i) => (
               <motion.div
-                key={`residue-${i}`}
-                initial={{ scaleY: 1, opacity: 0.3 }}
-                animate={{ scaleY: 0, opacity: 0 }}
-                transition={{ 
-                  duration: 0.8,
-                  delay: 1.5 + i * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
+                key={`res-${i}`}
                 className="absolute origin-top"
                 style={{
-                  left: `${8 + i * 12}%`,
+                  left: `${6 + i * 12}%`,
                   top: 0,
-                  width: `${1 + Math.random() * 2}px`,
-                  height: `${20 + Math.random() * 30}%`,
-                  background: `linear-gradient(180deg, rgba(200, 121, 82, 0.25) 0%, transparent 100%)`,
+                  width: 1 + Math.random() * 2,
+                  height: `${15 + Math.random() * 25}%`,
+                  background: `linear-gradient(180deg, rgba(200,121,82,0.2) 0%, transparent 100%)`,
                   borderRadius: '0 0 50% 50%',
+                  scaleY: useTransform(
+                    liquidProgress,
+                    [0.7 + i * 0.02, 0.9 + i * 0.01, 1],
+                    [1, 0.5, 0]
+                  ),
+                  opacity: useTransform(
+                    liquidProgress,
+                    [0.7, 0.85, 1],
+                    [0.4, 0.2, 0]
+                  ),
+                  willChange: 'transform, opacity',
                 }}
               />
             ))}
           </div>
           
-          {/* Impact flash */}
+          {/* IMPACT FLASH */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.4, 0] }}
-            transition={{ duration: 0.35, times: [0, 0.25, 1] }}
             className="fixed inset-0 z-[8996] pointer-events-none"
             style={{
-              background: 'radial-gradient(circle at 50% 35%, rgba(200, 121, 82, 0.5) 0%, transparent 60%)',
+              background: 'radial-gradient(circle at 50% 35%, rgba(200,121,82,0.5) 0%, transparent 60%)',
+              opacity: useTransform(
+                liquidProgress,
+                [0, 0.05, 0.2],
+                [0, 0.5, 0]
+              ),
+              willChange: 'opacity',
             }}
           />
         </>
