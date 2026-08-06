@@ -25,7 +25,6 @@ const HeroSection = () => {
       ref={containerRef}
       className="relative w-full h-screen min-h-[800px] overflow-hidden bg-noir"
     >
-      {/* Background gradient */}
       <div 
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
@@ -33,22 +32,19 @@ const HeroSection = () => {
         }}
       />
       
-      {/* Ambient orbs */}
       <div className="absolute inset-0 pointer-events-none z-[2]">
         <div className="hero-orb hero-orb-1" />
         <div className="hero-orb hero-orb-2" />
         <div className="hero-orb hero-orb-3" />
       </div>
       
-      {/* MAISON BRAND NAME — Fixed at top */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={mounted ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute top-28 md:top-36 left-0 right-0 z-20 pointer-events-none"
+        className="absolute top-36 md:top-44 left-0 right-0 z-20 pointer-events-none"
       >
         <div className="container-luxury text-center">
-          {/* Small label */}
           <div className="flex items-center justify-center gap-4 mb-4">
             <div className="w-8 h-px bg-gold/50" />
             <p 
@@ -60,15 +56,14 @@ const HeroSection = () => {
             <div className="w-8 h-px bg-gold/50" />
           </div>
           
-          {/* BIG MAISON TEXT — Solid, Not Transparent */}
           <h1 
-            className="font-cormorant font-light text-ivory"
+            className="font-cormorant font-light text-gold"
             style={{ 
-              fontSize: 'clamp(3rem, 8vw, 6rem)',
+              fontSize: 'clamp(4rem, 10vw, 8rem)',
               letterSpacing: '0.5em',
               paddingLeft: '0.5em',
               lineHeight: 1,
-              textShadow: '0 0 30px rgba(200, 121, 82, 0.4)',
+              textShadow: '0 0 40px rgba(200, 121, 82, 0.6), 0 0 80px rgba(200, 121, 82, 0.3)',
             }}
           >
             MAISON
@@ -76,7 +71,6 @@ const HeroSection = () => {
         </div>
       </motion.div>
       
-      {/* REALISTIC ROTATING GLOBE VIDEO */}
       <div className="absolute inset-0 flex items-center justify-center z-[3]">
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
@@ -84,7 +78,6 @@ const HeroSection = () => {
           transition={{ duration: 2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="relative globe-container"
         >
-          {/* Globe video — circular mask */}
           <div className="globe-mask">
             <video
               ref={videoRef}
@@ -101,24 +94,14 @@ const HeroSection = () => {
             </video>
           </div>
           
-          {/* Globe shine highlight */}
           <div className="globe-shine" />
-          
-          {/* Globe atmospheric glow */}
           <div className="globe-atmosphere" />
-          
-          {/* Outer glow ring */}
           <div className="globe-outer-glow" />
-          
-          {/* Orbit ring 1 */}
           <div className="globe-orbit globe-orbit-1" />
-          
-          {/* Orbit ring 2 */}
           <div className="globe-orbit globe-orbit-2" />
         </motion.div>
       </div>
       
-      {/* Floating particles */}
       <div className="absolute inset-0 pointer-events-none z-[4]">
         {[...Array(15)].map((_, i) => (
           <div 
@@ -133,7 +116,6 @@ const HeroSection = () => {
         ))}
       </div>
       
-      {/* BOTTOM CONTENT */}
       <motion.div
         style={{ opacity }}
         className="relative z-10 h-full flex items-end pb-32 md:pb-40 pointer-events-none"
@@ -230,7 +212,6 @@ const HeroSection = () => {
         </div>
       </motion.div>
       
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={mounted ? { opacity: 1, y: 0 } : {}}
@@ -245,7 +226,6 @@ const HeroSection = () => {
         </motion.div>
       </motion.div>
       
-      {/* Bottom marquee */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={mounted ? { opacity: 1 } : {}}
@@ -290,7 +270,6 @@ const HeroSection = () => {
           100% { transform: translateX(-25%); }
         }
         
-        /* GLOBE CONTAINER */
         .globe-container {
           position: relative;
           width: 450px;
@@ -318,7 +297,6 @@ const HeroSection = () => {
           }
         }
         
-        /* CIRCULAR MASK for globe */
         .globe-mask {
           position: absolute;
           inset: 0;
@@ -336,7 +314,6 @@ const HeroSection = () => {
           pointer-events: none;
         }
         
-        /* SHINE on globe */
         .globe-shine {
           position: absolute;
           top: 8%;
@@ -349,7 +326,6 @@ const HeroSection = () => {
           pointer-events: none;
         }
         
-        /* ATMOSPHERE glow */
         .globe-atmosphere {
           position: absolute;
           inset: -20px;
@@ -365,7 +341,6 @@ const HeroSection = () => {
           50% { opacity: 0.8; transform: scale(1.05); }
         }
         
-        /* OUTER GLOW */
         .globe-outer-glow {
           position: absolute;
           inset: -50px;
@@ -381,7 +356,6 @@ const HeroSection = () => {
           50% { opacity: 0.7; transform: scale(1.1); }
         }
         
-        /* ORBIT RINGS */
         .globe-orbit {
           position: absolute;
           border-radius: 50%;
@@ -405,7 +379,6 @@ const HeroSection = () => {
           to { transform: rotate(360deg) rotateX(60deg); }
         }
         
-        /* AMBIENT ORBS */
         .hero-orb {
           position: absolute;
           border-radius: 50%;
@@ -438,7 +411,6 @@ const HeroSection = () => {
           50% { transform: translate(30px, -40px) scale(1.15); }
         }
         
-        /* PARTICLES */
         .hero-particle {
           position: absolute;
           border-radius: 50%;
@@ -476,7 +448,6 @@ const HeroSection = () => {
           }
         }
         
-        /* BUTTONS */
         .hero-btn-primary {
           background: linear-gradient(135deg, #C87952 0%, #E8B594 100%);
           box-shadow: 0 0 40px rgba(200, 121, 82, 0.5), 0 10px 30px rgba(0, 0, 0, 0.4);
