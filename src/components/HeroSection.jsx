@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { FiArrowDown } from 'react-icons/fi'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
+import { FiArrowDown, FiArrowRight } from 'react-icons/fi'
 
 const HeroSection = () => {
   const containerRef = useRef(null)
@@ -40,10 +40,43 @@ const HeroSection = () => {
         <div className="hero-orb hero-orb-3" />
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          REALISTIC ROTATING GLOBE VIDEO
-          Using free stock video
-      ═══════════════════════════════════════════════ */}
+      {/* MAISON BRAND NAME — Fixed at top */}
+      <motion.div
+        initial={{ opacity: 0, y: -30 }}
+        animate={mounted ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute top-28 md:top-36 left-0 right-0 z-20 pointer-events-none"
+      >
+        <div className="container-luxury text-center">
+          {/* Small label */}
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="w-8 h-px bg-gold/50" />
+            <p 
+              className="text-tiny tracking-mega uppercase font-mono"
+              style={{ fontSize: '0.65rem', letterSpacing: '0.4em', color: '#E4B590' }}
+            >
+              Est. Kolkata · 2025
+            </p>
+            <div className="w-8 h-px bg-gold/50" />
+          </div>
+          
+          {/* BIG MAISON TEXT — Solid, Not Transparent */}
+          <h1 
+            className="font-cormorant font-light text-ivory"
+            style={{ 
+              fontSize: 'clamp(3rem, 8vw, 6rem)',
+              letterSpacing: '0.5em',
+              paddingLeft: '0.5em',
+              lineHeight: 1,
+              textShadow: '0 0 30px rgba(200, 121, 82, 0.4)',
+            }}
+          >
+            MAISON
+          </h1>
+        </div>
+      </motion.div>
+      
+      {/* REALISTIC ROTATING GLOBE VIDEO */}
       <div className="absolute inset-0 flex items-center justify-center z-[3]">
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
@@ -100,31 +133,6 @@ const HeroSection = () => {
         ))}
       </div>
       
-      {/* TOP LABEL */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={mounted ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="absolute top-32 md:top-40 left-0 right-0 z-10 pointer-events-none"
-      >
-        <div className="container-luxury">
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <span className="text-2xl">🇮🇳</span>
-            <p 
-              className="text-tiny tracking-mega uppercase font-mono"
-              style={{ 
-                fontSize: '0.7rem',
-                letterSpacing: '0.3em',
-                color: '#E8B594',
-              }}
-            >
-              Made in India · Loved Worldwide
-            </p>
-            <span className="text-2xl">✨</span>
-          </div>
-        </div>
-      </motion.div>
-      
       {/* BOTTOM CONTENT */}
       <motion.div
         style={{ opacity }}
@@ -133,7 +141,7 @@ const HeroSection = () => {
         <div className="container-luxury w-full">
           <div className="max-w-6xl mx-auto text-center">
             
-            <h1 
+            <h2 
               className="font-cormorant font-light text-ivory leading-none mb-8"
               style={{ 
                 fontSize: 'clamp(2.5rem, 8vw, 8rem)',
@@ -164,7 +172,7 @@ const HeroSection = () => {
                   <em className="italic">Incredible India</em>
                 </motion.span>
               </div>
-            </h1>
+            </h2>
             
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -328,7 +336,7 @@ const HeroSection = () => {
           pointer-events: none;
         }
         
-        /* SHINE on globe (top left highlight) */
+        /* SHINE on globe */
         .globe-shine {
           position: absolute;
           top: 8%;
