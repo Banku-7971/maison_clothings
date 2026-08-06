@@ -1,384 +1,434 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 const PageTransition = ({ children }) => {
-  const [showDrips, setShowDrips] = useState(true)
+  const [phase, setPhase] = useState('splash')
   
   useEffect(() => {
-    const timer = setTimeout(() => setShowDrips(false), 2000)
-    return () => clearTimeout(timer)
+    const t1 = setTimeout(() => setPhase('covered'), 400)
+    const t2 = setTimeout(() => setPhase('dripping'), 800)
+    const t3 = setTimeout(() => setPhase('clean'), 2200)
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [])
   
+  // Generate unique drip data
+  const drips = useMemo(() => (
+    Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      x: 2 + (i * 5) + (Math.random() * 3 - 1.5),
+      width: 15 + Math.random() * 35,
+      delay: Math.random() * 0.8,
+      duration: 1.2 + Math.random() * 1,
+      height: 30 + Math.random() * 50,
+    }))
+  ), [])
+  
+  const streaks = useMemo(() => (
+    Array.from({ length: 15 }, (_, i) => ({
+      id: i,
+      x: 3 + Math.random() * 94,
+      width: 1 + Math.random() * 4,
+      delay: 1 + Math.random() * 0.8,
+      duration: 0.8 + Math.random() * 0.5,
+      height: 15 + Math.random() * 35,
+    }))
+  ), [])
+  
+  const droplets = useMemo(() => (
+    Array.from({ length: 25 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      startY: 20 + Math.random() * 60,
+      size: 3 + Math.random() * 8,
+      delay: 0.8 + Math.random() * 1.2,
+      duration: 0.6 + Math.random() * 0.8,
+    }))
+  ), [])
+  
+  const miniDrops = useMemo(() => (
+    Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: 2 + Math.random() * 5,
+      delay: 0.5 + Math.random() * 1,
+      duration: 0.8 + Math.random() * 0.6,
+    }))
+  ), [])
+  
   return (
-    <div className="page-transition-wrapper relative">
+    <div className="liquid-transition-wrapper">
       
-      {/* ═══════════════════════════════════════════════
-          LAYER 1: MAIN CONTENT (Enters with cinematic feel)
-      ═══════════════════════════════════════════════ */}
+      {/* ═══════════════════════════════════════
+          CONTENT — Revealed through liquid gaps
+      ═══════════════════════════════════════ */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.2 }}
       >
         <motion.div
-          initial={{ 
-            scale: 1.02,
-            filter: 'blur(8px) brightness(1.2)',
-          }}
-          animate={{ 
-            scale: 1,
-            filter: 'blur(0px) brightness(1)',
-          }}
-          exit={{ 
-            scale: 0.98,
-            filter: 'blur(8px) brightness(0.8)',
-          }}
-          transition={{ 
-            duration: 0.6, 
-            ease: [0.22, 1, 0.36, 1],
-          }}
+          initial={{ filter: 'blur(6px)', scale: 1.01 }}
+          animate={{ filter: 'blur(0px)', scale: 1 }}
+          exit={{ filter: 'blur(4px)', scale: 0.99 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
           style={{ minHeight: '100vh', width: '100%' }}
         >
           {children}
         </motion.div>
       </motion.div>
       
-      {/* ═══════════════════════════════════════════════
-          LAYER 2: LIQUID SPLASH — Main blob covers screen
-      ═══════════════════════════════════════════════ */}
+      {/* ═══════════════════════════════════════
+          PHASE 1: LIQUID SPLASH ON GLASS
+          Thick blob hits the glass
+      ═══════════════════════════════════════ */}
       <motion.div
-        initial={{ y: '-120%' }}
-        animate={{ y: '120%' }}
+        initial={{ 
+          clipPath: 'circle(0% at 50% 40%)',
+          opacity: 1,
+        }}
+        animate={{ 
+          clipPath: 'circle(150% at 50% 40%)',
+          opacity: 1,
+        }}
+        transition={{ 
+          duration: 0.5, 
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="fixed inset-0 z-[9000] pointer-events-none"
+        style={{ willChange: 'clip-path' }}
+      >
+        {/* Main liquid body on glass */}
+        <div className="absolute inset-0 liquid-on-glass" />
+        
+        {/* Glossy highlight (moves across) */}
+        <motion.div
+          initial={{ x: '-100%', opacity: 0.8 }}
+          animate={{ x: '200%', opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.25) 45%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.25) 55%, transparent 70%)',
+            willChange: 'transform',
+          }}
+        />
+        
+        {/* Second gloss sweep */}
+        <motion.div
+          initial={{ x: '-100%', opacity: 0.5 }}
+          animate={{ x: '200%', opacity: 0 }}
+          transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.15) 48%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.15) 52%, transparent 60%)',
+            willChange: 'transform',
+          }}
+        />
+        
+        {/* Rim light edges */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            boxShadow: 'inset 0 0 100px rgba(200, 121, 82, 0.3), inset 0 0 200px rgba(42, 31, 26, 0.5)',
+          }}
+        />
+      </motion.div>
+      
+      {/* ═══════════════════════════════════════
+          PHASE 2: GRAVITY PULLS LIQUID DOWN
+          Liquid slides off the glass
+      ═══════════════════════════════════════ */}
+      <motion.div
+        initial={{ y: 0 }}
+        animate={{ y: '100vh' }}
         transition={{ 
           duration: 1.2, 
-          ease: [0.76, 0, 0.24, 1],
+          delay: 0.6,
+          ease: [0.55, 0, 1, 0.45],
         }}
         className="fixed inset-0 z-[9000] pointer-events-none"
         style={{ willChange: 'transform' }}
       >
-        {/* Main liquid body */}
-        <div className="absolute inset-0 liquid-main" />
+        <div className="absolute inset-0 liquid-on-glass" />
         
-        {/* Glossy reflection on liquid */}
-        <div className="absolute inset-0 liquid-gloss" />
+        {/* Wobbling bottom edge (surface tension) */}
+        <div className="absolute -bottom-1 left-0 right-0 liquid-drip-edge" />
         
-        {/* Wobble edge at bottom (leading edge) */}
-        <div className="absolute bottom-0 left-0 right-0 liquid-wobble-bottom" />
-        
-        {/* Wobble edge at top (trailing edge) */}
-        <div className="absolute top-0 left-0 right-0 liquid-wobble-top" />
+        {/* Gloss on sliding liquid */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(135deg, transparent 20%, rgba(255,255,255,0.2) 35%, transparent 50%, rgba(255,255,255,0.15) 65%, transparent 80%)',
+          }}
+        />
       </motion.div>
       
-      {/* ═══════════════════════════════════════════════
-          LAYER 3: SECOND LIQUID WAVE (Delayed, different speed)
-      ═══════════════════════════════════════════════ */}
-      <motion.div
-        initial={{ y: '-120%' }}
-        animate={{ y: '120%' }}
-        transition={{ 
-          duration: 1.1, 
-          ease: [0.76, 0, 0.24, 1],
-          delay: 0.06,
-        }}
-        className="fixed inset-0 z-[8999] pointer-events-none"
-        style={{ willChange: 'transform' }}
-      >
-        <div className="absolute inset-0 liquid-second" />
-        <div className="absolute bottom-0 left-0 right-0 liquid-wobble-bottom-2" />
-      </motion.div>
-      
-      {/* ═══════════════════════════════════════════════
-          LAYER 4: THIRD LIQUID WAVE (Even more delayed)
-      ═══════════════════════════════════════════════ */}
-      <motion.div
-        initial={{ y: '-120%' }}
-        animate={{ y: '120%' }}
-        transition={{ 
-          duration: 1.0, 
-          ease: [0.76, 0, 0.24, 1],
-          delay: 0.12,
-        }}
-        className="fixed inset-0 z-[8998] pointer-events-none"
-        style={{ willChange: 'transform' }}
-      >
-        <div className="absolute inset-0 liquid-third" />
-      </motion.div>
-      
-      {/* ═══════════════════════════════════════════════
-          LAYER 5: DRIPPING DROPLETS (Fall after main liquid)
-      ═══════════════════════════════════════════════ */}
-      {showDrips && (
-        <div className="fixed inset-0 z-[9001] pointer-events-none">
-          {[...Array(12)].map((_, i) => (
-            <motion.div
-              key={i}
-              initial={{ 
-                y: '-10vh',
-                x: `${5 + Math.random() * 90}vw`,
-                scaleY: 1,
-                opacity: 1,
-              }}
-              animate={{ 
-                y: '110vh',
-                scaleY: [1, 1.8, 1.2, 1],
-                opacity: [1, 1, 1, 0],
-              }}
-              transition={{ 
-                duration: 1 + Math.random() * 0.8,
-                delay: 0.3 + i * 0.06,
-                ease: [0.55, 0, 1, 0.45],
-              }}
-              style={{ 
-                position: 'absolute',
-                width: `${4 + Math.random() * 8}px`,
-                willChange: 'transform, opacity',
-              }}
-            >
-              {/* Droplet shape */}
-              <div 
-                className="droplet"
-                style={{
-                  width: '100%',
-                  height: `${20 + Math.random() * 40}px`,
-                  background: i % 3 === 0 
-                    ? 'linear-gradient(180deg, #C87952 0%, #8B4A32 100%)' 
-                    : i % 3 === 1
-                    ? 'linear-gradient(180deg, #E8B594 0%, #C87952 100%)'
-                    : 'linear-gradient(180deg, #3D2E24 0%, #2A1F1A 100%)',
-                  borderRadius: '50% 50% 50% 50% / 30% 30% 70% 70%',
-                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
-                }}
-              />
-            </motion.div>
-          ))}
-          
-          {/* Larger slow drips */}
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={`big-${i}`}
-              initial={{ 
-                y: '-5vh',
-                x: `${10 + Math.random() * 80}vw`,
-                opacity: 1,
-              }}
-              animate={{ 
-                y: '110vh',
-                opacity: [1, 1, 0.8, 0],
-              }}
-              transition={{ 
-                duration: 1.5 + Math.random() * 0.5,
-                delay: 0.5 + i * 0.12,
-                ease: [0.45, 0, 0.55, 1],
-              }}
-              style={{ 
-                position: 'absolute',
-                willChange: 'transform, opacity',
-              }}
-            >
-              <div 
-                style={{
-                  width: `${8 + Math.random() * 12}px`,
-                  height: `${40 + Math.random() * 60}px`,
-                  background: 'linear-gradient(180deg, #C87952 0%, rgba(200, 121, 82, 0.6) 50%, rgba(200, 121, 82, 0) 100%)',
-                  borderRadius: '50% 50% 40% 40% / 20% 20% 80% 80%',
-                  boxShadow: '0 4px 12px rgba(200, 121, 82, 0.5), inset 0 3px 6px rgba(255, 255, 255, 0.3)',
-                }}
-              />
-            </motion.div>
-          ))}
-          
-          {/* Tiny splash droplets (fast, small) */}
-          {[...Array(15)].map((_, i) => (
-            <motion.div
-              key={`tiny-${i}`}
-              initial={{ 
-                y: '30vh',
-                x: `${Math.random() * 100}vw`,
-                scale: 0,
-                opacity: 1,
-              }}
-              animate={{ 
-                y: `${30 + Math.random() * 40}vh`,
-                x: `${Math.random() * 100}vw`,
-                scale: [0, 1, 0],
-                opacity: [0, 1, 0],
-              }}
-              transition={{ 
-                duration: 0.6,
-                delay: 0.2 + i * 0.03,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="absolute rounded-full"
-              style={{
-                width: `${2 + Math.random() * 4}px`,
-                height: `${2 + Math.random() * 4}px`,
-                background: i % 2 === 0 ? '#C87952' : '#E8B594',
-                boxShadow: `0 0 6px ${i % 2 === 0 ? 'rgba(200, 121, 82, 0.8)' : 'rgba(232, 181, 148, 0.8)'}`,
-                willChange: 'transform, opacity',
-              }}
-            />
-          ))}
-        </div>
-      )}
-      
-      {/* ═══════════════════════════════════════════════
-          LAYER 6: STREAKS left on screen (fade slowly)
-      ═══════════════════════════════════════════════ */}
-      <div className="fixed inset-0 z-[8997] pointer-events-none">
-        {[...Array(6)].map((_, i) => (
+      {/* ═══════════════════════════════════════
+          PHASE 3: THICK DRIPS (Individual streams)
+          Each drip falls at different speed
+      ═══════════════════════════════════════ */}
+      <div className="fixed inset-0 z-[8999] pointer-events-none">
+        {drips.map((drip) => (
           <motion.div
-            key={`streak-${i}`}
-            initial={{ opacity: 0.4, scaleY: 1 }}
-            animate={{ opacity: 0, scaleY: 0 }}
+            key={`drip-${drip.id}`}
+            initial={{ 
+              y: 0,
+              scaleY: 0.3,
+              opacity: 1,
+            }}
+            animate={{ 
+              y: '110vh',
+              scaleY: [0.3, 1, 1.5, 1.2, 1],
+              opacity: [1, 1, 1, 0.8, 0],
+            }}
             transition={{ 
-              duration: 1.5,
-              delay: 0.8 + i * 0.1,
-              ease: [0.22, 1, 0.36, 1],
+              duration: drip.duration,
+              delay: drip.delay,
+              ease: [0.45, 0, 0.55, 1],
             }}
             className="absolute origin-top"
             style={{
-              left: `${10 + i * 15}%`,
-              top: 0,
-              width: `${1 + Math.random() * 3}px`,
-              height: `${30 + Math.random() * 40}%`,
-              background: `linear-gradient(180deg, rgba(200, 121, 82, 0.4) 0%, rgba(200, 121, 82, 0) 100%)`,
-              borderRadius: '0 0 50% 50%',
+              left: `${drip.x}%`,
+              width: `${drip.width}px`,
+              height: `${drip.height}%`,
+              willChange: 'transform, opacity',
+            }}
+          >
+            {/* Drip body */}
+            <div 
+              className="w-full h-full relative"
+              style={{
+                background: `linear-gradient(180deg, 
+                  rgba(42, 31, 26, 0.95) 0%, 
+                  rgba(61, 46, 36, 0.9) 30%, 
+                  rgba(200, 121, 82, 0.85) 50%, 
+                  rgba(61, 46, 36, 0.9) 70%, 
+                  rgba(42, 31, 26, 0.95) 100%
+                )`,
+                borderRadius: '40% 40% 50% 50% / 10% 10% 90% 90%',
+                boxShadow: `
+                  inset ${drip.width > 25 ? '4' : '2'}px 0 ${drip.width > 25 ? '8' : '4'}px rgba(255, 255, 255, 0.2),
+                  inset -2px 0 6px rgba(0, 0, 0, 0.3),
+                  2px 4px 8px rgba(0, 0, 0, 0.4)
+                `,
+              }}
+            >
+              {/* Glossy highlight on drip */}
+              <div 
+                className="absolute top-0 left-[15%] w-[30%] h-full rounded-full"
+                style={{
+                  background: 'linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 30%, transparent 60%)',
+                }}
+              />
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      
+      {/* ═══════════════════════════════════════
+          PHASE 4: FALLING DROPLETS
+          Small round drops that detached
+      ═══════════════════════════════════════ */}
+      <div className="fixed inset-0 z-[9001] pointer-events-none">
+        {droplets.map((drop) => (
+          <motion.div
+            key={`drop-${drop.id}`}
+            initial={{ 
+              y: `${drop.startY}vh`,
+              scale: 1,
+              opacity: 1,
+            }}
+            animate={{ 
+              y: '110vh',
+              scale: [1, 0.8, 1.1, 0.9],
+              opacity: [1, 1, 0.8, 0],
+            }}
+            transition={{ 
+              duration: drop.duration,
+              delay: drop.delay,
+              ease: [0.55, 0, 1, 0.45],
+            }}
+            className="absolute"
+            style={{
+              left: `${drop.x}%`,
+              width: drop.size,
+              height: drop.size * 1.3,
+              willChange: 'transform, opacity',
+            }}
+          >
+            {/* Teardrop shape */}
+            <div 
+              className="w-full h-full"
+              style={{
+                background: drop.id % 3 === 0 
+                  ? 'radial-gradient(ellipse at 30% 30%, #E8B594, #C87952, #8B4A32)' 
+                  : drop.id % 3 === 1
+                  ? 'radial-gradient(ellipse at 30% 30%, #5A4A3F, #3D2E24, #2A1F1A)'
+                  : 'radial-gradient(ellipse at 30% 30%, #C87952, #8B4A32, #5C1E2E)',
+                borderRadius: '50% 50% 50% 50% / 40% 40% 60% 60%',
+                boxShadow: `
+                  inset 1px -1px 3px rgba(255, 255, 255, 0.3),
+                  inset -1px 1px 2px rgba(0, 0, 0, 0.4),
+                  1px 2px 4px rgba(0, 0, 0, 0.5)
+                `,
+              }}
+            />
+          </motion.div>
+        ))}
+      </div>
+      
+      {/* ═══════════════════════════════════════
+          PHASE 5: MINI DROPS (tiny splashes)
+      ═══════════════════════════════════════ */}
+      <div className="fixed inset-0 z-[9002] pointer-events-none">
+        {miniDrops.map((mini) => (
+          <motion.div
+            key={`mini-${mini.id}`}
+            initial={{ 
+              scale: 0,
+              opacity: 0,
+            }}
+            animate={{ 
+              scale: [0, 1.2, 0],
+              opacity: [0, 0.8, 0],
+              y: [0, 30],
+            }}
+            transition={{ 
+              duration: mini.duration,
+              delay: mini.delay,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="absolute rounded-full"
+            style={{
+              left: `${mini.x}%`,
+              top: `${mini.y}%`,
+              width: mini.size,
+              height: mini.size,
+              background: mini.id % 2 === 0 
+                ? 'radial-gradient(circle at 30% 30%, #E8B594, #C87952)' 
+                : 'radial-gradient(circle at 30% 30%, #5A4A3F, #3D2E24)',
+              boxShadow: 'inset 1px -1px 2px rgba(255,255,255,0.3), 1px 1px 3px rgba(0,0,0,0.4)',
               willChange: 'transform, opacity',
             }}
           />
         ))}
       </div>
       
-      {/* ═══════════════════════════════════════════════
-          LAYER 7: Golden flash at impact moment
-      ═══════════════════════════════════════════════ */}
+      {/* ═══════════════════════════════════════
+          PHASE 6: GLASS STREAKS
+          Thin liquid trails remaining on glass
+      ═══════════════════════════════════════ */}
+      <div className="fixed inset-0 z-[8998] pointer-events-none">
+        {streaks.map((streak) => (
+          <motion.div
+            key={`streak-${streak.id}`}
+            initial={{ 
+              scaleY: 1,
+              opacity: 0.5,
+            }}
+            animate={{ 
+              scaleY: 0,
+              opacity: 0,
+            }}
+            transition={{ 
+              duration: streak.duration,
+              delay: streak.delay,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="absolute origin-top"
+            style={{
+              left: `${streak.x}%`,
+              top: 0,
+              width: `${streak.width}px`,
+              height: `${streak.height}%`,
+              background: `linear-gradient(180deg, 
+                rgba(200, 121, 82, 0.3) 0%, 
+                rgba(200, 121, 82, 0.15) 50%, 
+                rgba(200, 121, 82, 0) 100%
+              )`,
+              borderRadius: '0 0 50% 50%',
+              boxShadow: 'inset 0 0 3px rgba(255, 255, 255, 0.15)',
+              willChange: 'transform, opacity',
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* ═══════════════════════════════════════
+          PHASE 7: GOLDEN IMPACT FLASH
+      ═══════════════════════════════════════ */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 0.5, 0] }}
-        transition={{ 
-          duration: 0.4, 
-          ease: 'easeOut',
-          times: [0, 0.3, 1],
-        }}
-        className="fixed inset-0 z-[8996] pointer-events-none"
+        animate={{ opacity: [0, 0.6, 0] }}
+        transition={{ duration: 0.5, times: [0, 0.2, 1] }}
+        className="fixed inset-0 z-[8997] pointer-events-none"
         style={{
-          background: 'radial-gradient(circle at 50% 30%, rgba(200, 121, 82, 0.6) 0%, transparent 60%)',
+          background: 'radial-gradient(circle at 50% 40%, rgba(200, 121, 82, 0.5) 0%, transparent 60%)',
         }}
       />
       
-      {/* ═══════════════════════════════════════════════
+      {/* ═══════════════════════════════════════
+          PHASE 8: GLASS DISTORTION OVERLAY
+          Subtle refraction where liquid was
+      ═══════════════════════════════════════ */}
+      <motion.div
+        initial={{ opacity: 0.3 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 1.5, delay: 0.8, ease: 'easeOut' }}
+        className="fixed inset-0 z-[8996] pointer-events-none"
+        style={{
+          backdropFilter: 'blur(2px) saturate(1.3)',
+          WebkitBackdropFilter: 'blur(2px) saturate(1.3)',
+        }}
+      />
+      
+      {/* ═══════════════════════════════════════
           CSS FOR LIQUID EFFECTS
-      ═══════════════════════════════════════════════ */}
+      ═══════════════════════════════════════ */}
       <style>{`
-        /* MAIN LIQUID BODY */
-        .liquid-main {
-          background: linear-gradient(180deg, 
-            #2A1F1A 0%, 
-            #3D2E24 30%, 
-            #C87952 50%, 
-            #3D2E24 70%, 
-            #2A1F1A 100%
-          );
-        }
-        
-        /* GLOSSY REFLECTION on liquid */
-        .liquid-gloss {
+        /* Main liquid on glass surface */
+        .liquid-on-glass {
           background: linear-gradient(
-            135deg, 
-            transparent 0%, 
-            rgba(255, 255, 255, 0.15) 20%, 
-            transparent 40%,
-            rgba(255, 255, 255, 0.1) 60%,
-            transparent 80%
+            180deg,
+            rgba(42, 31, 26, 0.97) 0%,
+            rgba(61, 46, 36, 0.95) 20%,
+            rgba(200, 121, 82, 0.9) 40%,
+            rgba(139, 74, 50, 0.92) 50%,
+            rgba(200, 121, 82, 0.9) 60%,
+            rgba(61, 46, 36, 0.95) 80%,
+            rgba(42, 31, 26, 0.97) 100%
           );
-          animation: glossShimmer 0.6s ease-out forwards;
+          box-shadow: 
+            inset 0 0 60px rgba(0, 0, 0, 0.5),
+            inset 0 10px 30px rgba(255, 255, 255, 0.1);
         }
         
-        @keyframes glossShimmer {
-          0% { opacity: 1; transform: translateX(-100%); }
-          100% { opacity: 0.5; transform: translateX(100%); }
+        /* Wobbling drip edge at bottom */
+        .liquid-drip-edge {
+          height: 120px;
+          background: rgba(42, 31, 26, 0.97);
+          border-radius: 0 0 30% 70% / 0 0 100% 100%;
+          animation: dripEdgeWobble 0.6s ease-in-out;
+          box-shadow: 
+            0 20px 40px rgba(0, 0, 0, 0.5),
+            inset 0 -10px 20px rgba(200, 121, 82, 0.3);
         }
         
-        /* WOBBLE BOTTOM EDGE (leading edge of liquid) */
-        .liquid-wobble-bottom {
-          height: 80px;
-          background: #2A1F1A;
-          border-radius: 0 0 60% 60% / 0 0 100% 100%;
-          transform: translateY(40px);
-          animation: wobbleBottom 0.4s ease-in-out;
-        }
-        
-        @keyframes wobbleBottom {
-          0% { border-radius: 0 0 60% 60% / 0 0 100% 100%; }
-          25% { border-radius: 0 0 40% 70% / 0 0 80% 120%; }
-          50% { border-radius: 0 0 70% 40% / 0 0 120% 80%; }
-          75% { border-radius: 0 0 50% 60% / 0 0 90% 110%; }
-          100% { border-radius: 0 0 60% 60% / 0 0 100% 100%; }
-        }
-        
-        /* WOBBLE TOP EDGE (trailing edge) */
-        .liquid-wobble-top {
-          height: 60px;
-          background: #2A1F1A;
-          border-radius: 60% 60% 0 0 / 100% 100% 0 0;
-          transform: translateY(-30px);
-          animation: wobbleTop 0.5s ease-in-out;
-        }
-        
-        @keyframes wobbleTop {
-          0% { border-radius: 60% 60% 0 0 / 100% 100% 0 0; }
-          30% { border-radius: 40% 70% 0 0 / 80% 120% 0 0; }
-          60% { border-radius: 70% 40% 0 0 / 120% 80% 0 0; }
-          100% { border-radius: 60% 60% 0 0 / 100% 100% 0 0; }
-        }
-        
-        /* SECOND LIQUID WAVE */
-        .liquid-second {
-          background: linear-gradient(180deg, 
-            #3D2E24 0%, 
-            #C87952 40%, 
-            #E8B594 50%, 
-            #C87952 60%, 
-            #3D2E24 100%
-          );
-          opacity: 0.9;
-        }
-        
-        .liquid-wobble-bottom-2 {
-          height: 100px;
-          background: #3D2E24;
-          border-radius: 0 0 50% 50% / 0 0 100% 100%;
-          transform: translateY(50px);
-          animation: wobbleBottom2 0.5s ease-in-out;
-        }
-        
-        @keyframes wobbleBottom2 {
+        @keyframes dripEdgeWobble {
           0% { border-radius: 0 0 50% 50% / 0 0 100% 100%; }
-          33% { border-radius: 0 0 30% 70% / 0 0 60% 140%; }
-          66% { border-radius: 0 0 70% 30% / 0 0 140% 60%; }
+          15% { border-radius: 0 0 30% 70% / 0 0 60% 140%; }
+          30% { border-radius: 0 0 70% 30% / 0 0 140% 60%; }
+          45% { border-radius: 0 0 40% 60% / 0 0 80% 120%; }
+          60% { border-radius: 0 0 60% 40% / 0 0 120% 80%; }
+          75% { border-radius: 0 0 45% 55% / 0 0 90% 110%; }
           100% { border-radius: 0 0 50% 50% / 0 0 100% 100%; }
-        }
-        
-        /* THIRD LIQUID WAVE */
-        .liquid-third {
-          background: linear-gradient(180deg, 
-            #5C1E2E 0%, 
-            #3D2E24 40%, 
-            #2A1F1A 100%
-          );
-          opacity: 0.85;
         }
         
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
-          .liquid-main,
-          .liquid-second,
-          .liquid-third,
-          .liquid-gloss,
-          .liquid-wobble-bottom,
-          .liquid-wobble-top,
-          .liquid-wobble-bottom-2 {
+          .liquid-on-glass,
+          .liquid-drip-edge {
             animation: none !important;
           }
         }
