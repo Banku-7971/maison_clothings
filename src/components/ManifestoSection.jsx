@@ -51,14 +51,14 @@ const ManifestoSection = () => {
         }}
       />
       
-      {/* Massive faded MAISON in background */}
+      {/* Smaller MAISON watermark in background */}
       <motion.div
         style={{ y }}
         className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
       >
         <motion.h2
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.04 }}
+          whileInView={{ opacity: 0.08 }}
           viewport={{ once: true }}
           transition={{ duration: 2 }}
           className="font-cormorant font-light text-cream whitespace-nowrap select-none manifesto-bg-text"
@@ -107,9 +107,7 @@ const ManifestoSection = () => {
         <div className="w-8 h-px bg-gold/40" />
       </motion.div>
       
-      {/* ═══════════════════════════════════════════════
-          MAIN MANIFESTO TEXT
-      ═══════════════════════════════════════════════ */}
+      {/* MAIN MANIFESTO TEXT */}
       <motion.div
         style={{ opacity: textOpacity }}
         className="container-luxury text-center relative z-10 px-4"
@@ -186,7 +184,7 @@ const ManifestoSection = () => {
           ))}
         </div>
         
-        {/* Subtitle below */}
+        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -210,7 +208,7 @@ const ManifestoSection = () => {
         />
       </motion.div>
       
-      {/* Bottom decorative element */}
+      {/* Bottom decorative */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -240,25 +238,24 @@ const ManifestoSection = () => {
         />
       </motion.div>
       
-      {/* CSS */}
       <style>{`
-        /* Background MAISON text */
+        /* SMALLER Background MAISON watermark */
         .manifesto-bg-text {
-          font-size: clamp(12rem, 35vw, 35rem);
-          letter-spacing: 0.15em;
+          font-size: clamp(4rem, 15vw, 12rem);
+          letter-spacing: 0.3em;
           line-height: 1;
-          padding-left: 0.15em;
+          padding-left: 0.3em;
         }
         
         @media (max-width: 768px) {
           .manifesto-bg-text {
-            font-size: 10rem;
+            font-size: 4rem;
           }
         }
         
         @media (max-width: 480px) {
           .manifesto-bg-text {
-            font-size: 6rem;
+            font-size: 3rem;
           }
         }
         
